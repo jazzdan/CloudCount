@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /butts                                  Application.butts
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
