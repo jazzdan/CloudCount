@@ -2,3 +2,6 @@
 
 require:
     - play
+
+require:
+~     play -> morphia 1.2.4d
