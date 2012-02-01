@@ -5,4 +5,6 @@ We originally conceived it as an alternative to spreadsheets without necessarily
 <hr />
 
 ## Contributors
-
+Colby Rabideau
+Dan Miller
+Carley Keefe
