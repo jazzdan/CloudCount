@@ -1,0 +1,9 @@
+Handlebars.js
+
+Compiled, mustache-style javascript templates
+
+# installation
+npm install -g handlebars
+
+# precompilation (from within public/templates/raw/)
+handlebars * -f ../templates.js -r .handlebars
