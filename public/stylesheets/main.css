@@ -1,0 +1,29 @@
+/* Main CSS */
+
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+#head, #controls {
+  margin-bottom: 1.5em;
+}
+
+/* tables */
+.table td{
+  vertical-align: middle;
+}
+
+tr:hover td {
+  background: #eee;
+}
+tr:hover td.controls > div {
+  visibility: visible;
+}
+td.controls {
+  width: 105px;
+  text-align: right;
+}
+td.controls > div {
+  visibility: hidden;
+}
