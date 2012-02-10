@@ -27,3 +27,8 @@ td.controls {
 td.controls > div {
   visibility: hidden;
 }
+
+.selected td.hide,
+.selected th.hide {
+  display: table-cell;
+}
