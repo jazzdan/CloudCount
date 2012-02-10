@@ -14,10 +14,19 @@ body {
   vertical-align: middle;
 }
 
-.selected tr:hover td {
+.selectable tr:hover td {
+  background: inherit;
+}
+.selectable tr:hover td.controls > div {
+  visibility: hidden;
+}
+
+tr:hover td,
+.selectable.selected tr:hover td {
   background: #eee;
 }
-.selected tr:hover td.controls > div {
+tr:hover td.controls > div,
+.selectable.selected tr:hover td.controls > div {
   visibility: visible;
 }
 
