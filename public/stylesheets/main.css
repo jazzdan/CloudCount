@@ -14,18 +14,52 @@ body {
   vertical-align: middle;
 }
 
-tr:hover td {
+.selected tr:hover td {
   background: #eee;
 }
-tr:hover td.controls > div {
+.selected tr:hover td.controls > div {
   visibility: visible;
 }
+
 td.controls {
   width: 105px;
   text-align: right;
 }
 td.controls > div {
   visibility: hidden;
+}
+
+.container-base {
+  width: auto;
+  clear: both;
+  overflow: auto;
+}
+
+.selectable {
+  cursor: pointer;
+}
+.selectable.selected {
+  cursor: default;
+}
+
+.selectable,
+.selectable h2 {
+  color: #999;
+}
+.selected,
+.selected h2 {
+  color: #333;
+}
+.box{
+  padding-top: 1em;
+  border-top: 1px solid #fff;
+}
+.selected .box{
+  padding: 1em 1.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 2px 2px 7px rgba(0,0,0,.35);
 }
 
 .selected td.hide,

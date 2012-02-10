@@ -75,163 +75,171 @@
 
       <div class="row">
 
-        <div id="income" class="span4">
+        <div id="income" class="selectable span4">
 
-          <div>
-            <h2 class="pull-left">Income</h2>
-            <h2 class="pull-right total">$400</h2>
+          <div class="box">
+          
+            <div>
+              <h2 class="pull-left">Income</h2>
+              <h2 class="pull-right total">$400</h2>
+            </div>
+            
+            <!-- income list -->
+            <table class="table">
+            
+              <!-- header -->
+              <thead>
+                <tr>
+                  <th>Line #</th>
+                  <th>Name</th>
+                  <th class="hide">Updated</th>
+                  <th class="hide">By</th>
+                  <th class="hide">Budget</th>
+                  <th>Actual</th>
+                  <th class="hide"></th>
+                </tr>
+              </thead>
+            
+              <!-- lines -->
+              <tbody class="budgets">
+            
+                <!-- a line -->
+                <tr>
+                  <td>100</td>
+                  <td>Stuff</td>
+                  <td class="hide">2011-12-31 4:45pm</td>
+                  <td class="hide">Dan Miller</td>
+                  <td class="hide">$ 2,000.00</td>
+                  <td>$ 568.00</td>
+                  <!-- controls -->
+                  <td class="hide controls">
+                    <div>
+                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                    </div>
+                  </td>
+                </tr>
+            
+                <!-- a line -->
+                <tr>
+                  <td>200</td>
+                  <td>Stuff</td>
+                  <td class="hide">2011-12-31 4:45pm</td>
+                  <td class="hide">Dan Miller</td>
+                  <td class="hide">$ 2,000.00</td>
+                  <td>$ 568.00</td>
+                  <!-- controls -->
+                  <td class="hide controls">
+                    <div>
+                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                    </div>
+                  </td>
+                </tr>
+            
+                <!-- a line -->
+                <tr>
+                  <td>300</td>
+                  <td>Stuff</td>
+                  <td class="hide">2011-12-31 4:45pm</td>
+                  <td class="hide">Dan Miller</td>
+                  <td class="hide">$ 2,000.00</td>
+                  <td>$ 568.00</td>
+                  <!-- controls -->
+                  <td class="hide controls">
+                    <div>
+                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                    </div>
+                  </td>
+                </tr>
+            
+              </tbody>
+            
+            </table>
+            
           </div>
-
-          <!-- income list -->
-          <table class="table">
-
-            <!-- header -->
-            <thead>
-              <tr>
-                <th>Line #</th>
-                <th>Name</th>
-                <th class="hide">Updated</th>
-                <th class="hide">By</th>
-                <th class="hide">Budget</th>
-                <th>Actual</th>
-                <th class="hide"></th>
-              </tr>
-            </thead>
-
-            <!-- lines -->
-            <tbody class="budgets">
-
-              <!-- a line -->
-              <tr>
-                <td>100</td>
-                <td>Stuff</td>
-                <td class="hide">2011-12-31 4:45pm</td>
-                <td class="hide">Dan Miller</td>
-                <td class="hide">$ 2,000.00</td>
-                <td>$ 568.00</td>
-                <!-- controls -->
-                <td class="hide controls">
-                  <div>
-                    <button class="btn"><i class="icon-edit"></i> Edit</button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- a line -->
-              <tr>
-                <td>200</td>
-                <td>Stuff</td>
-                <td class="hide">2011-12-31 4:45pm</td>
-                <td class="hide">Dan Miller</td>
-                <td class="hide">$ 2,000.00</td>
-                <td>$ 568.00</td>
-                <!-- controls -->
-                <td class="hide controls">
-                  <div>
-                    <button class="btn"><i class="icon-edit"></i> Edit</button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- a line -->
-              <tr>
-                <td>300</td>
-                <td>Stuff</td>
-                <td class="hide">2011-12-31 4:45pm</td>
-                <td class="hide">Dan Miller</td>
-                <td class="hide">$ 2,000.00</td>
-                <td>$ 568.00</td>
-                <!-- controls -->
-                <td class="hide controls">
-                  <div>
-                    <button class="btn"><i class="icon-edit"></i> Edit</button>
-                  </div>
-                </td>
-              </tr>
-
-            </tbody>
-
-          </table>
 
         </div>
 
-        <div id="expenses" class="span8 selected">
-
-          <div>
-            <h2 class="pull-left">Expenses</h2>
-            <h2 class="pull-right total">$400</h2>
+        <div id="expenses" class="selectable span8 selected">
+          
+          <div class="box">
+          
+            <div>
+              <h2 class="pull-left">Expenses</h2>
+              <h2 class="pull-right total">$400</h2>
+            </div>
+            
+            <!-- expense list -->
+            <table class="table">
+            
+              <!-- header -->
+              <thead>
+                <tr>
+                  <th>Line #</th>
+                  <th>Name</th>
+                  <th class="hide">Updated</th>
+                  <th class="hide">By</th>
+                  <th class="hide">Budget</th>
+                  <th>Actual</th>
+                  <th class="hide"></th>
+                </tr>
+              </thead>
+            
+              <!-- lines -->
+              <tbody class="budgets">
+            
+                <!-- a line -->
+                <tr>
+                  <td>100</td>
+                  <td>Expense Stuff</td>
+                  <td class="hide">2011-12-31 4:45pm</td>
+                  <td class="hide">Dan Miller</td>
+                  <td class="hide">$ 2,000.00</td>
+                  <td>$ 400.00</td>
+                  <!-- controls -->
+                  <td class="hide controls">
+                    <div>
+                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                    </div>
+                  </td>
+                </tr>
+            
+                <!-- a line -->
+                <tr>
+                  <td>200</td>
+                  <td>Stuff</td>
+                  <td class="hide">2011-12-31 4:45pm</td>
+                  <td class="hide">Dan Miller</td>
+                  <td class="hide">$ 2,000.00</td>
+                  <td>$ 568.00</td>
+                  <!-- controls -->
+                  <td class="hide controls">
+                    <div>
+                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                    </div>
+                  </td>
+                </tr>
+            
+                <!-- a line -->
+                <tr>
+                  <td>300</td>
+                  <td>Stuff</td>
+                  <td class="hide">2011-12-31 4:45pm</td>
+                  <td class="hide">Dan Miller</td>
+                  <td class="hide">$ 2,000.00</td>
+                  <td>$ 568.00</td>
+                  <!-- controls -->
+                  <td class="hide controls">
+                    <div>
+                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                    </div>
+                  </td>
+                </tr>
+            
+              </tbody>
+            
+            </table>
+          
           </div>
-
-          <!-- expense list -->
-          <table class="table">
-
-            <!-- header -->
-            <thead>
-              <tr>
-                <th>Line #</th>
-                <th>Name</th>
-                <th class="hide">Updated</th>
-                <th class="hide">By</th>
-                <th class="hide">Budget</th>
-                <th>Actual</th>
-                <th class="hide"></th>
-              </tr>
-            </thead>
-
-            <!-- lines -->
-            <tbody class="budgets">
-
-              <!-- a line -->
-              <tr>
-                <td>100</td>
-                <td>Expense Stuff</td>
-                <td class="hide">2011-12-31 4:45pm</td>
-                <td class="hide">Dan Miller</td>
-                <td class="hide">$ 2,000.00</td>
-                <td>$ 400.00</td>
-                <!-- controls -->
-                <td class="hide controls">
-                  <div>
-                    <button class="btn"><i class="icon-edit"></i> Edit</button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- a line -->
-              <tr>
-                <td>200</td>
-                <td>Stuff</td>
-                <td class="hide">2011-12-31 4:45pm</td>
-                <td class="hide">Dan Miller</td>
-                <td class="hide">$ 2,000.00</td>
-                <td>$ 568.00</td>
-                <!-- controls -->
-                <td class="hide controls">
-                  <div>
-                    <button class="btn"><i class="icon-edit"></i> Edit</button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- a line -->
-              <tr>
-                <td>300</td>
-                <td>Stuff</td>
-                <td class="hide">2011-12-31 4:45pm</td>
-                <td class="hide">Dan Miller</td>
-                <td class="hide">$ 2,000.00</td>
-                <td>$ 568.00</td>
-                <!-- controls -->
-                <td class="hide controls">
-                  <div>
-                    <button class="btn"><i class="icon-edit"></i> Edit</button>
-                  </div>
-                </td>
-              </tr>
-
-            </tbody>
-    
-          </table>
           
         </div>
 
