@@ -6,5 +6,5 @@ We originally conceived it as an alternative to spreadsheets without necessarily
 
 ## Contributors
 * Colby Rabideau - [colbyrabideau.com](http://colbyrabideau.com)
-* Dan Miller
+* Dan Miller - [danielsmiller.com](http://danielsmiller.com)
 * Carley Keefe
