@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>Dashboard - CloudCount</title>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="../stylesheets/bootstrap/bootstrap-responsive.css" />
+
+    <!-- styles -->
+    <link rel="stylesheet" href="../stylesheets/main.css" />
+
+  </head>
+
+  <body>
+
+    <!-- top bar -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <!-- title -->
+          <a class="brand" href="#">Cloud Count</a>
+
+          <!-- nav -->
+          <ul class="nav">
+            <li class="active"><a href="#">Budgets</a></li>
+          </ul>
+
+          <form class="navbar-search pull-left" action="">
+            <input type="text" class="search-query span2" placeholder="Search">
+          </form>
+
+          <!-- settings -->
+          <ul class="nav pull-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle">Users <b class="caret"></b></a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container" id="head">
+
+      <!-- title -->
+      <h1 class="title">Budget Dashboard</h1>
+
+    </div>
+
+    <div class="container" id="controls">
+      <button class="btn "><i class="icon-refresh"></i></button>
+      <button class="btn btn-primary pull-right" data-toggle="modal" href="#myModal"><i class="icon-plus icon-white"></i> New Budget</button>
+    </div>
+
+    <div class="container" id="main">
+
+      <!-- budget list -->
+      <table class="table">
+
+        <!-- header -->
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Updated At</th>
+            <th>Updated By</th>
+            <th>Budget</th>
+            <th>Actual</th>
+            <th>Var</th>
+            <th>%</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <!-- budgets -->
+        <tbody class="budgets">
+
+          <!-- a budget -->
+          <tr>
+            <td>Org Budget 2011</td>
+            <td>APPROVED</td>
+            <td>2011-12-31 4:45pm</td>
+            <td>Dan Miller</td>
+            <td>$ 2,000.00</td>
+            <td>$ 2,139.00</td>
+            <td>+ 2.00</td>
+            <td>.5</td>
+            <!-- controls -->
+            <td class="controls">
+              <div>
+                <button class="btn"><i class="icon-edit"></i> Edit</button>
+                <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
+              </div>
+            </td>
+          </tr>
+
+          <!-- a budget -->
+          <tr>
+            <td>Org Budget 2011</td>
+            <td>APPROVED</td>
+            <td>2011-12-31 4:45pm</td>
+            <td>Dan Miller</td>
+            <td>$ 2,000.00</td>
+            <td>$ 2,139.00</td>
+            <td>+ 2.00</td>
+            <td>.5</td>
+            <!-- controls -->
+            <td class="controls">
+              <div>
+                <button class="btn"><i class="icon-edit"></i> Edit</button>
+                <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
+              </div>
+            </td>
+          </tr>
+
+          <!-- a budget -->
+          <tr>
+            <td>Org Budget 2011</td>
+            <td>APPROVED</td>
+            <td>2011-12-31 4:45pm</td>
+            <td>Dan Miller</td>
+            <td>$ 2,000.00</td>
+            <td>$ 2,139.00</td>
+            <td>+ 2.00</td>
+            <td>.5</td>
+            <!-- controls -->
+            <td class="controls">
+              <div>
+                <button class="btn"><i class="icon-edit"></i> Edit</button>
+                <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="modal">
+
+      <!-- modal header -->
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>New Budget</h3>
+      </div>
+
+      <!-- modal content -->
+      <div class="modal-body">
+        <form class="form-horizontal" _lpchecked="1">
+          <fieldset>
+
+            <div class="control-group">
+              <label class="control-label" for="input01">Budget Name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="input01">
+                <p class="help-block">The name of the budget, as it should appear in the system.</p>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="input01">Description</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="input01">
+                <p class="help-block">Brief description of the budget's purpose.</p>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="input01">Start Date</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="input01">
+                <p class="help-block">Date the budget takes affect.</p>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="input01">End Date</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="input01">
+                <p class="help-block">Date the budgeted period ends.</p>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="select01">Budget Roll</label>
+              <div class="controls">
+                <select id="select01">
+                  <option>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Quarterly</option>
+                </select>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+
+      <!-- modal footer -->
+      <div class="modal-footer">
+        <a href="#" class="btn">Cancel</a>
+        <a href="#" class="btn btn-primary">Create Budget</a>
+      </div>
+
+    </div>
+
+    <!-- modal backdrop -->
+    <div class="modal-backdrop fade in"></div>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="../javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../javascripts/bootstrap.js"></script>
+
+  </body>
+
+</html>
