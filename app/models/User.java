@@ -35,7 +35,7 @@ public class User extends Model {
     this.admin = admin;
   }
 
-  public User connect(String username, String password) { //TODO: is this supposed to be static?
+  public static User connect(String email, String password) {
     return find("byEmailAndPassword", email, password).first();
   }
 
