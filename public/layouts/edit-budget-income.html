@@ -68,7 +68,8 @@
     <div class="container" id="controls">
       <button class="btn pull-right"><i class="icon-refresh"></i></button>
       <div>
-        <button class="btn btn-success"><i class="icon-check icon-white"></i> Save Changes</button>
+        <button class="btn btn-success"><i class="icon-check icon-white"></i> Save Changes - 1</button>
+        <button class="btn btn-danger"><i class="icon-ban-circle icon-white"></i> Discard Changes</button>
       </div>
     </div>
 
@@ -103,7 +104,7 @@
                   <th>Name</th>
                   <th class="hide">Updated</th>
                   <th class="hide">By</th>
-                  <th class="hide">Budget</th>
+                  <th>Budget</th>
                   <th>Actual</th>
                   <th class="hide"></th>
                 </tr>
@@ -113,17 +114,18 @@
               <tbody class="budgets">
             
                 <!-- a line -->
-                <tr class="selected">
+                <tr class="dirty selected">
                   <td>100</td>
                   <td>Fund Raising</td>
                   <td class="hide">2011-12-31 4:45pm</td>
                   <td class="hide">Dan</td>
-                  <td class="hide">$ 1,300.00</td>
+                  <td>$ 1,300.00</td>
                   <td>$ 1,250.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <a class="btn" href="subline.html"><i class="icon-edit"></i> Edit</a>
+                      <a class="btn" href="subline.html"><i class="icon-edit"></i></a>
+                      <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -134,28 +136,30 @@
                   <td>Receivables</td>
                   <td class="hide">2011-12-31 4:45pm</td>
                   <td class="hide">William</td>
-                  <td class="hide">$ 800.00</td>
+                  <td>$ 800.00</td>
                   <td>$ 850.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                      <button class="btn"><i class="icon-edit"></i></button>
+                      <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
                     </div>
                   </td>
                 </tr>
             
                 <!-- a line -->
-                <tr>
+                <tr class="changed">
                   <td>300</td>
                   <td>Collections</td>
                   <td class="hide">2011-12-31 4:45pm</td>
                   <td class="hide">Jamie</td>
-                  <td class="hide">$ 1,550.00</td>
+                  <td>$ 1,550.00</td>
                   <td>$ 1,000.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                      <button class="btn"><i class="icon-edit"></i></button>
+                      <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -231,7 +235,7 @@
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                      <button class="btn"><i class="icon-edit"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -247,7 +251,7 @@
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                      <button class="btn"><i class="icon-edit"></i></button>
                     </div>
                   </td>
                 </tr>
