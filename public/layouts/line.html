@@ -52,19 +52,20 @@
       <!-- title -->
       <h1 class="title pull-left">Yearly Budget 2012 <small>140. Office Supplies</small></h1>
 
-      <ul class="breadcrumb pull-right">
+      <ul class="pager pull-right">
         <li>
-          <a href="edit-budget-expenses.html">Yearly Budget 2012</a> <span class="divider">/</span>
+          <a href="#">&larr; Previous</a>
         </li>
-        <li class="active">
-          <a href="line.html">140. Office Supplies</a>
+        <li></li>
+        <li>
+          <a href="#">Next &rarr;</a>
         </li>
       </ul>
 
     </div>
 
     <div class="container" id="controls">
-      <!-- <button class="btn btn-primary"><i class="icon-plus icon-white"></i> New Subline</button> -->
+      <button class="btn btn-primary"><i class="icon-plus icon-white"></i> New Subline</button>
       <button class="btn pull-right"><i class="icon-refresh"></i></button>
     </div>
 
@@ -72,8 +73,78 @@
 
       <div class="row">
         
-        <div class="span8">
-          <h2>line</h2>
+        <!-- sublines -->
+        <div class="span7">
+          
+          <table class="table sublines">
+            
+            <thead>
+              <tr>
+                <th>Line #</th>
+                <th>Name</th>
+                <th>Updated</th>
+                <th>By</th>
+                <th>Budget</th>
+                <th>Actual</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              
+              <tr class="selected">
+                <td>140.1</td>
+                <td>Printing Supplies</td>
+                <td>31/12/12</td>
+                <td>Dan</td>
+                <td>300.00</td>
+                <td></td>
+              </tr>
+              
+            </tbody>
+            
+          </table>
+          
+        </div>
+        
+        <!-- transactions -->
+        <div class="span5">
+          <table class="table transactions">
+            <thead>
+              <tr>
+                <th>Transactions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <table class="table table-bordered table-striped table-condensed">
+                    <thead>
+                      <tr>
+                        <th>On</th>
+                        <th>For</th>
+                        <th>By</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>15-3-12</td>
+                        <td>Ink Cartridges</td>
+                        <td>Carley</td>
+                        <td>30.00</td>
+                      </tr>
+                      <tr>
+                        <td>15-3-12</td>
+                        <td>Ink Cartridges</td>
+                        <td>William</td>
+                        <td>25.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         
       </div>
