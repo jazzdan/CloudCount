@@ -50,30 +50,64 @@
     <div class="container" id="head">
 
       <!-- title -->
-      <h1 class="title pull-left">Budget Name  <small>Description</small></h1>
+      <h1 class="title pull-left">Budget Name  <small>Notes</small></h1>
 
       <ul class="nav nav-pills pull-right">
         <li>
           <a href="edit-budget-income.html">Budget</a>
         </li>
-        <li class="active"><a href="edit-budget-description.html">Description</a></li>
+        <li><a href="edit-budget-description.html">Description</a></li>
         <li><a href="edit-budget-attachments.html">Attachments</a></li>
-        <li><a href="edit-budget-notes.html">Notes</a></li>
+        <li class="active"><a href="edit-budget-notes.html">Notes</a></li>
         <li><a href="edit-budget-audit.html">Audit</a></li>
       </ul>
 
     </div>
 
-    <!-- 
     <div class="container" id="controls">
-      <button class="btn "><i class="icon-refresh"></i></button>
-      <button class="btn btn-primary pull-right" data-toggle="modal" href="#myModal"><i class="icon-plus icon-white"></i> New Budget</button>
+      <button class="btn pull-right"><i class="icon-refresh"></i></button>
+      
+      <form class="form-inline">
+        <input type="text" class="span4" placeholder="New Note">
+        <button class="btn btn-primary" type="submit" data-toggle="modal" href="#myModal"><i class="icon-plus icon-white"></i> Add Note</button>
+      </form>
     </div>
-     -->
 
     <div class="container" id="main">
 
-      <h2>description</h2>
+      <table class="table">
+        
+        <thead>
+          <tr>
+            <th>Note</th>
+            <th>Updated</th>
+            <th>By</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          
+          <tr>
+            <td>Updated budget for 2012</td>
+            <td>04/02/2011</td>
+            <td>Jill</td>
+          </tr>
+          
+          <tr>
+            <td>Updated budget for 2012</td>
+            <td>04/02/2011</td>
+            <td>Darrel</td>
+          </tr>
+          
+          <tr>
+            <td>Updated Purchases</td>
+            <td>04/02/2011</td>
+            <td>Jamie</td>
+          </tr>
+          
+        </tbody>
+        
+      </table>
       
     </div>
 

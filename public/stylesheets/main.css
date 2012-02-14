@@ -22,10 +22,12 @@ body {
 }
 
 tr:hover td,
+tr.selected td,
 .selectable.selected tr:hover td {
   background: #eee;
 }
 tr:hover td.controls > div,
+tr.selected td.controls > div,
 .selectable.selected tr:hover td.controls > div {
   visibility: visible;
 }
@@ -52,6 +54,7 @@ td.controls > div {
 }
 
 .selectable,
+.selectable a,
 .selectable h2 {
   color: #999;
 }
@@ -71,7 +74,7 @@ td.controls > div {
   box-shadow: 2px 2px 7px rgba(0,0,0,.35);
 }
 
-.selected td.hide,
-.selected th.hide {
+.selected th.hide,
+.selected td.hide {
   display: table-cell;
 }
