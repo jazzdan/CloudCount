@@ -29,6 +29,10 @@ tr.selected td,
 .selectable.selected tr:hover td {
   background: #eee;
 }
+
+.sublines td.controls div {
+  min-width: 0;
+}
 .transactions tr:hover td {
   background: inherit;
 }
