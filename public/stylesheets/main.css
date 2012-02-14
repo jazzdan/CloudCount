@@ -38,10 +38,13 @@ tr.selected td.controls > div,
   display: block;
   clear: both;
 }
-
+.selectable.selected td.controls {
+  display: table-cell;
+}
 .selectable div.controls {
   padding: 1em 0;
 }
+
 
 td.controls > div{
   width: auto;
@@ -92,23 +95,14 @@ td.controls > div {
 }
 
 /* info */
-.dirty td,
-.dirty:hover td {
+.selectable .dirty td,
+.selectable .dirty:hover td {
   background-color: #DFF0D8;
   color: #468847;
-  border-color: #D6E9C6;
-}
-.selected.dirty td,
-.selected.dirty:hover td,
-.selected.changed td,
-.selected.changed:hover td {
-  background-color: #eee;
-  border-top-color: #ddd;
 }
 
-.changed td,
-.changed:hover td {
+.selectable .changed td,
+.selectable .changed:hover td {
   background: #D9EDF7;
   color: #3A87AD;
-  border-color: #BCE8F1;
 }
