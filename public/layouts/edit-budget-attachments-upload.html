@@ -66,7 +66,7 @@
 
     <div class="container" id="controls">
       <button class="btn pull-right"><i class="icon-refresh"></i></button>
-      <a class="btn btn-primary" data-toggle="modal" href="edit-budget-attachments-upload.html"><i class="icon-upload icon-white"></i> Upload Attachment</a>
+      <button class="btn btn-primary" data-toggle="modal" href="#myModal"><i class="icon-upload icon-white"></i> Upload Attachment</button>
     </div>
 
     <div class="container" id="main">
@@ -135,6 +135,61 @@
       </table>
       
     </div>
+    
+    <div class="modal">
+
+      <!-- modal header -->
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal" href="edit-budget-attachments.html">&times;</a>
+        <h3>Upload Attachment</h3>
+      </div>
+
+      <!-- modal content -->
+      <div class="modal-body">
+        <form class="form-horizontal" _lpchecked="1">
+          <fieldset>
+
+            <!-- name -->
+            <div class="control-group">
+              <label class="control-label" for="input01">File Name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="input01">
+                <p class="help-block">The name of the attachment, as it should appear in the system.</p>
+              </div>
+            </div>
+
+            <!-- description -->
+            <div class="control-group">
+              <label class="control-label" for="input01">Label</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="input01">
+                <p class="help-block">A one-word label for categorizing attachments.</p>
+              </div>
+            </div>
+
+            <!-- start -->
+            <div class="control-group">
+              <label class="control-label" for="input01">File</label>
+              <div class="controls">
+                <input type="file" class="input-xlarge" id="input01">
+                <p class="help-block">Choose a file to upload from the hard drive.</p>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+
+      <!-- modal footer -->
+      <div class="modal-footer">
+        <a href="edit-budget-attachments.html" class="btn">Cancel</a>
+        <a href="#" class="btn btn-primary"><i class="icon-upload icon-white"></i> Upload</a>
+      </div>
+
+    </div>
+
+    <!-- modal backdrop -->
+    <div class="modal-backdrop fade in"></div>
 
     <!-- scripts -->
     <script type="text/javascript" src="../javascripts/jquery.js"></script>

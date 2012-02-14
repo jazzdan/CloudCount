@@ -17,6 +17,9 @@ body {
 .selectable tr:hover td {
   background: inherit;
 }
+.selectable .controls{
+  display: none;
+}
 .selectable tr:hover td.controls > div {
   visibility: hidden;
 }
@@ -31,9 +34,17 @@ tr.selected td.controls > div,
 .selectable.selected tr:hover td.controls > div {
   visibility: visible;
 }
+.selectable.selected .controls{
+  display: block;
+  clear: both;
+}
+
+.selectable div.controls {
+  padding: 1em 0;
+}
 
 td.controls {
-  width: 105px;
+  width: 125px;
   text-align: right;
 }
 td.controls > div {

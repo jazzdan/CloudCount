@@ -50,7 +50,7 @@
     <div class="container" id="head">
 
       <!-- title -->
-      <h1 class="title pull-left">Budget Name  <small>Expenses</small></h1>
+      <h1 class="title pull-left">Yearly Budget 2012  <small>Expenses</small></h1>
 
       <ul class="nav nav-pills pull-right">
         <li class="active">
@@ -64,12 +64,13 @@
 
     </div>
 
-    <!-- 
+    <!-- controls -->
     <div class="container" id="controls">
-      <button class="btn "><i class="icon-refresh"></i></button>
-      <button class="btn btn-primary pull-right" data-toggle="modal" href="#myModal"><i class="icon-plus icon-white"></i> New Budget</button>
+      <button class="btn pull-right"><i class="icon-refresh"></i></button>
+      <div>
+        <button class="btn btn-success"><i class="icon-check icon-white"></i> Save Changes</button>
+      </div>
     </div>
-     -->
 
     <div class="container" id="main">
 
@@ -81,7 +82,15 @@
           
             <div>
               <h2 class="pull-left">Income</h2>
-              <h2 class="pull-right total">$400</h2>
+              <h2 class="pull-right total">$ 3,650 / $ 3,100</h2>
+            </div>
+            
+            <div class="controls" style="clear:both;">
+              <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Line</button>
+              <div class="pull-right">
+                <button class="btn"><i class="icon-chevron-up"></i></button>
+                <button class="btn"><i class="icon-chevron-down"></i></button>
+              </div>
             </div>
             
             <!-- income list -->
@@ -94,7 +103,7 @@
                   <th>Name</th>
                   <th class="hide">Updated</th>
                   <th class="hide">By</th>
-                  <th class="hide">Budget</th>
+                  <th>Budget</th>
                   <th>Actual</th>
                   <th class="hide"></th>
                 </tr>
@@ -106,15 +115,15 @@
                 <!-- a line -->
                 <tr>
                   <td>100</td>
-                  <td>Stuff</td>
+                  <td>Fund Raising</td>
                   <td class="hide">2011-12-31 4:45pm</td>
-                  <td class="hide">Dan Miller</td>
-                  <td class="hide">$ 2,000.00</td>
-                  <td>$ 568.00</td>
+                  <td class="hide">Dan</td>
+                  <td>$ 1,300.00</td>
+                  <td>$ 1,250.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                      <a class="btn" href="subline.html"><i class="icon-edit"></i> Edit</a>
                     </div>
                   </td>
                 </tr>
@@ -122,11 +131,11 @@
                 <!-- a line -->
                 <tr>
                   <td>200</td>
-                  <td>Stuff</td>
+                  <td>Receivables</td>
                   <td class="hide">2011-12-31 4:45pm</td>
-                  <td class="hide">Dan Miller</td>
-                  <td class="hide">$ 2,000.00</td>
-                  <td>$ 568.00</td>
+                  <td class="hide">William</td>
+                  <td>$ 800.00</td>
+                  <td>$ 850.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
@@ -138,11 +147,11 @@
                 <!-- a line -->
                 <tr>
                   <td>300</td>
-                  <td>Stuff</td>
+                  <td>Collections</td>
                   <td class="hide">2011-12-31 4:45pm</td>
-                  <td class="hide">Dan Miller</td>
-                  <td class="hide">$ 2,000.00</td>
-                  <td>$ 568.00</td>
+                  <td class="hide">Jamie</td>
+                  <td>$ 1,550.00</td>
+                  <td>$ 1,000.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
@@ -154,7 +163,7 @@
               </tbody>
             
             </table>
-            
+          
           </div>
           </a>
         </div>
@@ -165,7 +174,15 @@
           
             <div>
               <h2 class="pull-left">Expenses</h2>
-              <h2 class="pull-right total">$400</h2>
+              <h2 class="pull-right total">$ 2,100 / $ 1,850</h2>
+            </div>
+            
+            <div class="controls" style="clear:both;">
+              <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Line</button>
+              <div class="pull-right hide">
+                <button class="btn"><i class="icon-chevron-up"></i></button>
+                <button class="btn"><i class="icon-chevron-down"></i></button>
+              </div>
             </div>
             
             <!-- expense list -->
@@ -178,7 +195,7 @@
                   <th>Name</th>
                   <th class="hide">Updated</th>
                   <th class="hide">By</th>
-                  <th class="hide">Budget</th>
+                  <th>Budget</th>
                   <th>Actual</th>
                   <th class="hide"></th>
                 </tr>
@@ -188,17 +205,17 @@
               <tbody class="budgets">
             
                 <!-- a line -->
-                <tr class="selected">
+                <tr>
                   <td>100</td>
-                  <td>Expense Stuff</td>
+                  <td>Development</td>
                   <td class="hide">2011-12-31 4:45pm</td>
-                  <td class="hide">Dan Miller</td>
-                  <td class="hide">$ 2,000.00</td>
-                  <td>$ 400.00</td>
+                  <td class="hide">Darrel</td>
+                  <td>$ 450.00</td>
+                  <td>$ 500.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
-                      <button class="btn"><i class="icon-edit"></i> Edit</button>
+                      <a href="#" class="btn"><i class="icon-edit"></i> Edit</a>
                     </div>
                   </td>
                 </tr>
@@ -206,11 +223,11 @@
                 <!-- a line -->
                 <tr>
                   <td>200</td>
-                  <td>Stuff</td>
+                  <td>Household</td>
                   <td class="hide">2011-12-31 4:45pm</td>
-                  <td class="hide">Dan Miller</td>
-                  <td class="hide">$ 2,000.00</td>
-                  <td>$ 568.00</td>
+                  <td class="hide">Jamie</td>
+                  <td>$ 1,200.00</td>
+                  <td>$ 900.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
@@ -222,11 +239,11 @@
                 <!-- a line -->
                 <tr>
                   <td>300</td>
-                  <td>Stuff</td>
+                  <td>Office Supplies</td>
                   <td class="hide">2011-12-31 4:45pm</td>
-                  <td class="hide">Dan Miller</td>
-                  <td class="hide">$ 2,000.00</td>
-                  <td>$ 568.00</td>
+                  <td class="hide">Jill</td>
+                  <td>$ 450.00</td>
+                  <td>$ 450.00</td>
                   <!-- controls -->
                   <td class="hide controls">
                     <div>
