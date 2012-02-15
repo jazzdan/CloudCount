@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>#{get 'title' /}</title>
-        <meta charset="${_response_encoding}">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-    </head>
-    <body>
-        #{doLayout /}
-        
-        <!-- scripts -->
-        <script src="@{'/public/javascripts/jquery.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/json2.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/underscore.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/backbone.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/handlebars.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/templates/templates.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-    </body>
+
+<head>
+
+<!-- meta -->
+<title>#{get 'title' /}</title>
+<meta charset="${_response_encoding}">
+
+<!-- HTML5 shim -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- styles -->
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}" />
+#{get 'moreStyles' /}
+
+<!-- icons -->
+<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
+
+</head>
+
+<body>
+
+<!-- content -->
+#{doLayout /}
+
+<!-- scripts -->
+<script type="text/javascript">
+  var require = { baseUrl: "/public/javascripts/" };
+</script>
+<script data-main="modules/main" src="@{'/public/javascripts/require.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+
+</body>
+
 </html>
