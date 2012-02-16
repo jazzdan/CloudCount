@@ -9,13 +9,6 @@ body {
   margin-bottom: 1.5em;
 }
 
-#info table td {
-  font-size: 1.3em;
-  padding: 20px 8px;
-}
-#info tr:hover td {
-  background: inherit;
-}
 
 /* tables */
 .table td{
@@ -120,4 +113,30 @@ td.controls > div {
 .selectable .changed:hover td {
   background: #D9EDF7;
   color: #3A87AD;
+}
+
+/* cc-table */
+.cc-table th {
+  font-weight: normal;
+}
+.cc-table td {
+  border: none;
+  font-weight: bold;
+  background: #eee;
+  font-size: 1.3em;
+  padding: 20px 8px;
+}
+.cc-table tr th:first-child {
+  padding-left: 20px;
+}
+.cc-table tr th:last-child {
+  padding-right: 20px;
+}
+.cc-table tr td:first-child {
+  padding-left: 20px;
+  border-radius: 4px 0 0 4px;
+}
+.cc-table tr td:last-child {
+  padding-right: 20px;
+  border-radius: 0 4px 4px 0;
 }
