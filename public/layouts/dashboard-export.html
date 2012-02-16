@@ -3,7 +3,7 @@
 
   <head>
 
-    <title>Dashboard - CloudCount</title>
+    <title>Dashboard (export) - CloudCount</title>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -50,13 +50,13 @@
     <div class="container" id="head">
 
       <!-- title -->
-      <h1 class="title">Budgets</h1>
+      <h1 class="title">Budget Dashboard</h1>
 
     </div>
 
     <div class="container" id="controls">
-      <button class="btn pull-right"><i class="icon-refresh"></i></button>
-      <a class="btn btn-primary" data-toggle="modal" href="dashboard-new.html"><i class="icon-plus icon-white"></i> New Budget</a>
+      <button class="btn "><i class="icon-refresh"></i></button>
+      <a class="btn btn-primary pull-right" data-toggle="modal" href="dashboard-new.html"><i class="icon-plus icon-white"></i> New Budget</a>
     </div>
 
     <div class="container selectable selected" id="main">
@@ -84,7 +84,7 @@
 
           <!-- a budget -->
           <tr class="changed">
-            <td>Yearly Budget 2012</td>
+            <td>Org Budget 2011</td>
             <td>APPROVED</td>
             <td>2011-12-31 4:45pm</td>
             <td>Dan Miller</td>
@@ -95,8 +95,7 @@
             <!-- controls -->
             <td class="controls">
               <div>
-                <a href="edit-budget-income.html" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
-                <a class="btn" href="dashboard-export.html"><i class="icon-download"></i></a>
+                <button class="btn"><i class="icon-edit"></i> Edit</button>
                 <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
               </div>
             </td>
@@ -115,8 +114,7 @@
             <!-- controls -->
             <td class="controls">
               <div>
-                <a href="edit-budget-income.html" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
-                <a class="btn" href="dashboard-export.html"><i class="icon-download"></i></a>
+                <button class="btn"><i class="icon-edit"></i> Edit</button>
                 <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
               </div>
             </td>
@@ -135,8 +133,7 @@
             <!-- controls -->
             <td class="controls">
               <div>
-                <a href="edit-budget-income.html" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
-                <a class="btn" href="dashboard-export.html"><i class="icon-download"></i></a>
+                <button class="btn"><i class="icon-edit"></i> Edit</button>
                 <button class="btn btn-danger"><i class="icon-trash icon-white"></i></button>
               </div>
             </td>
@@ -147,6 +144,51 @@
       </table>
 
     </div>
+
+    <div class="modal">
+
+      <!-- modal header -->
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal" href="dashboard.html">&times;</a>
+        <h3>Export Budget</h3>
+      </div>
+
+      <!-- modal content -->
+      <div class="modal-body">
+        <form class="form-horizontal" _lpchecked="1">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label">Format:</label>
+              <div class="controls">
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                  CSV - Comma Separated Value
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  XLS - Microsoft Excel
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  CCF - Cloud Count Format
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+
+      <!-- modal footer -->
+      <div class="modal-footer">
+        <a href="dashboard.html" class="btn">Cancel</a>
+        <a href="#" class="btn btn-primary"><i class="icon-download icon-white"></i> Download</a>
+      </div>
+
+    </div>
+
+    <!-- modal backdrop -->
+    <div class="modal-backdrop fade in"></div>
 
     <!-- scripts -->
     <script type="text/javascript" src="../javascripts/jquery.js"></script>
