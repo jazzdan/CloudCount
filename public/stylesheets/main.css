@@ -5,8 +5,16 @@ body {
   padding-bottom: 40px;
 }
 
-#head, #controls {
+#head, #controls, #info {
   margin-bottom: 1.5em;
+}
+
+#info table td {
+  font-size: 1.3em;
+  padding: 20px 8px;
+}
+#info tr:hover td {
+  background: inherit;
 }
 
 /* tables */

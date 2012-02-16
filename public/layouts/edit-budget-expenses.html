@@ -49,28 +49,65 @@
     
     <div class="container" id="head">
 
-      <!-- title -->
-      <h1 class="title pull-left"><a href="edit-budget-income.html">Yearly Budget 2012</a>  <small>Expenses</small></h1>
+      <div class="pull-right">
+        <a style="padding:10px 15px;" href="#" class="pull-left"><i class="icon-refresh"></i></a>
+        <ul class="nav nav-pills pull-right">
+          <li class="active">
+            <a href="edit-budget-income.html">Budget</a>
+          </li>
+          <li><a href="edit-budget-description.html">Description</a></li>
+          <li><a href="edit-budget-attachments.html">Attachments</a></li>
+          <li><a href="edit-budget-notes.html">Notes</a></li>
+          <li><a href="edit-budget-audit.html">Audit</a></li>
+        </ul>
+      </div>
 
-      <ul class="nav nav-pills pull-right">
-        <li class="active">
-          <a href="edit-budget-income.html">Budget</a>
-        </li>
-        <li><a href="edit-budget-description.html">Description</a></li>
-        <li><a href="edit-budget-attachments.html">Attachments</a></li>
-        <li><a href="edit-budget-notes.html">Notes</a></li>
-        <li><a href="edit-budget-audit.html">Audit</a></li>
-      </ul>
+      <!-- title -->
+      <h1 class="title"><a href="edit-budget-income.html">Yearly Budget 2012</a> <small>Income</small></h1>
 
     </div>
-
-    <!-- controls -->
-    <div class="container" id="controls">
-      <button class="btn pull-right"><i class="icon-refresh"></i></button>
-      <div>
-        <button class="btn btn-success"><i class="icon-check icon-white"></i> Save Changes - 1</button>
-        <button class="btn btn-danger"><i class="icon-ban-circle icon-white"></i> Discard Changes</button>
+    
+    
+    <div class="container" id="info">
+      
+      <div class="row">
+      
+        <div class="span9">
+          <table class="table pull-left">
+            <thead>
+              <tr>
+                <th>Line #</th>
+                <th>Name</th>
+                <th>Budget</th>
+                <th>Actual</th>
+                <th>Updated</th>
+                <th>By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>140</td>
+                <td>Office Supplies</td>
+                <td>450.00</td>
+                <td>450.00</td>
+                <td>31/12/12</td>
+                <td>Dan</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="span3">
+          <div class="alert alert-info">
+            <a class="btn btn-small">Clear</a>&nbsp;&nbsp;<strong>2</strong> updates since last login.
+          </div>
+          <div class="alert alert-success">
+            <a class="btn btn-small">Save</a>&nbsp;&nbsp;<strong>1</strong> unsaved change.
+          </div>
+        </div>
+      
       </div>
+      
     </div>
 
     <div class="container" id="main">
@@ -87,7 +124,7 @@
             </div>
             
             <div class="controls" style="clear:both;">
-              <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Line</button>
+              <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Income Line</button>
               <div class="pull-right">
                 <button class="btn"><i class="icon-chevron-up"></i></button>
                 <button class="btn"><i class="icon-chevron-down"></i></button>
@@ -179,7 +216,7 @@
             </div>
             
             <div class="controls">
-              <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Line</button>
+              <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Expense Line</button>
               <div class="pull-right">
                 <button class="btn"><i class="icon-chevron-up"></i></button>
                 <button class="btn"><i class="icon-chevron-down"></i></button>

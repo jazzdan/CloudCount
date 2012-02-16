@@ -50,23 +50,62 @@
     <div class="container" id="head">
 
       <!-- title -->
-      <h1 class="title pull-left"><a href="edit-budget-income.html">Yearly Budget 2012</a> <small>140. Office Supplies</small></h1>
-
-      <ul class="pager pull-right">
-        <li>
-          <a href="#">&larr; Previous Line</a>
-        </li>
-        <li></li>
-        <li>
-          <a href="#">Next Line &rarr;</a>
-        </li>
-      </ul>
+      <h1 class="title pull-left"><a href="edit-budget-income.html">Yearly Budget 2012</a> <small>Line 140</small></h1>
+      <div class="pull-right">
+        <a style="padding:10px 15px;" href="#" class="pull-left"><i class="icon-refresh"></i></a>
+        <ul class="pager pull-right">
+          <li>
+            <a href="#">&larr; Previous Line</a>
+          </li>
+          <li></li>
+          <li>
+            <a href="#">Next Line &rarr;</a>
+          </li>
+        </ul>
+      </div>
 
     </div>
-
-    <div class="container" id="controls">
-      <button class="btn btn-primary"><i class="icon-plus icon-white"></i> New Subline</button>
-      <button class="btn pull-right"><i class="icon-refresh"></i></button>
+    
+    <div class="container" id="info">
+      
+      <div class="row">
+      
+        <div class="span9">
+          <table class="table pull-left">
+            <thead>
+              <tr>
+                <th>Line #</th>
+                <th>Name</th>
+                <th>Budget</th>
+                <th>Actual</th>
+                <th>Updated</th>
+                <th>By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>140</td>
+                <td>Office Supplies</td>
+                <td>450.00</td>
+                <td>450.00</td>
+                <td>31/12/12</td>
+                <td>Dan</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="span3">
+        <div class="alert alert-info">
+          <strong>No</strong> updates since last login.
+        </div>
+        <div class="alert alert-success">
+          <strong>No</strong> unsaved changes.
+        </div>
+        </div>
+      
+      </div>
+      
     </div>
 
     <div class="container" id="main">
@@ -75,7 +114,7 @@
         
         <!-- sublines -->
         <div class="span7">
-          
+          <button class="btn btn-primary"><i class="icon-plus icon-white"></i> New Subline</button>
           <table class="table sublines">
             
             <thead>
@@ -96,8 +135,8 @@
                 <td>Printing Supplies</td>
                 <td>31/12/12</td>
                 <td>Dan</td>
-                <td>300.00</td>
-                <td></td>
+                <td>250.00</td>
+                <td>250.00</td>
                 <td class="controls">
                   <div><i class="icon-chevron-right"></i></div>
                 </td>
@@ -108,8 +147,8 @@
                 <td>Paper</td>
                 <td>31/12/12</td>
                 <td>William</td>
-                <td>250.00</td>
-                <td></td>
+                <td>50.00</td>
+                <td>50.00</td>
                 <td class="controls">
                   <div><i class="icon-chevron-right"></i></div>
                 </td>
@@ -121,7 +160,7 @@
                 <td>31/12/12</td>
                 <td>Carley</td>
                 <td>150.00</td>
-                <td></td>
+                <td>150.00</td>
                 <td class="controls">
                   <div><i class="icon-chevron-right"></i></div>
                 </td>
@@ -136,6 +175,7 @@
         <!-- transactions -->
         <div class="span5">
           <div class="well">
+          <button class="btn"><i class="icon-plus"></i> Add Transaction</button>
           <table class="table transactions">
             <thead>
               <tr>
@@ -144,14 +184,7 @@
             </thead>
             <tbody>
               
-              <tr>
-                <td>
-                  <div class="controls">
-                    <button class="btn pull-right"><i class="icon-plus"></i> Add Transaction</button>
-                    <br/>
-                  </div>
-                </td>
-              </tr>
+              <tr><td></td></tr>
                 
               <tr>
                 <td style="border-top:none;">
