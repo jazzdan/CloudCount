@@ -27,6 +27,14 @@ public class User extends Model {
   @Required
   public boolean admin;
 
+  public User() {
+    this.username = "derp";
+    this.last_name = "Derpette";
+    this.first_name = "Derpy";
+    this.email = "derp@derptastic.com";
+    this.admin = false;
+  }
+
   public User(String username, String last_name, String first_name, String email, boolean admin) {
     this.username = username;
     this.last_name = last_name;
