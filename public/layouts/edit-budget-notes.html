@@ -47,13 +47,36 @@
       </div>
     </div>
     
+    <!-- control bar -->
+    <div class="control-bar">
+      <div class="container">
+
+        <!-- controls -->
+        <div class="pull-left">
+          <a href="#" class="btn"><i class="icon-refresh"></i></a>
+          <a href="#" class="btn btn-success">Save Changes</a>
+          <a href="#" class="btn btn-info">Clear Updates</a>
+        </div>
+
+        <!-- notifications -->
+        <div class="pull-right">
+          <a class="btn" style="visibility:hidden;">&nbsp;</a>
+          <strong>Budget Status:</strong>
+          <div class="alert alert-success">
+            <strong>1</strong> change
+          </div>
+          <a href="#" class="alert alert-info"><strong>2</strong> updates</a>
+        </div>
+
+      </div>
+    </div>
+    
     <div class="container" id="head">
 
       <!-- title -->
       <h1 class="title pull-left"><a href="edit-budget-income.html">Yearly Budget 2012</a>  <small>Notes</small></h1>
       
       <div class="pull-right">
-        <a style="padding:10px 15px;" href="#" class="pull-left"><i class="icon-refresh"></i></a>
         <ul class="nav nav-pills pull-right">
           <li>
             <a href="edit-budget-income.html">Budget</a>
@@ -70,7 +93,7 @@
     <div class="container" id="controls">
       <form class="form-inline">
         <input type="text" class="span4" placeholder="New Note">
-        <button class="btn btn-success" type="submit" data-toggle="modal" href="#myModal"><i class="icon-plus icon-white"></i> Add Note</button>
+        <button class="btn" type="submit" data-toggle="modal" href="#myModal"><i class="icon-plus"></i> Add Note</button>
       </form>
     </div>
 

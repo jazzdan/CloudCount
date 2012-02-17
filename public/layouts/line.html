@@ -47,12 +47,35 @@
       </div>
     </div>
     
+    <!-- control bar -->
+    <div class="control-bar">
+      <div class="container">
+
+        <!-- controls -->
+        <div class="pull-left">
+          <a href="#" class="btn"><i class="icon-refresh"></i></a>
+          <a href="#" class="btn btn-success">Save Changes</a>
+          <a href="#" class="btn btn-info">Clear Updates</a>
+        </div>
+
+        <!-- notifications -->
+        <div class="pull-right">
+          <a class="btn" style="visibility:hidden;">&nbsp;</a>
+          <strong>Budget Status:</strong>
+          <div class="alert alert-success">
+            <strong>1</strong> change
+          </div>
+          <a href="#" class="alert alert-info"><strong>2</strong> updates</a>
+        </div>
+
+      </div>
+    </div>
+    
     <div class="container" id="head">
 
       <!-- title -->
       <h1 class="title pull-left"><a href="edit-budget-income.html">Yearly Budget 2012</a> <small>Line 140</small></h1>
       <div class="pull-right">
-        <a style="padding:10px 15px;" href="#" class="pull-left"><i class="icon-refresh"></i></a>
         <ul class="pager pull-right">
           <li>
             <a href="#">&larr; Previous Line</a>
@@ -68,43 +91,28 @@
     
     <div class="container" id="info">
       
-      <div class="row">
-      
-        <div class="span9">
-          <table class="table pull-left cc-table">
-            <thead>
-              <tr>
-                <th>Line #</th>
-                <th>Name</th>
-                <th>Budget</th>
-                <th>Actual</th>
-                <th>Updated</th>
-                <th>By</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>140</td>
-                <td>Office Supplies</td>
-                <td>450.00</td>
-                <td>450.00</td>
-                <td>31/12/12</td>
-                <td>Dan</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <div class="span3">
-        <div class="alert alert-info">
-          <strong>No</strong> updates since last login.
-        </div>
-        <div class="alert alert-success">
-          <strong>No</strong> unsaved changes.
-        </div>
-        </div>
-      
-      </div>
+      <table class="table pull-left cc-table">
+        <thead>
+          <tr>
+            <th>Line #</th>
+            <th>Name</th>
+            <th>Budget</th>
+            <th>Actual</th>
+            <th>Updated</th>
+            <th>By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>140</td>
+            <td>Office Supplies</td>
+            <td>450.00</td>
+            <td>450.00</td>
+            <td>31/12/12</td>
+            <td>Dan</td>
+          </tr>
+        </tbody>
+      </table>
       
     </div>
 
@@ -114,7 +122,7 @@
         
         <!-- sublines -->
         <div class="span7">
-          <button class="btn btn-primary"><i class="icon-plus icon-white"></i> New Subline</button>
+          <button class="btn"><i class="icon-plus"></i> New Subline</button>
           <table class="table sublines">
             
             <thead>
@@ -138,7 +146,10 @@
                 <td>250.00</td>
                 <td>250.00</td>
                 <td class="controls">
-                  <div><i class="icon-chevron-right"></i></div>
+                  <div>
+                    <a href="#" class="btn"><i class="icon-edit"></i></a>
+                    <i class="icon-chevron-right"></i>
+                  </div>
                 </td>
               </tr>
               
@@ -150,7 +161,10 @@
                 <td>50.00</td>
                 <td>50.00</td>
                 <td class="controls">
-                  <div><i class="icon-chevron-right"></i></div>
+                  <div>
+                    <a href="#" class="btn"><i class="icon-edit"></i></a>
+                    <i class="icon-chevron-right"></i>
+                  </div>
                 </td>
               </tr>
               
@@ -162,7 +176,10 @@
                 <td>150.00</td>
                 <td>150.00</td>
                 <td class="controls">
-                  <div><i class="icon-chevron-right"></i></div>
+                  <div>
+                    <a href="#" class="btn"><i class="icon-edit"></i></a>
+                    <i class="icon-chevron-right"></i>
+                  </div>
                 </td>
               </tr>
               
