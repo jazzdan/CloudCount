@@ -37,6 +37,16 @@ CloudCount is an straight forward, multi-user, opensource bookkeeping system, ta
 ## Specification Deviations
 Obviously, venturing away from a Java Applet and undertaking a browser based solution necessitates some potentially drastic UI changes.
 
-1. **Single Window** - In most practical situations, browser based apps should limited to a single unified window. However, that window presents a larger canvas than the smaller panels in the spec, meaning there is more space to present more information in a useful and logically juxtaposed arrangement.
+1. **Unified Window** - In most practical situations, browser based apps should limited to a single, unified window. However, that window presents a larger canvas than the smaller panels in the spec, meaning there is more space to present more information in a useful and logically juxtaposed arrangement.
 
-2. **Change Tracking** - ch-ch-ch-changes!
+2. **Tracking Changes** (the control bar) - Keeping the user informed of the budget's current status, is a primary objective. Users should be aware of both their own, unsaved changes to the budget as well as changes made by other users before or during the current session. The control bar (located directly below the black navigation bar) provides a universal interface for tracking (unsaved local changes & remote updates by other users) and managing budget changes (saving local changes & manage update notifications).
+
+3. **Entity Creation** - keep it simple
+
+4. **Unified Line View** - everything you need
+
+## Missing Elements
+1. Users Interface
+2. Settings Interface
+3. Various Pop-ups (new line, new sub-line, new transaction, edit sub-line, edit transaction, etc.)
+4. Search Results Interface
