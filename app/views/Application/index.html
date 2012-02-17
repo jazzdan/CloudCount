@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Cloud Count' /}
 
-<h1>Hey, world!</h1>
+<div id="main" role="main"></div>
 
-<p>This is our play app!!!</p>
+<!-- load the app -->
+<script data-main="/public/javascripts/app/index" src="@{'/public/javascripts/libs/require.js'}" type="text/javascript" charset="${_response_encoding}"></script>
