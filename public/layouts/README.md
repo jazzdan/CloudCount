@@ -37,7 +37,6 @@ CloudCount is an straight forward, multi-user, opensource bookkeeping system, ta
 ## Specification Deviations
 Obviously, venturing away from a Java Applet and undertaking a browser based solution necessitates some potentially drastic UI changes.
 
-### Single Window
-In most practical situations, browser based apps should limited to a single unified window. However, that window presents a larger canvas than the smaller panels in the spec, meaning there is more space to present more information in a useful and logically juxtaposed arrangement.
+1. **Single Window** - In most practical situations, browser based apps should limited to a single unified window. However, that window presents a larger canvas than the smaller panels in the spec, meaning there is more space to present more information in a useful and logically juxtaposed arrangement.
 
-### Change Tracking
+2. **Change Tracking** - ch-ch-ch-changes!
