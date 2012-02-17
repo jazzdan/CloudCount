@@ -5,7 +5,6 @@ body {
   padding-bottom: 40px;
 }
 
-
 /* Control Bar */
 .control-bar {
   top: 40px;
@@ -132,6 +131,7 @@ td.controls > div {
   color: #468847;
 }
 
+.changed td,
 .selectable .changed td,
 .selectable .changed:hover td {
   background: #D9EDF7;

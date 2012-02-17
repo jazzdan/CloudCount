@@ -1,5 +1,3 @@
-# CloudCount
-
 ## Contributors
 * Carley Keefe
 * Colby Rabideau
@@ -22,7 +20,7 @@ CloudCount is an straight forward, multi-user, opensource bookkeeping system, ta
 * Twitter Bootstrap: responsive UI frame work & utilities
 
 ### Client Logic (JavaScript)
-* require.js: js dependency management
+* RequireJS: js dependency management
 * jQuery: DOM manipulation & cross browser normalization
 * Backbone: client side data modeling, view management and REST
 * Handlebars: compiled, logic-less html templates
