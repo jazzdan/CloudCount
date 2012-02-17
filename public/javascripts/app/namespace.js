@@ -18,9 +18,10 @@ function($, _, Backbone) {
     },
 
     fetch: function(path) {
-      path = path + ".html";
+      path = path + ".hbs";
 
       var done = this.async();
+      
       var JST = window.JST = window.JST || {};
 
       // Should be an instant synchronous way of getting the template, if it
@@ -31,7 +32,7 @@ function($, _, Backbone) {
 
       // Fetch it asynchronously if not available from JST
       $.get(path, function(contents) {
-        var tmpl = _.template(contents);
+        var tmpl = Handlebars.compile(contents);
 
         JST[path] = tmpl;
         done(tmpl);
