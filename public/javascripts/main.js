@@ -1,4 +1,4 @@
-require(["order!jquery", "order!bootstrap", "order!backbone/underscore", "order!backbone/backbone", "backbone/json2", "backbone/handlebars"], function($) {
+require(["order!jquery", "order!lib/bootstrap", "order!lib/underscore", "order!lib/backbone", "lib/json2", "lib/handlebars"], function($) {
     
     $(function() {
         alert('dependencies loaded!');
