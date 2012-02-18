@@ -14,15 +14,15 @@ function(cc, Backbone) {
   var app = cc.app;
 
   // Create a new module
-  var Test = cc.module();
+  var Utils = cc.module();
 
-  Test.Views.Title = Backbone.LayoutManager.View.extend({
-    template: "test/title",
+  Utils.Views.ControlBar = Backbone.LayoutManager.View.extend({
+    template: "utils/controlbar",
 
     tagName: "div"
   });
 
   // Required, return the module for AMD compliance
-  return Test;
+  return Utils;
 
 });

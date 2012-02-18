@@ -45,10 +45,10 @@ require([
   "use!backbone",
 
   // Modules
-  "modules/test"
+  "modules/utils"
 ],
 
-function (cc, jQuery, Backbone, Test) {
+function (cc, jQuery, Backbone, Utils) {
   // Treat the jQuery ready function as the entry point to the application.
   // Inside this function, kick-off all initialization, everything up to this
   // point should be definitions.
@@ -85,7 +85,7 @@ function (cc, jQuery, Backbone, Test) {
 
         // Set all the views
         main.setViews({
-          ".test": new Test.Views.Title()
+          ".controlbar": new Utils.Views.ControlBar()
         });
 
         // Render to the page

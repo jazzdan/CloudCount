@@ -1,6 +1,48 @@
-#{extends 'main.html' /}
+#{extends 'auth.html' /}
 #{set title:'Login - Cloud Count' /}
 
-<div id="main" role="main">
-  <h1>Login</h1>
+<div class="container">
+      
+  <div class="row">
+  
+  <div class="span6">
+  <div class="hero-unit">
+    <h1>Cloud Count</h1>
+    <p>Welcome to Cloud Count! the open-source, web based, bookkeeping system. Track all your finances collaboratively!</p>
+  </div>
+  </div>
+  
+  <div class="span6">
+  <form class="form-horizontal" _lpchecked="1">
+    <fieldset>
+      <legend>Login with your Cloud Count username &amp; password.</legend>
+      <div class="control-group">
+        <label class="control-label" for="input01">Username</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="input01">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="input01">Password</label>
+        <div class="controls">
+          <input type="password" class="input-xlarge" id="input01">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <label class="checkbox">
+            <input type="checkbox" id="optionsCheckbox" value="option1">
+            Remember me
+          </label>
+        </div>
+      </div>
+      <div class="form-actions">
+        <a href="dashboard.html" class="btn btn-primary">Login</a>
+      </div>
+    </fieldset>
+  </form>
+  </div>
+  
+  </div>
+  
 </div>
