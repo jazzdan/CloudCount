@@ -13,32 +13,42 @@
   </div>
   
   <div class="span6">
-  <form class="form-horizontal" _lpchecked="1">
+  <form class="form-horizontal" action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" >
     <fieldset>
+    
       <legend>Login with your Cloud Count username &amp; password.</legend>
+      
+      <!-- username -->
       <div class="control-group">
         <label class="control-label" for="input01">Username</label>
         <div class="controls">
-          <input type="text" class="input-xlarge" id="input01">
+          <input type="text" class="input-xlarge" id="username" name="username">
         </div>
       </div>
+      
+      <!-- password -->
       <div class="control-group">
         <label class="control-label" for="input01">Password</label>
         <div class="controls">
-          <input type="password" class="input-xlarge" id="input01">
+          <input type="password" class="input-xlarge" id="password" name="password">
         </div>
       </div>
+      
+      <!-- remember me -->
       <div class="control-group">
         <div class="controls">
           <label class="checkbox">
-            <input type="checkbox" id="optionsCheckbox" value="option1">
+            <input type="checkbox" id="remember" name="remember" value="true">
             Remember me
           </label>
         </div>
       </div>
+      
+      <!-- actions -->
       <div class="form-actions">
-        <a href="dashboard.html" class="btn btn-primary">Login</a>
+        <input type="submit" href="dashboard.html" class="btn btn-primary" value="Login" />
       </div>
+      
     </fieldset>
   </form>
   </div>
