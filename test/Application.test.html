@@ -3,17 +3,25 @@
 #{selenium}
 
     clearSession()
+
     // Open the home page, and check that no error occured
     open('/')
     assertNotTitle('Application error')
+
     // Check that we got redirected to the login page
     assertTitle('Login - Cloud Count')
 
-    // Try to log in the administration area
+    // Try to log in the administration area [fail]
     type('username', 'derp')
+    type('password', 'aoiwefh')
+    clickAndWait('login')
+    assertTitle('Login - Cloud Count')
+    assertTextPresent('Error')
+
+    // Try to log in the administration area [success]
+    type('username', 'derp@derptastic.com')
     type('password', 'herpderp')
     clickAndWait('login')
-    
     assertTitle('Cloud Count')
 
 #{/selenium}
