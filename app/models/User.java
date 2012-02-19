@@ -25,6 +25,9 @@ public class User extends Model {
   public String email;
 
   @Required
+  public String password;
+
+  @Required
   public boolean admin;
 
   public User() {
@@ -32,6 +35,7 @@ public class User extends Model {
     this.last_name = "Derpette";
     this.first_name = "Derpy";
     this.email = "derp@derptastic.com";
+    this.password = "herpderp";
     this.admin = false;
   }
 
