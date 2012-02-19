@@ -1,58 +1,73 @@
-#{extends 'auth.html' /}
+#{extends 'secure.html' /}
 #{set title:'Login - Cloud Count' /}
 
 <div class="container">
-      
+
   <div class="row">
-  
+
   <div class="span6">
   <div class="hero-unit">
     <h1>Cloud Count</h1>
     <p>Welcome to Cloud Count! the open-source, web based, bookkeeping system. Track all your finances collaboratively!</p>
   </div>
   </div>
-  
+
   <div class="span6">
-  <form class="form-horizontal" action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" >
+  #{form @authenticate(), class:'form-horizontal'}
+
     <fieldset>
-    
+
       <legend>Login with your Cloud Count username &amp; password.</legend>
-      
+
+      <!-- messages -->
+      <div class="control-group">
+      #{if flash.error}
+        <div class="alert alert-error">
+          <strong>Error:</strong> &{flash.error}
+        </div>
+      #{/if}
+      #{if flash.success}
+        <div class="alert alert-success">
+          <strong>Success:</strong> &{flash.success}
+        </div>
+      #{/if}
+      </div>
+
       <!-- username -->
       <div class="control-group">
-        <label class="control-label" for="input01">Username</label>
+        <label class="control-label" for="input01">&{'secure.username'}</label>
         <div class="controls">
-          <input type="text" class="input-xlarge" id="username" name="username">
+          <input autofocus="true" type="text" class="input-xlarge" id="username" name="username">
         </div>
       </div>
-      
+
       <!-- password -->
       <div class="control-group">
-        <label class="control-label" for="input01">Password</label>
+        <label class="control-label" for="input01">&{'secure.password'}</label>
         <div class="controls">
           <input type="password" class="input-xlarge" id="password" name="password">
         </div>
       </div>
-      
+
       <!-- remember me -->
       <div class="control-group">
         <div class="controls">
           <label class="checkbox">
             <input type="checkbox" id="remember" name="remember" value="true">
-            Remember me
+            &{'secure.remember'}
           </label>
         </div>
       </div>
-      
+
       <!-- actions -->
       <div class="form-actions">
         <input type="submit" href="dashboard.html" class="btn btn-primary" name="login" id="login" value="Login" />
       </div>
-      
+
     </fieldset>
-  </form>
+  #{/form}
   </div>
-  
+
   </div>
-  
+
 </div>
