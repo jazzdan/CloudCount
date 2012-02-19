@@ -19,11 +19,10 @@ public class Security extends Secure.Security {
     }
 
     /**
-     * Is admin?
+     * Is Admin
      */
-    static boolean isAdmin() {
-        User user = connected();
+    static boolean isAdmin(String profile) {
+        User user = User.find("byEmail", connected()).first();
         return user.admin;
     }
-
 }
