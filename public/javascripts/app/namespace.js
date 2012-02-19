@@ -13,8 +13,8 @@ function($, _, Backbone) {
   // Customize the LayoutManager
   Backbone.LayoutManager.configure({
     paths: {
-      layout: "public/javascripts/app/templates/layouts/",
-      template: "public/javascripts/app/templates/"
+      layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
+      template: "http://" + document.location.host + "/public/javascripts/app/templates/"
     },
 
     fetch: function(path) {

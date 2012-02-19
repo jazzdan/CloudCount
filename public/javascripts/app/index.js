@@ -45,10 +45,12 @@ require([
   "use!backbone",
 
   // Modules
-  "modules/utils"
+  "modules/utils",
+  "modules/budgets",
+  "modules/budget"
 ],
 
-function (cc, jQuery, Backbone, Utils) {
+function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
   // Treat the jQuery ready function as the entry point to the application.
   // Inside this function, kick-off all initialization, everything up to this
   // point should be definitions.
@@ -77,22 +79,49 @@ function (cc, jQuery, Backbone, Utils) {
       },
 
       routes: {
-        "": "index"
+        "": "index",
+        "budget/:cid": "budget"
       },
 
       index: function() {
         var main = this.useLayout("main");
 
+        // fetch some data
+        app.budgets = new Budgets.Collection();
+        app.budgets.fetch();
+        
+        BUDGETS_COL = app.budgets;
+
         // Set all the views
         main.setViews({
-          ".controlbar": new Utils.Views.ControlBar()
+          ".controlbar": new Utils.Views.ControlBar(),
+          ".canvas": new Budgets.Views.List({ collection: app.budgets })
         });
 
         // Render to the page
         main.render(function(el) {
           $("#main").html(el);
         });
+      },
+
+      budget: function(cid) {
+        var main = this.useLayout("main");
+
+        budget = app.budgets.getByCid(cid);
+
+        // Set all the views
+        main.setViews({
+          ".controlbar": new Utils.Views.ControlBar(),
+          ".canvas": new Budget.Views.Shell({ collection: app.budgets })
+        });
+
+        // Render to the page
+        main.render(function(el) {
+          $("#main").html(el);
+        });
+
       }
+
     });
     
     // Define your master router on the application namespace and trigger all

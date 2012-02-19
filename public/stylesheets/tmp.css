@@ -1,0 +1,167 @@
+/* Main CSS */
+
+body {
+  padding-top: 100px;
+  padding-bottom: 40px;
+}
+
+/* Control Bar */
+.controlbar {
+  top: 40px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 35px;
+  padding-top: 8px;
+  position: fixed;
+  background-color: #eeeeee; /* Old browsers */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* Chrome 10+,Safari 5.1+ */
+  background-image: -ms-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* IE10+ */
+  background-image: -o-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* Opera 11.10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+  background-image: linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* W3C */
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.control-bar .alert {
+  display: inline;
+  margin-left: 10px;
+}
+
+/* tables */
+.table td{
+  vertical-align: middle;
+}
+
+.selectable tr:hover td {
+  background: inherit;
+}
+.selectable .controls{
+  display: none;
+}
+.selectable tr:hover td.controls > div {
+  visibility: hidden;
+}
+
+tr:hover td,
+tr.selected td,
+.selectable.selected tr:hover td {
+  background: #eee;
+}
+
+.sublines td.controls div {
+  min-width: 0;
+}
+.transactions tr:hover td {
+  background: inherit;
+}
+tr:hover td.controls > div,
+tr.selected td.controls > div,
+.selectable.selected tr:hover td.controls > div {
+  visibility: visible;
+}
+.selectable.selected .controls{
+  display: block;
+  clear: both;
+}
+.selectable.selected td.controls {
+  display: table-cell;
+}
+.selectable div.controls {
+  padding: 1em 0;
+}
+
+
+td.controls > div{
+  width: auto;
+  min-width: 125px;
+  text-align: right;
+}
+td.controls > div {
+  visibility: hidden;
+}
+
+.container-base {
+  width: auto;
+  clear: both;
+  overflow: auto;
+}
+
+.selectable {
+  cursor: pointer;
+}
+.selectable.selected {
+  cursor: default;
+}
+
+.selectable,
+.selectable a,
+.selectable h2 {
+  color: #999;
+}
+.selected,
+.selected h2 {
+  color: #333;
+}
+.box{
+  padding-top: 1em;
+  border-top: 1px solid #fff;
+}
+.selected .box{
+  padding: 1em 1.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 2px 2px 7px rgba(0,0,0,.35);
+}
+
+.selected th.hide,
+.selected td.hide {
+  display: table-cell;
+}
+
+/* info */
+.selectable .dirty td,
+.selectable .dirty:hover td {
+  background-color: #DFF0D8;
+  color: #468847;
+}
+
+.changed td,
+.selectable .changed td,
+.selectable .changed:hover td {
+  background: #D9EDF7;
+  color: #3A87AD;
+}
+
+/* cc-table */
+.cc-table th {
+  font-weight: normal;
+}
+.cc-table td {
+  border: none;
+  font-weight: bold;
+  background: #eee;
+  font-size: 1.3em;
+  padding: 20px 8px;
+}
+.cc-table tr th:first-child {
+  padding-left: 20px;
+}
+.cc-table tr th:last-child {
+  padding-right: 20px;
+}
+.cc-table tr td:first-child {
+  padding-left: 20px;
+  border-radius: 4px 0 0 4px;
+}
+.cc-table tr td:last-child {
+  padding-right: 20px;
+  border-radius: 0 4px 4px 0;
+}

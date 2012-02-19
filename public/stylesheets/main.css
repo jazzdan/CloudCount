@@ -34,134 +34,21 @@ body {
   margin-left: 10px;
 }
 
-/* tables */
-.table td{
+/* Cloud Count Table */
+.table.cc-table td{
   vertical-align: middle;
 }
 
-.selectable tr:hover td {
-  background: inherit;
+.table.cc-table tr:hover {
+  background-color: #eee;
 }
-.selectable .controls{
-  display: none;
-}
-.selectable tr:hover td.controls > div {
+
+/* Controls */
+tr td .controls {
   visibility: hidden;
-}
-
-tr:hover td,
-tr.selected td,
-.selectable.selected tr:hover td {
-  background: #eee;
-}
-
-.sublines td.controls div {
-  min-width: 0;
-}
-.transactions tr:hover td {
-  background: inherit;
-}
-tr:hover td.controls > div,
-tr.selected td.controls > div,
-.selectable.selected tr:hover td.controls > div {
-  visibility: visible;
-}
-.selectable.selected .controls{
-  display: block;
-  clear: both;
-}
-.selectable.selected td.controls {
-  display: table-cell;
-}
-.selectable div.controls {
-  padding: 1em 0;
-}
-
-
-td.controls > div{
-  width: auto;
-  min-width: 125px;
   text-align: right;
+  min-width: 125px;
 }
-td.controls > div {
-  visibility: hidden;
-}
-
-.container-base {
-  width: auto;
-  clear: both;
-  overflow: auto;
-}
-
-.selectable {
-  cursor: pointer;
-}
-.selectable.selected {
-  cursor: default;
-}
-
-.selectable,
-.selectable a,
-.selectable h2 {
-  color: #999;
-}
-.selected,
-.selected h2 {
-  color: #333;
-}
-.box{
-  padding-top: 1em;
-  border-top: 1px solid #fff;
-}
-.selected .box{
-  padding: 1em 1.5em;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: #fff;
-  box-shadow: 2px 2px 7px rgba(0,0,0,.35);
-}
-
-.selected th.hide,
-.selected td.hide {
-  display: table-cell;
-}
-
-/* info */
-.selectable .dirty td,
-.selectable .dirty:hover td {
-  background-color: #DFF0D8;
-  color: #468847;
-}
-
-.changed td,
-.selectable .changed td,
-.selectable .changed:hover td {
-  background: #D9EDF7;
-  color: #3A87AD;
-}
-
-/* cc-table */
-.cc-table th {
-  font-weight: normal;
-}
-.cc-table td {
-  border: none;
-  font-weight: bold;
-  background: #eee;
-  font-size: 1.3em;
-  padding: 20px 8px;
-}
-.cc-table tr th:first-child {
-  padding-left: 20px;
-}
-.cc-table tr th:last-child {
-  padding-right: 20px;
-}
-.cc-table tr td:first-child {
-  padding-left: 20px;
-  border-radius: 4px 0 0 4px;
-}
-.cc-table tr td:last-child {
-  padding-right: 20px;
-  border-radius: 0 4px 4px 0;
+tr:hover td .controls {
+  visibility: visible;
 }
