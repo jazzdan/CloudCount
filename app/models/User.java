@@ -13,8 +13,8 @@ import java.util.*;
 @Entity
 public class User extends Model {
 
-  @Required
-  protected int id;
+  // @Required
+  // protected int id;
 
   @Required
   public String username;
@@ -71,9 +71,4 @@ public class User extends Model {
       return false;
     }
   }
-
-  public static int getCCId() {
-    return 0;
-  }
-
 }
