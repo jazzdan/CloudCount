@@ -16,8 +16,14 @@ function(cc, Backbone) {
   // Create a new module
   var Utils = cc.module();
 
-  Utils.Views.ControlBar = Backbone.LayoutManager.View.extend({
-    template: "utils/controlbar",
+  Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
+    template: "utils/controlbar-refresh",
+
+    tagName: "div"
+  });
+
+  Utils.Views.BudgetBar = Backbone.LayoutManager.View.extend({
+    template: "utils/controlbar-budget",
 
     tagName: "div"
   });

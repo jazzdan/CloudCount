@@ -94,7 +94,7 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
 
         // Set all the views
         main.setViews({
-          ".controlbar": new Utils.Views.ControlBar(),
+          ".controlbar": new Utils.Views.RefreshBar(),
           ".canvas": new Budgets.Views.List({ collection: app.budgets })
         });
 
@@ -105,14 +105,19 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
       },
 
       budget: function(cid) {
-        var main = this.useLayout("main");
+        var main = this.useLayout("budget");
 
         budget = app.budgets.getByCid(cid);
 
         // Set all the views
         main.setViews({
-          ".controlbar": new Utils.Views.ControlBar(),
-          ".canvas": new Budget.Views.Shell({ collection: app.budgets })
+          '.controlbar': new Utils.Views.BudgetBar(),
+          '.nav': new Budget.Views.Nav(),
+          '.section.budget': new Budget.Views.Budget(),
+          '.section.description': new Budget.Views.Description(),
+          '.section.attachments': new Budget.Views.Attachments(),
+          '.section.notes': new Budget.Views.Notes(),
+          '.section.audit': new Budget.Views.Audit()
         });
 
         // Render to the page

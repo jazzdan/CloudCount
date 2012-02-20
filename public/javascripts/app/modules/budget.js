@@ -19,8 +19,8 @@ function(cc, Backbone) {
   Budget.Model = Backbone.Model.extend();
 
   // Budget List
-  Budget.Views.Shell = Backbone.LayoutManager.View.extend({
-    template: 'budget/shell',
+  Budget.Views.Nav = Backbone.LayoutManager.View.extend({
+    template: 'budget/nav',
 
     tagName: 'div',
     
@@ -38,6 +38,46 @@ function(cc, Backbone) {
         section.addClass('active');
       }
     }
+    
+  });
+  
+  Budget.Views.Budget = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/budget',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Description = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/description',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Attachments = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/attachments',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Notes = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/notes',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Audit = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/audit',
+    
+    tagName: 'div'
     
   });
 
