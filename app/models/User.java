@@ -7,6 +7,8 @@ import play.modules.morphia.Model.AutoTimestamp;
 
 import com.google.code.morphia.annotations.Entity;
 
+import java.util.*;
+
 @AutoTimestamp
 @Entity
 public class User extends Model {
@@ -53,6 +55,18 @@ public class User extends Model {
 
   public String toString() {
     return username;
+  }
+
+  public static boolean removeUser(String username) {
+    User user = User.find("username", username).first();
+    try {
+      user.delete();
+      return true;
+    }
+    catch(Exception e){
+      System.out.println("ERROR: " + e);
+      return false;
+    }
   }
 
 }
