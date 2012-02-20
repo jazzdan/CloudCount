@@ -10,7 +10,7 @@ import com.google.code.morphia.annotations.Reference;
 
 @AutoTimestamp
 @Entity
-public class Attachment extends Model {
+public class Attachment extends AutoIncrement {
 
   // @Required
   // public int id;
@@ -33,7 +33,7 @@ public class Attachment extends Model {
   public int jr_node;
 
   public Attachment(String label, String descrption, User uploaded_by, Budget budget, int jr_node) {
-    // this.id = id;
+    super();
     this.label = label;
     this.description = description;
     this.uploaded_by = uploaded_by;

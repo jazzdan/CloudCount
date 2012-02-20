@@ -11,7 +11,7 @@ import java.util.*;
 
 @AutoTimestamp
 @Entity
-public class User extends Model {
+public class User extends AutoIncrement {
 
   @Required
   protected int id;
@@ -36,6 +36,7 @@ public class User extends Model {
   public boolean admin;
 
   public User() {
+    super();
     this.username = "derp";
     this.last_name = "Derpette";
     this.first_name = "Derpy";
@@ -45,6 +46,7 @@ public class User extends Model {
   }
 
   public User(String username, String last_name, String first_name, String email, boolean admin) {
+    super();
     this.username = username;
     this.last_name = last_name;
     this.first_name = first_name;
