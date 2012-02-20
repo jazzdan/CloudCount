@@ -4,14 +4,11 @@ define([
   // Libs
   "use!backbone",
 
-  // modules
-  "modules/utils",
-
   // Plugins
   "use!layoutmanager"
 ],
 
-function(cc, Backbone, Utils) {
+function(cc, Backbone) {
 
   // Shorthand the app
   var app = cc.app;
@@ -81,17 +78,7 @@ function(cc, Backbone, Utils) {
     
     template: 'budget/attachments',
     
-    tagName: 'div',
-    
-    events: {
-      'click .upload': 'upload'
-    },
-    
-    upload: function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var modal = new Utils.Views.Modal();
-    }
+    tagName: 'div'
     
   });
   

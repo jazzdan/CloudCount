@@ -10,7 +10,7 @@ import com.google.code.morphia.annotations.Reference;
 
 @AutoTimestamp
 @Entity
-public class Line extends AutoIncrement {
+public class Line extends Model {
 
   // @Required
   // public int id;
@@ -37,7 +37,7 @@ public class Line extends AutoIncrement {
   public int order;
 
   public Line(Budget budget, User user, int line_number, String name, double subtotal, int parent_line_id, int order) {
-    super();
+    // this.id = id;
     this.budget = budget;
     this.user = user;
     this.line_number = line_number;

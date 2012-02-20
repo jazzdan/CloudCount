@@ -9,7 +9,7 @@ import com.google.code.morphia.annotations.Entity;
 
 @AutoTimestamp
 @Entity
-public class Budget extends AutoIncrement {
+public class Budget extends Model {
 
   // @Required
   // public int id;
@@ -30,7 +30,7 @@ public class Budget extends AutoIncrement {
   public String rolls;
 
   public Budget(String title, String description, int start, int ends, String rolls) {
-    super();
+    // this.id = id;
     this.title = title;
     this.description = description;
     this.start = start;

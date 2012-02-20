@@ -27,20 +27,6 @@ function(cc, Backbone) {
 
     tagName: "div"
   });
-  
-  Utils.Views.Modal = Backbone.LayoutManager.View.extend({
-    
-    el: 'body',
-    
-    template: 'utils/modal',
-    
-    tagName: 'div',
-    
-    initialize: function () {
-      this.render();
-    }
-  
-  });
 
   // Required, return the module for AMD compliance
   return Utils;
