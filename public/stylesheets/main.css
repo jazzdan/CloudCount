@@ -39,7 +39,7 @@ body {
   vertical-align: middle;
 }
 
-.table.cc-table tr:hover {
+.table.cc-table tbody tr:hover {
   background-color: #eee;
 }
 

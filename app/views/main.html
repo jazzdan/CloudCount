@@ -34,7 +34,7 @@
 
       <!-- nav -->
       <ul class="nav">
-        <li><a href="#dashboard">Budgets</a></li>
+        <li><a href="/">Budgets</a></li>
       </ul>
 
       <form class="navbar-search pull-left" action="">
@@ -43,8 +43,8 @@
 
       <!-- settings -->
       <ul class="nav pull-right">
-        <li class="dropdown"><a href="#" class="dropdown-toggle">Users <b class="caret"></b></a></li>
-        <li><a href="#">Settings</a></li>
+        <li class="dropdown"><a href="/users" class="dropdown-toggle" data-bypass="true">Users</a></li>
+        <li><a href="/settings"  data-bypass="true">Settings</a></li>
         <li><a href="@{Secure.logout()}" data-bypass="true">Logout</a></li>
       </ul>
     </div>

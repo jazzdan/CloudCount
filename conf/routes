@@ -9,6 +9,12 @@ GET     /                                       Application.index
 # Budgets
 GET     /budgets                                Budgets.index
 
+# Users
+GET     /users                                  Users.index
+
+# Settings
+GET     /settings                               Settings.index
+
 # Import Secure routes
 *       /                                       module:secure
 
