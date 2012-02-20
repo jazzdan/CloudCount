@@ -157,6 +157,5 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         app.router.navigate(href, true);
       }
     });
-
   });
 });
