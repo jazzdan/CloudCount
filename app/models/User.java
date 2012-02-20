@@ -13,8 +13,8 @@ import java.util.*;
 @Entity
 public class User extends Model {
 
-  @Required
-  protected int id;
+  // @Required
+  // protected int id;
 
   @Required
   public String username;
@@ -36,6 +36,7 @@ public class User extends Model {
   public boolean admin;
 
   public User() {
+    // this.id = getCCId();
     this.username = "derp";
     this.last_name = "Derpette";
     this.first_name = "Derpy";
@@ -45,6 +46,7 @@ public class User extends Model {
   }
 
   public User(String username, String last_name, String first_name, String email, boolean admin) {
+    // this.id = getCCId();
     this.username = username;
     this.last_name = last_name;
     this.first_name = first_name;
@@ -72,8 +74,9 @@ public class User extends Model {
     }
   }
 
-  public static int getCCId() {
-    return 0;
+  private int getCCId() {
+    Count c = Count.get();
+    return c.getCount();
   }
 
 }
