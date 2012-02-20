@@ -107,6 +107,8 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
       budget: function(cid) {
         var main = this.useLayout("budget");
 
+        if(!app.budgets) app.budgets = new Budgets.Collection();
+
         budget = app.budgets.getByCid(cid);
 
         // Set all the views
