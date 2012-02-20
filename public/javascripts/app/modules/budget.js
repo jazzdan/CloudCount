@@ -29,14 +29,31 @@ function(cc, Backbone) {
     },
     
     section_nav: function (e) {
+
+      // STOP the event!
       e.preventDefault();
       e.stopPropagation();
-      var tar = $(e.target);
-      var section = $('.' + tar.data('section'));
+
+      // some variables
+      var tar = $(e.target),
+          name = tar.data('section'),
+          section = $('.' + name);
+
       if(!section.hasClass('active')){
+
+        // hide the old one
         $('.active').removeClass('active');
+
+        //show the new one
         section.addClass('active');
+
+        // update the label
+        $('.section-label').html((function(){
+          return name.charAt(0).toUpperCase() + name.slice(1);
+        })());
+
       }
+
     }
     
   });
