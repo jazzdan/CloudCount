@@ -6,7 +6,6 @@ import play.modules.morphia.Model;
 import play.modules.morphia.Model.AutoTimestamp;
 
 import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
 
 import java.util.*;
 
@@ -14,21 +13,8 @@ import java.util.*;
 @Entity
 public class User extends Model {
 
-  @Id public int id;
-
-  @Override
-  public Object getId() {
-    return id;
-  }
-
-  @Override
-  protected void setId_(Object id) {
-    id = processId_(id);
-  }
-
-  protected static Object processId_(Object id) {
-    return id.toString();
-  }
+  @Required
+  protected int id;
 
   @Required
   public String username;
@@ -84,6 +70,10 @@ public class User extends Model {
       System.out.println("ERROR: " + e);
       return false;
     }
+  }
+
+  public static int getCCId() {
+    return 0;
   }
 
 }
