@@ -19,8 +19,8 @@ function(cc, Backbone) {
   Budget.Model = Backbone.Model.extend();
 
   // Budget List
-  Budget.Views.Shell = Backbone.LayoutManager.View.extend({
-    template: 'budget/shell',
+  Budget.Views.Nav = Backbone.LayoutManager.View.extend({
+    template: 'budget/nav',
 
     tagName: 'div',
     
@@ -29,15 +29,72 @@ function(cc, Backbone) {
     },
     
     section_nav: function (e) {
+
+      // STOP the event!
       e.preventDefault();
       e.stopPropagation();
-      var tar = $(e.target);
-      var section = $('.' + tar.data('section'));
+
+      // some variables
+      var tar = $(e.target),
+          name = tar.data('section'),
+          section = $('.' + name);
+
       if(!section.hasClass('active')){
+
+        // hide the old one
         $('.active').removeClass('active');
+
+        //show the new one
         section.addClass('active');
+
+        // update the label
+        $('.section-label').html((function(){
+          return name.charAt(0).toUpperCase() + name.slice(1);
+        })());
+
       }
+
     }
+    
+  });
+  
+  Budget.Views.Budget = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/budget',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Description = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/description',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Attachments = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/attachments',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Notes = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/notes',
+    
+    tagName: 'div'
+    
+  });
+  
+  Budget.Views.Audit = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/audit',
+    
+    tagName: 'div'
     
   });
 

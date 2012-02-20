@@ -29,9 +29,17 @@ body {
           border-radius: 4px;
 }
 
-.control-bar .alert {
+.controlbar .alert {
   display: inline;
   margin-left: 10px;
+}
+
+/* Sections */
+.section {
+  display: none;
+}
+.section.active {
+  display: block;
 }
 
 /* Cloud Count Table */
