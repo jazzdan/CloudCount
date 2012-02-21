@@ -54,7 +54,7 @@ public class User extends Model {
   }
 
   public String toString() {
-    return username;
+    return last_name + ", " + first_name + ": " + email;
   }
 
   public static boolean removeUser(String username) {
