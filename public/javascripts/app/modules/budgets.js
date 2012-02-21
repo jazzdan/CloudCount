@@ -46,9 +46,7 @@ function(cc, Backbone, Budget) {
     },
     
     serialize: function() {
-      var s = this.model.toJSON();
-      s.cid = this.model.cid;
-      return s;
+      return this.model.toJSON();
     },
 
   });
