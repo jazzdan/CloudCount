@@ -13,9 +13,6 @@ import java.util.*;
 @Entity
 public class User extends Model {
 
-  // @Required
-  // protected int id;
-
   @Required
   public String username;
 
