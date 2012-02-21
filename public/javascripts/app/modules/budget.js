@@ -16,7 +16,11 @@ function(cc, Backbone) {
   // Create a new module
   var Budget = cc.module();
 
-  Budget.Model = Backbone.Model.extend();
+  Budget.Model = Backbone.Model.extend({
+
+    idAttribute: '_id'
+
+  });
 
   // Budget List
   Budget.Views.Nav = Backbone.LayoutManager.View.extend({

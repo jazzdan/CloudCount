@@ -3,12 +3,15 @@ define([
 
   // Libs
   "use!backbone",
+  
+  // Modules
+  "modules/budget",
 
   // Plugins
   "use!layoutmanager"
 ],
 
-function(cc, Backbone) {
+function(cc, Backbone, Budget) {
 
   // Shorthand the app
   var app = cc.app;
@@ -16,7 +19,7 @@ function(cc, Backbone) {
   // Create a new module
   var Budgets = cc.module();
 
-  Budgets.Model = Backbone.Model.extend();
+  Budgets.Model = Budget.Model;
 
   Budgets.Collection = Backbone.Collection.extend({
 
