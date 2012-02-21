@@ -42,4 +42,13 @@ public class UserTest extends UnitTest {
       // assertNull(u);
     }
 
+    @Test
+    public void seleniumUser() {
+      User test = User.find("username", "selenium").first();
+      if(test == null) {
+        test = new User("selenium", "Sel", "Enium", "sel@enium.com", true);
+        test.save();
+      }
+    }
+
 }

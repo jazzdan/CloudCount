@@ -80,7 +80,7 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
 
       routes: {
         "": "index",
-        "budget/:cid": "budget"
+        "budget/:id": "budget"
       },
 
       index: function() {
@@ -104,12 +104,12 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         });
       },
 
-      budget: function(cid) {
+      budget: function(id) {
         var main = this.useLayout("budget");
 
         if(!app.budgets) app.budgets = new Budgets.Collection();
 
-        budget = app.budgets.getByCid(cid);
+        budget = app.budgets.get(id);
 
         // Set all the views
         main.setViews({
