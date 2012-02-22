@@ -1,13 +1,16 @@
 package models;
- 
+
+//Default play stuff 
 import play.data.validation.Email;
 import play.data.validation.Required;
+
+//Morphia stuff
 import play.modules.morphia.Model;
 import play.modules.morphia.Model.AutoTimestamp;
-
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Reference;
 
+// @JcrNode(mixinTypes = { "mix:created", "mix:lastModified", "mix:referenceable" })
 @AutoTimestamp
 @Entity
 public class Attachment extends Model {

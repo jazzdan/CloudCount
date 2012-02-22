@@ -3,5 +3,10 @@
 require:
     - play
     - play -> morphia [1.2.4,)
-   # - play -> cream 0.1
+    - play -> cream 0.1:
+        transitive: false
+    - cglib -> cglib-nodep 2.1_3:
+        force: true
+    - asm -> asm-commons 3.3.1:
+        force: true
 
