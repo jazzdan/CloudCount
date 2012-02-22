@@ -26,8 +26,6 @@ function(cc, Backbone) {
   Budget.Views.Nav = Backbone.LayoutManager.View.extend({
     template: 'budget/nav',
 
-    tagName: 'div',
-    
     events: {
       'click .section-nav': 'section_nav'
     },
@@ -66,15 +64,11 @@ function(cc, Backbone) {
     
     template: 'budget/budget',
     
-    tagName: 'div'
-    
   });
   
   Budget.Views.Description = Backbone.LayoutManager.View.extend({
     
     template: 'budget/description',
-    
-    tagName: 'div'
     
   });
   
@@ -82,15 +76,11 @@ function(cc, Backbone) {
     
     template: 'budget/attachments',
     
-    tagName: 'div'
-    
   });
   
   Budget.Views.Notes = Backbone.LayoutManager.View.extend({
     
     template: 'budget/notes',
-    
-    tagName: 'div'
     
   });
   
@@ -98,7 +88,21 @@ function(cc, Backbone) {
     
     template: 'budget/audit',
     
-    tagName: 'div'
+  });
+  
+  Budget.Views.BudgetMain = Backbone.LayoutManager.View.extend({
+    
+    template: 'budget/main',
+    
+    views: {
+    
+      '.nav': new Budget.Views.Nav(),
+      '.section.description': new Budget.Views.Description(),
+      '.section.attachments': new Budget.Views.Attachments(),
+      '.section.notes': new Budget.Views.Notes(),
+      '.section.audit': new Budget.Views.Audit()
+    
+    }
     
   });
 

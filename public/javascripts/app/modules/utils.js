@@ -24,8 +24,6 @@ function(cc, Backbone) {
 
   Utils.Views.BudgetBar = Backbone.LayoutManager.View.extend({
     template: "utils/controlbar-budget",
-
-    tagName: "div"
   });
 
   // Required, return the module for AMD compliance
