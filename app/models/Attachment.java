@@ -8,10 +8,6 @@ import play.modules.morphia.Model.AutoTimestamp;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Reference;
 
-import javax.jcr.Repository;
-import javax.jcr.Session;
-import org.apache.jackrabbit.core.TransientRepository;
-
 @AutoTimestamp
 @Entity
 public class Attachment extends Model {
