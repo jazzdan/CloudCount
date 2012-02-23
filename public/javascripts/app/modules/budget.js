@@ -119,10 +119,24 @@ function(cc, Backbone, Utils) {
       e.stopPropagation();
 
       // render the modal
-      this.view('.tmp', new Utils.Views.Modal({
+      var modal = this.view('.tmp', new Utils.Views.Modal({
         title: 'Upload Attachment',
         action: 'Upload'
-      })).render();
+      }));
+      
+      // render the modal
+      modal.render();
+
+      // bind the modal close event
+      modal.bind('close', function () {
+        modal.remove();
+      });
+
+      // bind the modal confirm event
+      modal.bind('confirm', function () {
+        alert('Uploaded something!');
+        modal.remove();
+      });
     }
 
   });
