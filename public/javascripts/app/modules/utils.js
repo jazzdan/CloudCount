@@ -46,12 +46,36 @@ function(cc, Backbone) {
     // view template
     template: 'utils/modal',
 
-    // serialized object data
+    // view events
+    events: {
+      'click [data-action]': 'action'
+    },
+
+    action: function (e) {
+
+      // halt the event
+      e.preventDefault();
+      e.stopPropagation();
+
+      // get the action
+      var action = $(e.target).data('action');
+
+      // fire an action event
+      this.trigger(action);
+
+    },
+
+    // serialize function
     serialize: function () {
-      var that = this; // this/that so we can get at the view
+
+      // this/that
+      var that = this;
+
+      // return serialized object
       return {
         title: that.options.title || 'Modal',
-        action: that.options.action || 'Ok'
+        action: that.options.action || 'Ok',
+        close: that.options.close || 'Close'
       };
     }
 

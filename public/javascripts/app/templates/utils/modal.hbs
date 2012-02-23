@@ -2,7 +2,7 @@
 
   <!-- modal header -->
   <div class="modal-header">
-    <a class="close" data-dismiss="modal" href="#">&times;</a>
+    <a class="close" data-action="close" href="#">&times;</a>
     <h3>{{title}}</h3>
   </div>
       
@@ -11,8 +11,8 @@
 
   <!-- modal footer -->
   <div class="modal-footer">
-    <a href="dashboard.html" class="btn">Cancel</a>
-    <a href="#" class="btn btn-primary">{{action}}</a>
+    <a href="dashboard.html" data-action="close" class="btn">{{close}}</a>
+    <a href="#" data-action="confirm" class="btn btn-primary">{{action}}</a>
   </div>
 
 </div>
