@@ -17,6 +17,7 @@ server.pid
 nbproject #incase we use netbeans
 modules/*
 lib/*
+*.log
 ## NOTE: No .class files are created in play so we wont have to worry aobut that... hopefully
 
 # JackRabbit
