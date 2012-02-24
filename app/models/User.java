@@ -6,12 +6,14 @@ import play.modules.morphia.Model;
 import play.modules.morphia.Model.AutoTimestamp;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
 
 import java.util.*;
 
 @AutoTimestamp
 @Entity
 public class User extends Model {
+  @Id long id;
 
   @Required
   public String username;
@@ -54,7 +56,8 @@ public class User extends Model {
   }
 
   public String toString() {
-    return last_name + ", " + first_name + ": " + email;
+    // return last_name + ", " + first_name + ": " + email;
+    return String.valueOf(this.id);
   }
 
   public static boolean removeUser(String username) {

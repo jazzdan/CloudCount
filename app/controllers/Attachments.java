@@ -1,9 +1,10 @@
-/*package controllers;
+package controllers;
 
 import play.*;
 import play.mvc.*;
 
 import java.util.*;
+import java.io.File;
 
 import org.jcrom.JcrFile;
 import org.jcrom.JcrMappingException;
@@ -12,19 +13,19 @@ import play.modules.cream.JCR;
 import play.modules.cream.ocm.JcrMapper;
 import play.modules.cream.ocm.JcrQueryResult;
 import play.modules.cream.ocm.JcrVersionMapper;
+import play.libs.MimeTypes;
 
 import models.User;
 import models.Node;
 import models.Attachment;
 
-@with(Secure.class)
+@With(Secure.class)
 public class Attachments extends Controller {
-  public static void create(String label, String description, File file) {
 
-    Node n = new Node(label, description);
-    Attachment a = new Attachment(label, description, Secure.connectedUser(), 
-    if(file != null){
-      addFileToNode(file);
-    }
+  public static void create(String label, String description, long budgetId, File attachment){
+    long userId = Long.parseLong(Security.connected());
+    Attachment a = new Attachment(label, description, userId, budgetId, attachment);
+    a.save();
   }
-}*/
+
+}
