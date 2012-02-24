@@ -65,6 +65,20 @@ function(cc, Backbone) {
 
     },
 
+    // render the modal
+    render: function(manage) {
+
+      var view = manage(this);
+
+      // insert the content into the modal
+      this.content = new this.options.content;
+      view.insert(".modal-body", this.content);
+
+      // render the modal
+      return view.render();
+
+    },
+
     // serialize function
     serialize: function () {
 
