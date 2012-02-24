@@ -12,16 +12,26 @@ function($, _, Backbone) {
 
   // Customize the LayoutManager
   Backbone.LayoutManager.configure({
+
+    /**
+     * template & layout paths
+     */
     paths: {
       layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
       template: "http://" + document.location.host + "/public/javascripts/app/templates/"
     },
 
+    /**
+     * Fetch (for retrieving templates)
+     */
     fetch: function(path) {
+
+      // automatically append .hbs extension
       path = path + ".hbs";
 
+      // setup and async method
       var done = this.async();
-      
+
       var JST = window.JST = window.JST || {};
 
       // Should be an instant synchronous way of getting the template, if it
@@ -32,13 +42,19 @@ function($, _, Backbone) {
 
       // Fetch it asynchronously if not available from JST
       $.get(path, function(contents) {
+
+        // compile the returned template with Handlebars
         var tmpl = Handlebars.compile(contents);
 
+        // store the template for future use
         JST[path] = tmpl;
+
+        // callback the async method
         done(tmpl);
       });
     },
 
+    // render the template
     render: function(template, context) {
       return template(context);
     }
