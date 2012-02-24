@@ -20,7 +20,7 @@ public class AttachmentTest extends UnitTest {
 
   @Test
   public void testStoreAttachment() {
-    File f = new File("/Users/dan/cloudcount/vc/CloudCount/test/test.txt");
+    File f = new File(play.Play.applicationPath + "/test/test.txt");
     Attachment a = new Attachment("derp/derp", "test attachment", 0, 0, f);
     a.save();
     assertNotNull(a.getNode());
