@@ -53,10 +53,11 @@ function(cc, Backbone, Budget) {
 
   // Budget List
   Budgets.Views.Index = Backbone.LayoutManager.View.extend({
+
+    // view template
     template: 'budgets/list',
 
-    tagName: 'div',
-    
+    // render function
     render: function(layout) {
       var view = layout(this);
 
@@ -67,12 +68,6 @@ function(cc, Backbone, Budget) {
       });
 
       return view.render(this.collection);
-    },
-
-    initialize: function () {
-      this.collection.bind("reset", function() {
-        this.render();
-      }, this);
     }
     
   });

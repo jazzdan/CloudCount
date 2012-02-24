@@ -89,8 +89,6 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         // fetch some data
         app.budgets = new Budgets.Collection();
         app.budgets.fetch();
-        
-        BUDGETS_COL = app.budgets;
 
         // Set all the views
         main.setViews({
