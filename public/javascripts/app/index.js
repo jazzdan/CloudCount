@@ -113,13 +113,25 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         // fetch the collection if it isn't there
         if(!app.budgets) app.budgets = new Budgets.Collection();
 
-        // find the appropriate budget
-        budget = app.budgets.get(id);
+        // refresh the budgets collection
+        app.budgets.fetch({
 
-        // Set all the views
-        main.setViews({
-          '.controlbar': new Utils.Views.BudgetBar(),
-          ".canvas": new Budget.Views.Index()
+          // on success render the views
+          success: function (collection, response) {
+
+            // fetch the budget we need
+            var budget = app.budgets.get(id);
+
+            // Set all the views
+            main.setViews({
+              '.controlbar': new Utils.Views.BudgetBar(),
+              ".canvas": new Budget.Views.Index({
+                model: budget
+              })
+            });
+
+          }
+
         });
 
         // Render to the page

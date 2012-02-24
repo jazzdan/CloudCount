@@ -135,6 +135,10 @@ function(cc, Backbone, Attachments) {
       '.section.attachments': new Attachments.Views.Index(),
       '.section.notes': new Budget.Views.Notes(),
       '.section.audit': new Budget.Views.Audit()
+    },
+
+    serialize: function () {
+      return this.model.toJSON();
     }
 
   });
