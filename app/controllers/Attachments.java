@@ -28,4 +28,11 @@ public class Attachments extends Controller {
     a.save();
   }
 
+  public static void show(long attachmentId){
+    Attachment a = Attachment.findById(attachmentId);
+    JcrFile j = a.getFile();
+    response.setContentTypeIfNotSet(j.getMimeType());
+    renderBinary(j.getDataProvider().getInputStream());
+  }
+
 }
