@@ -90,18 +90,28 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
 
         // fetch some data
         app.budgets = new Budgets.Collection();
-        app.budgets.fetch();
 
-        // Set all the views
-        main.setViews({
-          ".controlbar": new Utils.Views.RefreshBar(),
-          ".canvas": new Budgets.Views.Index({ collection: app.budgets })
+        // update budgets
+        app.budgets.fetch({
+
+          // on success render the views
+          success: function (collection, response) {
+
+            // Set all the views
+            main.setViews({
+              ".controlbar": new Utils.Views.RefreshBar(),
+              ".canvas": new Budgets.Views.Index({ collection: app.budgets })
+            });
+
+            // Render to the page
+            main.render(function(el) {
+              $("#main").html(el);
+            });
+
+          }
+
         });
 
-        // Render to the page
-        main.render(function(el) {
-          $("#main").html(el);
-        });
       },
 
       // ROUTE: budget
@@ -130,13 +140,13 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
               })
             });
 
+            // Render to the page
+            main.render(function(el) {
+              $("#main").html(el);
+            });
+
           }
 
-        });
-
-        // Render to the page
-        main.render(function(el) {
-          $("#main").html(el);
         });
 
       }
