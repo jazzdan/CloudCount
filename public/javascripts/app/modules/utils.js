@@ -49,7 +49,7 @@ function(cc, Backbone) {
     // view events
     events: {
       'click [data-action]': 'action',
-      'keyup .modal': 'keyup'
+      'keyup': 'keyup'
     },
 
     // button actions
