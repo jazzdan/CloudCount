@@ -10,13 +10,19 @@ import play.modules.morphia.Model.AutoTimestamp;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Reference;
 
-// @JcrNode(mixinTypes = { "mix:created", "mix:lastModified", "mix:referenceable" })
+//Jackrabbit stuff
+import org.jcrom.JcrFile;
+import org.jcrom.JcrMappingException;
+
+import java.io.File;
+import play.libs.MimeTypes;
+
 @AutoTimestamp
 @Entity
 public class Attachment extends Model {
 
   private long budgetId;
-  private long nodeId;
+  public String nodeId;
   private long userId;
 
   // @Required
@@ -28,6 +34,8 @@ public class Attachment extends Model {
   @Required
   public String description;
 
+  public File attachment;
+
   // @Required
   // @Reference
   // public User uploaded_by;
@@ -36,16 +44,26 @@ public class Attachment extends Model {
   // @Reference
   // public Budget budget;
 
-  // @Required
-  // public Node node;
+  @Required
+  public Node node;
 
-  public Attachment(String label, String descrption/*, User uploaded_by, Budget budget, Node node*/) {
+  public Attachment(String label, String description, long userId, long budgetId, File attachment) {
     this.label = label;
     this.description = description;
-    /*this.uploaded_by = uploaded_by;
-    this.budget = budget;
-    this.node = node;*/
+    this.userId = userId;
+    this.budgetId = budgetId;
+    this.attachment = attachment;
+    //TODO: Create a node with the attachment in it and store that node id
+    this.nodeId = createNode(attachment);
   }
+
+  // public Attachment(String label, String descrption[>, User uploaded_by, Budget budget, Node node<]) {
+    // this.label = label;
+    // this.description = description;
+    // this.uploaded_by = uploaded_by;
+    // this.budget = budget;
+    // this.node = node;*/
+  // }
 
   public Budget getBudget() {
     return Budget.findById(budgetId);
@@ -64,8 +82,24 @@ public class Attachment extends Model {
     this.budgetId = budgetId;
   }
 
+  public void setUser(long userId) {
+    this.userId = userId;
+  }
+
   public void setNode(long budgetId) {
     this.budgetId = budgetId;
+  }
+
+  public JcrFile getFile() {
+    Node n = getNode();
+    return n.file;
+  }
+
+  public String createNode(File attachment) {
+    Node n = new Node(this.label, this.description);
+    n.file = JcrFile.fromFile(this.label, attachment,MimeTypes.getContentType(attachment.getName()));
+    n.save();
+    return n.getId();
   }
 
 
