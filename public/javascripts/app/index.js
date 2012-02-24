@@ -78,11 +78,13 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         return this.currentLayout;
       },
 
+      // routes definition
       routes: {
         "": "index",
         "budget/:id": "budget"
       },
 
+      // ROUTE: index
       index: function() {
         var main = this.useLayout("main");
 
@@ -102,11 +104,16 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         });
       },
 
+      // ROUTE: budget
       budget: function(id) {
+
+        // set the layout
         var main = this.useLayout("main");
 
+        // fetch the collection if it isn't there
         if(!app.budgets) app.budgets = new Budgets.Collection();
 
+        // find the appropriate budget
         budget = app.budgets.get(id);
 
         // Set all the views

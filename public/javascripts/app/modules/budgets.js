@@ -19,39 +19,58 @@ function(cc, Backbone, Budget) {
   // Create a new module
   var Budgets = cc.module();
 
+  /**
+   * Budget Modal (from Budget module)
+   */
   Budgets.Model = Budget.Model;
 
+  /**
+   * Budgets Collection
+   */
   Budgets.Collection = Backbone.Collection.extend({
 
+    // set the collection's model
     model: Budgets.Model,
 
+    // set the collection URL
     url: function () {
       return '/budgets';
     }
 
   });
 
+  /**
+   * Budget Row
+   */
   Budgets.Views.Row = Backbone.LayoutManager.View.extend({
+
+    // view template
     template: 'budgets/row',
 
+    // wrapper tag
     tagName: 'tr',
-    
+
+    // events
     events: {
-      'click .delete': 'delete'
+      'click .delete': 'delete_budget'
     },
 
-    delete: function (e) {
+    // delete budget event
+    delete_budget: function (e) {
       e.preventDefault();
       alert('delete');
     },
-    
+
+    // serialize data for rendering
     serialize: function() {
       return this.model.toJSON();
     },
 
   });
 
-  // Budget List
+  /**
+   * Budgets Index
+   */
   Budgets.Views.Index = Backbone.LayoutManager.View.extend({
 
     // view template
@@ -61,12 +80,14 @@ function(cc, Backbone, Budget) {
     render: function(layout) {
       var view = layout(this);
 
+      // render the budgets
       this.collection.each(function(budget) {
         view.insert("tbody.budgets", new Budgets.Views.Row({
           model: budget
         }));
       });
 
+      // render the view
       return view.render(this.collection);
     }
     
