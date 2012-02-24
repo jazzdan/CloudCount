@@ -5,7 +5,7 @@ define([
   "use!backbone",
   
   // Modules
-  "modules/budget",
+  "modules/budget/index",
 
   // Plugins
   "use!layoutmanager"
@@ -52,7 +52,7 @@ function(cc, Backbone, Budget) {
   });
 
   // Budget List
-  Budgets.Views.List = Backbone.LayoutManager.View.extend({
+  Budgets.Views.Index = Backbone.LayoutManager.View.extend({
     template: 'budgets/list',
 
     tagName: 'div',

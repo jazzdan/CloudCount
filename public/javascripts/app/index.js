@@ -47,7 +47,7 @@ require([
   // Modules
   "modules/utils",
   "modules/budgets",
-  "modules/budget"
+  "modules/budget/index"
 ],
 
 function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
@@ -95,7 +95,7 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         // Set all the views
         main.setViews({
           ".controlbar": new Utils.Views.RefreshBar(),
-          ".canvas": new Budgets.Views.List({ collection: app.budgets })
+          ".canvas": new Budgets.Views.Index({ collection: app.budgets })
         });
 
         // Render to the page
@@ -114,7 +114,7 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         // Set all the views
         main.setViews({
           '.controlbar': new Utils.Views.BudgetBar(),
-          ".canvas": new Budget.Views.BudgetMain()
+          ".canvas": new Budget.Views.Index()
         });
 
         // Render to the page

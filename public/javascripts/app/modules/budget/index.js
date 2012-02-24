@@ -5,13 +5,13 @@ define([
   "use!backbone",
 
   // modules
-  "modules/utils",
+  "modules/budget/attachments",
 
   // Plugins
   "use!layoutmanager"
 ],
 
-function(cc, Backbone, Utils) {
+function(cc, Backbone, Attachments) {
 
   // Shorthand the app
   var app = cc.app;
@@ -98,61 +98,6 @@ function(cc, Backbone, Utils) {
   });
 
   /**
-   * New Attachment Form
-   *    form and logic for uploading attachments
-   */
-  Budget.Views.AttachmentsForm = Backbone.LayoutManager.View.extend({
-
-    template: 'budget/attachments/form'
-
-  });
-
-  /**
-   * Attachments
-   *    List of downloadable attachments
-   */
-  Budget.Views.Attachments = Backbone.LayoutManager.View.extend({
-
-    // view template
-    template: 'budget/attachments/index',
-
-    // view events
-    events: {
-      'click .upload': 'upload'
-    },
-
-    // upload event
-    upload: function (e) {
-
-      // halt default link actions
-      e.preventDefault();
-      e.stopPropagation();
-
-      // render the modal
-      var modal = this.view('.tmp', new Utils.Views.Modal({
-        title: 'Upload Attachment',
-        action: 'Upload',
-        content: Budget.Views.AttachmentsForm
-      }));
-      
-      // render the modal
-      modal.render();
-
-      // bind the modal close event
-      modal.bind('close', function () {
-        modal.remove();
-      });
-
-      // bind the modal confirm event
-      modal.bind('confirm', function () {
-        alert('Uploaded something!');
-        modal.remove();
-      });
-    }
-
-  });
-
-  /**
    * Notes
    *    List of user notes
    */
@@ -178,16 +123,16 @@ function(cc, Backbone, Utils) {
    * Container
    *    encompasses Audits, Nots, Attachments, Description & Budget
    */
-  Budget.Views.BudgetMain = Backbone.LayoutManager.View.extend({
+  Budget.Views.Index = Backbone.LayoutManager.View.extend({
 
     // view template
-    template: 'budget/main',
+    template: 'budget/index',
 
     // nested views
     views: {
       '.nav': new Budget.Views.Nav(),
       '.section.description': new Budget.Views.Description(),
-      '.section.attachments': new Budget.Views.Attachments(),
+      '.section.attachments': new Attachments.Views.Index(),
       '.section.notes': new Budget.Views.Notes(),
       '.section.audit': new Budget.Views.Audit()
     }
