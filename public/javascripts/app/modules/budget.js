@@ -98,13 +98,23 @@ function(cc, Backbone, Utils) {
   });
 
   /**
+   * New Attachment Form
+   *    form and logic for uploading attachments
+   */
+  Budget.Views.AttachmentsForm = Backbone.LayoutManager.View.extend({
+
+    template: 'budget/attachments/form'
+
+  });
+
+  /**
    * Attachments
    *    List of downloadable attachments
    */
   Budget.Views.Attachments = Backbone.LayoutManager.View.extend({
 
     // view template
-    template: 'budget/attachments',
+    template: 'budget/attachments/index',
 
     // view events
     events: {
@@ -121,7 +131,8 @@ function(cc, Backbone, Utils) {
       // render the modal
       var modal = this.view('.tmp', new Utils.Views.Modal({
         title: 'Upload Attachment',
-        action: 'Upload'
+        action: 'Upload',
+        content: Budget.Views.AttachmentsForm
       }));
       
       // render the modal
