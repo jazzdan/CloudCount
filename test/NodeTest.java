@@ -30,7 +30,7 @@ public class NodeTest extends UnitTest {
   @Test
   public void testAttachFile() {
     Node n = new Node("derp", "test node");
-    File f = new File("/Users/dan/cloudcount/vc/CloudCount/test/test.txt");
+    File f = new File("test/test.txt");
     n.file = JcrFile.fromFile("test", f, MimeTypes.getContentType(f.getName()));
 
     n.save();

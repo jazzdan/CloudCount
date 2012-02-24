@@ -39,40 +39,6 @@ function(cc, Backbone, Attachments) {
     // view template
     template: 'budget/nav',
 
-    // view events
-    events: {
-      'click .section-nav': 'section_nav'
-    },
-
-    // navigation event
-    section_nav: function (e) {
-
-      // STOP the event!
-      e.preventDefault();
-      e.stopPropagation();
-
-      // some variables
-      var tar = $(e.target),
-          name = tar.data('section'),
-          section = $('.' + name);
-
-      if(!section.hasClass('active')){
-
-        // hide the old one
-        $('.active').removeClass('active');
-
-        //show the new one
-        section.addClass('active');
-
-        // update the label
-        $('.section-label').html((function(){
-          return name.charAt(0).toUpperCase() + name.slice(1);
-        })());
-
-      }
-
-    }
-
   });
 
   /**
@@ -96,6 +62,12 @@ function(cc, Backbone, Attachments) {
     template: 'budget/description',
 
   });
+
+  /**
+   * Attachments (alias)
+   *    List of downloadable attachments
+   */
+  Budget.Views.Attachments = Attachments.Views.Index;
 
   /**
    * Notes
@@ -131,12 +103,50 @@ function(cc, Backbone, Attachments) {
     // nested views
     views: {
       '.nav': new Budget.Views.Nav(),
-      '.section.description': new Budget.Views.Description(),
-      '.section.attachments': new Attachments.Views.Index(),
-      '.section.notes': new Budget.Views.Notes(),
-      '.section.audit': new Budget.Views.Audit()
+      '.section.budget': new Budget.Views.Budget()
     },
 
+    // view events
+    events: {
+      'click .section-nav': 'section_nav'
+    },
+
+    // navigation event
+    section_nav: function (e) {
+
+      // STOP the event!
+      e.preventDefault();
+      e.stopPropagation();
+
+      // some variables
+      var tar = $(e.target),
+          name = tar.data('section'),
+          section_class = '.' + name,
+          section = $(section_class),
+          proper_name = name.charAt(0).toUpperCase() + name.slice(1);
+
+      // target isnt already active, activate it
+      if(!section.hasClass('active')){
+
+        // if the section view isnt already rendered, render it
+        if (!this.views['.section.' + section_class]) {
+          var view = this.view('.section.' + section_class, new Budget.Views[proper_name]()).render();
+        }
+
+        // hide the old one
+        $('.active').removeClass('active');
+
+        //show the new one
+        section.addClass('active');
+
+        // update the label
+        $('.section-label').html(proper_name);
+
+      }
+
+    },
+
+    
     serialize: function () {
       return this.model.toJSON();
     }
