@@ -20,12 +20,50 @@ function(cc, Backbone, Utils) {
   var Attachments = cc.module();
 
   /**
+   * Attachment Model
+   */
+  Attachments.Model = Backbone.Model.extend({
+
+    // set the id to a mongo style _id
+    idAttribute: '_id'
+
+  });
+
+  /**
+   * Attachments Collection
+   */
+  Attachments.Collection = Backbone.Collection.extend({
+
+    model: Attachments.Model,
+
+    initialize: function (options) {
+      this.budget_id = options.budget_id;
+    },
+
+    url: function () {
+      return '/budgets/' + this.budget_id + '/attachments';
+    }
+
+  });
+
+  /**
    * New Attachment Form
    *    form and logic for uploading attachments
    */
   Attachments.Views.Form = Backbone.LayoutManager.View.extend({
 
     template: 'budget/attachments/form'
+
+  });
+
+  /**
+   * Attachment Row
+   */
+  Attachments.Views.Row = Backbone.LayoutManager.View.extend({
+
+    template: 'budget/attachments/row',
+
+    tagName: '<tr>'
 
   });
 
@@ -56,7 +94,7 @@ function(cc, Backbone, Utils) {
         action: 'Upload',
         content: Attachments.Views.Form
       }));
-      
+
       // render the modal
       modal.render();
 
@@ -70,6 +108,34 @@ function(cc, Backbone, Utils) {
         alert('Uploaded something!');
         modal.remove();
       });
+    },
+
+    initialize: function (options) {
+      var that = this;
+      this.collection = new Attachments.Collection({ budget_id: that.options.budget_id });
+
+      this.collection.fetch({
+
+        success: function (collection, response) {
+          that.render();
+        }
+
+      });
+    },
+
+    // render function
+    render: function(layout) {
+      var view = layout(this);
+
+      // render the budgets
+      this.collection.each(function(attachment) {
+        view.insert("tbody.attachments", new Attachments.Views.Row({
+          model: attachment
+        }));
+      });
+
+      // render the view
+      return view.render(this.collection);
     }
 
   });

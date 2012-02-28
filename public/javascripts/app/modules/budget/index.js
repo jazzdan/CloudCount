@@ -130,7 +130,10 @@ function(cc, Backbone, Attachments) {
 
         // if the section view isnt already rendered, render it
         if (!this.views['.section.' + section_class]) {
-          var view = this.view('.section.' + section_class, new Budget.Views[proper_name]()).render();
+          var that = this;
+          var view = this.view('.section.' + section_class, new Budget.Views[proper_name]({
+            budget_id: that.model.get('_id')
+          })).render();
         }
 
         // hide the old one
