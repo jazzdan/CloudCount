@@ -22,6 +22,11 @@ import models.Attachment;
 @With(Secure.class)
 public class Attachments extends Controller {
 
+  public static void index(Long budget_id) {
+    List<Attachment> attachments = Attachment.findAll();
+    renderJSON(attachments);
+  }
+
   public static void create(String label, String description, long budgetId, File attachment){
     long userId = Long.parseLong(Security.connected());
     Attachment a = new Attachment(label, description, userId, budgetId, attachment);

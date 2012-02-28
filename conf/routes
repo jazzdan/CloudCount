@@ -9,6 +9,9 @@ GET     /                                       Application.index
 # Budgets
 GET     /budgets                                Budgets.index
 
+# Attachments
+GET     /budgets/{budget_id}/attachments        Attachments.index
+
 # Users
 GET     /users                                  Users.index
 
