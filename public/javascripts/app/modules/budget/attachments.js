@@ -8,7 +8,8 @@ define([
   "modules/utils",
 
   // Plugins
-  "use!layoutmanager"
+  "use!layoutmanager",
+  "use!uploadify"
 ],
 
 function(cc, Backbone, Utils) {
@@ -52,7 +53,13 @@ function(cc, Backbone, Utils) {
    */
   Attachments.Views.Form = Backbone.LayoutManager.View.extend({
 
-    template: 'budget/attachments/form'
+    template: 'budget/attachments/form',
+
+    render: function (manage) {
+      return manage(this).render().then(function (el) {
+        alert($(el));
+      });
+    }
 
   });
 
