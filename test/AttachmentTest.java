@@ -34,8 +34,9 @@ public class AttachmentTest extends UnitTest {
 	Attachment a = new Attachment("derp/derp", "test attachment", 0, 0, f);
 	a.save();
 	createnode(f);
+	assertNotNull(a.getNode());
+	assertNotNull(a.getFile());
 	a.delete();
 	
-  
   }
 }
