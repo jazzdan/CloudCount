@@ -30,13 +30,12 @@ public class AttachmentTest extends UnitTest {
   
   @Test
   public void testCreateNode(){
-	File f = new File("test/test.txt");
-	Attachment a = new Attachment("derp/derp", "test attachment", 0, 0, f);
-	a.save();
-	a.createNode(f);
-	assertNotNull(a.getNode());
-	assertNotNull(a.getFile());
-	a.delete();
-	
+    File f = new File("test/test.txt");
+    Attachment a = new Attachment("derp/derp", "test attachment", 0, 0, f);
+    a.save();
+    a.createNode(f);
+    assertNotNull(a.getNode());
+    assertNotNull(a.getFile());
+    a.delete();
   }
 }

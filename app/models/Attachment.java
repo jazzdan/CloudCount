@@ -34,16 +34,6 @@ public class Attachment extends Model {
   @Required
   public String description;
 
-  public File attachment;
-
-  // @Required
-  // @Reference
-  // public User uploaded_by;
-
-  // @Required
-  // @Reference
-  // public Budget budget;
-
   @Required
   public Node node;
 
@@ -52,18 +42,9 @@ public class Attachment extends Model {
     this.description = description;
     this.userId = userId;
     this.budgetId = budgetId;
-    this.attachment = attachment;
     //TODO: Create a node with the attachment in it and store that node id
     this.nodeId = createNode(attachment);
   }
-
-  // public Attachment(String label, String descrption[>, User uploaded_by, Budget budget, Node node<]) {
-    // this.label = label;
-    // this.description = description;
-    // this.uploaded_by = uploaded_by;
-    // this.budget = budget;
-    // this.node = node;*/
-  // }
 
   public Budget getBudget() {
     return Budget.findById(budgetId);

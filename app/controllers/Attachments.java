@@ -23,7 +23,6 @@ import models.Attachment;
 public class Attachments extends Controller {
 
   public static void index(Long budget_id) {
-    // List<Attachment> attachments = Attachment.findBy("budgetId", budget_id);
     List<Attachment> attachments = Attachment.q().filter("budgetId", budget_id).asList();
     renderJSON(attachments);
   }
