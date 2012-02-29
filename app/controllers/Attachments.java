@@ -23,7 +23,8 @@ import models.Attachment;
 public class Attachments extends Controller {
 
   public static void index(Long budget_id) {
-    List<Attachment> attachments = Attachment.findAll();
+    // List<Attachment> attachments = Attachment.findBy("budgetId", budget_id);
+    List<Attachment> attachments = Attachment.q().filter("budgetId", budget_id).asList();
     renderJSON(attachments);
   }
 
@@ -33,7 +34,7 @@ public class Attachments extends Controller {
     a.save();
   }
 
-  public static void show(long attachmentId){
+  public static void showFile(long attachmentId){
     Attachment a = Attachment.findById(attachmentId);
     JcrFile j = a.getFile();
     response.setContentTypeIfNotSet(j.getMimeType());
