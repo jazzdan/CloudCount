@@ -33,7 +33,7 @@ public class Attachments extends Controller {
     a.save();
   }
 
-  public static void show(long attachmentId){
+  public static void showFile(long attachmentId){
     Attachment a = Attachment.findById(attachmentId);
     JcrFile j = a.getFile();
     response.setContentTypeIfNotSet(j.getMimeType());
