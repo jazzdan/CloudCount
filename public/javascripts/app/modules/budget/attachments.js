@@ -70,7 +70,11 @@ function(cc, Backbone, Utils) {
 
     template: 'budget/attachments/row',
 
-    tagName: '<tr>'
+    tagName: 'tr',
+
+    serialize: function () {
+      return this.model.toJSON();
+    }
 
   });
 
