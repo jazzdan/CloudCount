@@ -33,7 +33,7 @@ public class AttachmentTest extends UnitTest {
 	File f = new File("test/test.txt");
 	Attachment a = new Attachment("derp/derp", "test attachment", 0, 0, f);
 	a.save();
-	createnode(f);
+	a.createNode(f);
 	assertNotNull(a.getNode());
 	assertNotNull(a.getFile());
 	a.delete();
