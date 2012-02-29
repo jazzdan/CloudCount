@@ -31,7 +31,7 @@ function(cc, Backbone) {
   /**
    * Budget Control Bar
    */
-  Utils.Views.BudgetBar = Backbone.LayoutManager.View.extend({
+  Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
 
     // view template
     template: "utils/controlbar-budget",

@@ -14,7 +14,8 @@ require.config({
     // Plugins
     use: "../plugins/use",
     layoutmanager: "../plugins/backbone.layoutmanager",
-    bootstrap: "../plugins/bootstrap"
+    bootstrap: "../plugins/bootstrap",
+    uploadify: "../plugins/jquery.uploadify"
   },
 
   use: {
@@ -29,6 +30,10 @@ require.config({
     
     layoutmanager: {
       deps: ["use!backbone", "handlebars"]
+    },
+
+    uploadify: {
+      deps: ['jquery']
     },
 
     bootstrap: {
