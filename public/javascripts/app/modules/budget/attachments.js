@@ -28,6 +28,8 @@ function(cc, Backbone, Utils) {
     // set the id to a mongo style _id
     idAttribute: '_id'
 
+    
+
   });
 
   /**
@@ -36,6 +38,10 @@ function(cc, Backbone, Utils) {
   Attachments.Collection = Backbone.Collection.extend({
 
     model: Attachments.Model,
+
+    comparator: function (a, b) {
+      return b.get('_modified') - a.get('_modified');
+    },
 
     initialize: function (options) {
       this.budget_id = options.budget_id;
@@ -67,7 +73,10 @@ function(cc, Backbone, Utils) {
     tagName: 'tr',
 
     serialize: function () {
-      return this.model.toJSON();
+      var data = this.model.toJSON(),
+          date = new Date(data._modified);
+      data['updated'] = date.toLocaleDateString();
+      return data;
     }
 
   });
