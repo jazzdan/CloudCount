@@ -28,6 +28,9 @@ public class Attachment extends Model {
   // public int id;
 
   @Required
+  public String name;
+
+  @Required
   @Match("[A-Za-z0-9_\\-]+")
   //searchText.matches("[A-Za-z0-9_\\-]+")
   public String label;
@@ -36,11 +39,16 @@ public class Attachment extends Model {
   public String description;
 
   @Required
+  public String user;
+
+  @Required
   public Node node;
 
-  public Attachment(String label, String description, long userId, long budgetId, File attachment) {
+  public Attachment(String label, String description, long userId, String user, long budgetId, File attachment) {
+    this.name = attachment.getName();
     this.label = parseLabel(label);
     this.description = description;
+    this.user = user;
     this.userId = userId;
     this.budgetId = budgetId;
     this.nodeId = createNode(attachment);

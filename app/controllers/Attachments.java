@@ -37,8 +37,10 @@ public class Attachments extends Controller {
     User user = User.find("byEmail", Security.connected()).first();
     long uid = user.getNumId();
 
+    String uname = user.first_name + " " + user.last_name;
+System.out.println(uname);
     // make the attachment
-    Attachment a = new Attachment(label, description, uid, budgetId, attachment);
+    Attachment a = new Attachment(label, description, uid, uname, budgetId, attachment);
     a.save();
 
     // render the thank you form
