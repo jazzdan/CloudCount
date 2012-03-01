@@ -41,7 +41,7 @@ function(cc, Backbone, Utils) {
       return b.get('_modified') - a.get('_modified');
     },
 
-    initialize: function (options) {
+    initialize: function (models, options) {
       this.budget_id = options.budget_id;
     },
 
