@@ -55,9 +55,29 @@ function(cc, Backbone, Utils) {
 
     template: 'budget/attachments/form',
 
+    events: {
+      'click .cancel a': 'uploadify_cancel'
+    },
+    
+    uploadify_cancel: function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var tar = $(e.target).closest('a'),
+          script = tar.attr('href').replace('javascript:', '');
+      eval(script)();
+    },
+
     render: function (manage) {
-      return manage(this).render().then(function (el) {
-        alert($(el));
+      var that = this;
+      return manage(that).render();
+    },
+
+    uploadify: function () {
+      $('#file').uploadify({
+        swf: '/public/uploadify/uploadify.swf',
+        script: '/uploadify/butts.php',
+        cancelImage: '/public/uploadify/uploadify-cancel.png',
+        auto: false
       });
     }
 
@@ -107,7 +127,7 @@ function(cc, Backbone, Utils) {
       }));
 
       // render the modal
-      modal.render();
+      modal.render().then(modal.content.uploadify);
 
       // bind the modal close event
       modal.bind('close', function () {

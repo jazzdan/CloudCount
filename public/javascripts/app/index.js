@@ -15,7 +15,7 @@ require.config({
     use: "../plugins/use",
     layoutmanager: "../plugins/backbone.layoutmanager",
     bootstrap: "../plugins/bootstrap",
-    uploadify: "../plugins/jquery.uploadify"
+    uploadify: "../../uploadify/uploadify"
   },
 
   use: {
