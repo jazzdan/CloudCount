@@ -16,6 +16,9 @@ import org.jcrom.JcrMappingException;
 import java.io.File;
 import play.libs.MimeTypes;
 
+/**
+ * The attachment model
+ */
 @AutoTimestamp
 @Entity
 public class Attachment extends Model {
@@ -44,6 +47,16 @@ public class Attachment extends Model {
   @Required
   public Node node;
 
+  /**
+   * Attachment object constructor.
+   *
+   * @param label Jackrabbit label of the attachment
+   * @param description The description of the attachment set by the
+   * user
+   * @param userId The id of the user who uploaded the attachment
+   * @param budgetId The id of the associated budget
+   * @param attachment The binary file of the uploaded attachment
+   */
   public Attachment(String label, String description, long userId, String user, long budgetId, File attachment) {
     this.name = attachment.getName();
     this.label = parseLabel(label);
@@ -54,35 +67,23 @@ public class Attachment extends Model {
     this.nodeId = createNode(attachment);
   }
 
-  public Budget getBudget() {
-    return Budget.findById(budgetId);
-  }
-
-  public Node getNode() {
-    return Node.findById(nodeId);
-  }
-
-  public User getUser() {
-    return User.findById(userId);
-  }
-
-  public void setBudget(long budgetId) {
-    this.budgetId = budgetId;
-  }
-
-  public void setUser(long userId) {
-    this.userId = userId;
-  }
-
-  public void setNode(long budgetId) {
-    this.budgetId = budgetId;
-  }
-
+  /**
+   * Fetch associated file from Jackrabbit
+   *
+   * @return The jackrabbit representation of the file
+   */
   public JcrFile getFile() {
     Node n = getNode();
     return n.file;
   }
 
+  /**
+   * Create a node for the supplied file.
+   *
+   * @param attachment The binary file uploaded the controller
+   *
+   * @return the jackrabbit id of the node the file was uploaded to
+   */
   public String createNode(File attachment) {
     Node n = new Node(this.label, this.description);
     n.file = JcrFile.fromFile(this.label, attachment,MimeTypes.getContentType(attachment.getName()));
@@ -95,6 +96,15 @@ public class Attachment extends Model {
     return label;
   }
 
+  /**
+   * Helper function to sanitize label input. Removes tabs, forms,
+   * carriage returns in new lines. Also ensure that label starts with a
+   * "/"
+   *
+   * @param label The label we are sanitizing.
+   *
+   * @return The sanitized label
+   */
   public String parseLabel(String label) {
     label = label.toLowerCase();
     label = label.replaceAll("\t", " ");
