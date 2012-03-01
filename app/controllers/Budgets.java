@@ -23,4 +23,12 @@ public class Budgets extends Controller {
       renderJSON(budgets);
     }
 
+    /**
+     * Returns JSON for given budget by IdentifierHelper
+     */
+    public static void budget(long id) {
+      Budget budget = Budget.find("by_id", id).first();
+      renderJSON(budget);
+    }
+
 }

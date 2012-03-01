@@ -8,6 +8,7 @@ GET     /                                       Application.index
 
 # Budgets
 GET     /budgets                                Budgets.index
+GET     /budgets/{id}                           Budgets.budget
 
 # Attachments
 GET     /budgets/{budgetId}/attachments                             Attachments.index
