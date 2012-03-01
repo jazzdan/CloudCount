@@ -39,7 +39,7 @@ public class Attachment extends Model {
   public Node node;
 
   public Attachment(String label, String description, long userId, long budgetId, File attachment) {
-    this.label = label;
+    this.label = parseLabel(label);
     this.description = description;
     this.userId = userId;
     this.budgetId = budgetId;
@@ -85,6 +85,17 @@ public class Attachment extends Model {
 
   public String toString() {
     return label;
+  }
+
+  public String parseLabel(String label) {
+    if(label.startsWith("/")){
+      return label;
+    }
+    else {
+      String newLabel = "/" + label;
+      return newLabel;
+    }
+
   }
 
 }
