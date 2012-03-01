@@ -59,14 +59,10 @@ public class Attachments extends Controller {
     User user = User.find("byEmail", Security.connected()).first();
     long uid = user.getNumId();
 
-    // logging
-    System.out.println("label: " + label);
-    System.out.println("description: " + description);
-    System.out.println("bid: " + budgetId);
-    System.out.println("uid: " + uid);
-
+    String uname = user.first_name + " " + user.last_name;
+System.out.println(uname);
     // make the attachment
-    Attachment a = new Attachment(label, description, uid, budgetId, attachment);
+    Attachment a = new Attachment(label, description, uid, uname, budgetId, attachment);
     a.save();
 
     // render the thank you form
@@ -78,7 +74,8 @@ public class Attachments extends Controller {
    *
    * @param attachmentId The id of the requested attachment
    */
-  public static void showFile(long attachmentId){
+
+  public static void show(long attachmentId){
     Attachment a = Attachment.findById(attachmentId);
     JcrFile j = a.getFile();
     response.setContentTypeIfNotSet(j.getMimeType());
@@ -88,12 +85,10 @@ public class Attachments extends Controller {
   /**
    * Deletes the requested attachment associated with the budgetId
    *
-   * @param budgetId budgetId of the associated budget. This is
-   * necessary for constructing the URL in javascript
    * @param attachmentId id of the attachment to be deleted
    */
 
-  public static void delete(long budgetId, long attachmentId) {
+  public static void delete(long attachmentId) {
     Attachment a = Attachment.find("by_id", attachmentId).first();
     a.delete();
   }

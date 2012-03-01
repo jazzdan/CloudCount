@@ -7,6 +7,9 @@ define([
   // modules
   "modules/utils",
 
+  // uploader script
+  "uploader",
+
   // Plugins
   "use!layoutmanager",
   "use!uploadify"
@@ -41,7 +44,7 @@ function(cc, Backbone, Utils) {
       return b.get('_modified') - a.get('_modified');
     },
 
-    initialize: function (options) {
+    initialize: function (models, options) {
       this.budget_id = options.budget_id;
     },
 
@@ -71,7 +74,8 @@ function(cc, Backbone, Utils) {
     tagName: 'tr',
 
     events: {
-      'click .delete': 'delete_att'
+      'click .delete': 'delete_att',
+      'dblclick': 'download'
     },
 
     delete_att: function (e) {
@@ -81,11 +85,20 @@ function(cc, Backbone, Utils) {
         this.model.destroy();
     },
 
+    download: function () {
+      window.open(this.download_url());
+    },
+
     serialize: function () {
       var data = this.model.toJSON(),
           date = new Date(data._modified);
-      data['updated'] = date.toLocaleDateString();
+      data['updated'] = date.toLocaleDateString() + ' (' + date.toLocaleTimeString() +')';
+      data['download'] = this.download_url();
       return data;
+    },
+
+    download_url: function () {
+      return '/attachments/' + this.model.get('_id') + '/show';
     }
 
   });
@@ -134,7 +147,7 @@ function(cc, Backbone, Utils) {
 
       _.bindAll(this, 'render', 'upload');
 
-      this.collection = new Attachments.Collection({ budget_id: that.options.budget_id });
+      this.collection = new Attachments.Collection([], { budget_id: that.options.budget_id });
 
       this.collection.bind('reset', function(col) {
         that.render();
@@ -145,18 +158,21 @@ function(cc, Backbone, Utils) {
       });
 
       this.collection.fetch();
+
     },
 
     // render function
     render: function(layout) {
       var view = layout(this);
 
-      // render the budgets
-      this.collection.each(function(attachment) {
-        view.insert("tbody.attachments", new Attachments.Views.Row({
-          model: attachment
-        }));
-      });
+      if (this.collection.length > 0) {
+        // render the budgets
+        this.collection.each(function(attachment) {
+          view.insert("tbody.attachments", new Attachments.Views.Row({
+            model: attachment
+          }));
+        });
+      }
 
       // render the view
       return view.render();

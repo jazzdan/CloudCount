@@ -49,6 +49,7 @@ body {
 
 .table.cc-table tbody tr:hover {
   background-color: #eee;
+  cursor: pointer;
 }
 
 /* Controls */

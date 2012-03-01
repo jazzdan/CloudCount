@@ -10,9 +10,10 @@ GET     /                                       Application.index
 GET     /budgets                                Budgets.index
 
 # Attachments
-POST    /budgets/{budgetId}/attachments/create                      Attachments.create
-GET     /budgets/{budgetId}/attachments/form                        Attachments.form
 GET     /budgets/{budgetId}/attachments                             Attachments.index
+GET     /budgets/{budgetId}/attachments/form                        Attachments.form
+GET     /attachments/{attachmentId}/show                            Attachments.show
+POST    /budgets/{budgetId}/attachments/create                      Attachments.create
 DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.delete
 
 # Users
