@@ -53,16 +53,22 @@ public class Attachments extends Controller {
    * @param description The descripton of this particular attachment
    * @param attachment A binary file uploaded by the user
    */
-  public static void create(long budgetId, String label, String description, File attachment){
+  public static void create(long budgetId, String label, String description, File qqfile){
 
     // find the user
     User user = User.find("byEmail", Security.connected()).first();
     long uid = user.getNumId();
 
     String uname = user.first_name + " " + user.last_name;
-System.out.println(uname);
+
+    System.out.println(uname);
+    System.out.println(budgetId);
+    System.out.println(label);
+    System.out.println(description);
+    System.out.println(params.get("qqfile"));
+
     // make the attachment
-    Attachment a = new Attachment(label, description, uid, uname, budgetId, attachment);
+    Attachment a = new Attachment(label, description, uid, uname, budgetId, qqfile);
     a.save();
 
     // render the thank you form

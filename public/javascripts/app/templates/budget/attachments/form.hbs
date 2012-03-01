@@ -1,6 +1,64 @@
-<iframe
-  width="100%"
-  height="250px"
-  frameborder="0"
-  scrolling="no"
-  src="http://localhost:9000/budgets/1/attachments/form"></iframe>
+<form class="form-horizontal" _lpchecked="1">
+
+  <fieldset class="info section active">
+
+    <!-- label -->
+    <div class="control-group">
+      <label class="control-label" for="label">Label</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge field" id="label">
+        <p class="help-block">A one-word label for categorizing attachments.</p>
+      </div>
+    </div>
+
+    <!-- name -->
+    <div class="control-group">
+      <label class="control-label" for="description">Description</label>
+      <div class="controls">
+        <textarea class="input-xlarge field" id="description"></textarea>
+        <p class="help-block">What exactly is this attachment?</p>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="file section">
+
+    <!-- name -->
+    <div class="control-group">
+      <label class="control-label" for="file">Attachment</label>
+      <div class="controls">
+        <div id="file"></div>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="loading section">
+
+    <p style="width:300px;margin:0 auto;display:block;">Uploading file...</p>
+    <div style="width:300px;margin:0 auto;" class="progress progress-primary progress-striped active">
+
+      <div id="progress" class="bar" style="width: 100%;"></div>
+
+    </div>
+
+  </fieldset>
+
+  <fieldset class="done section">
+
+    <div class="alert alert-success">
+      <h3>File uploaded successfully!</h3>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="fail section">
+
+    <div class="alert alert-danger">
+      An error occured and the file could not be uploaded.
+    </div>
+
+  </fieldset>
+
+</form>

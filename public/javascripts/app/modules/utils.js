@@ -72,12 +72,20 @@ function(cc, Backbone) {
       var view = manage(this);
 
       // insert the content into the modal
-      this.content = new this.options.content;
+      this.content = new this.options.content({ parent: this });
       view.insert(".modal-body", this.content);
 
       // render the modal
       return view.render();
 
+    },
+
+    show: function (type) {
+      $('#' + type).show();
+    },
+
+    hide: function (type) {
+      $('#' + type).hide();
     },
 
     // serialize function
