@@ -323,7 +323,8 @@ qq.FileUploaderBasic.prototype = {
         var handler = new qq[handlerClass]({
             debug: this._options.debug,
             action: this._options.action,         
-            maxConnections: this._options.maxConnections,   
+            encoding: this._options.encoding,
+            maxConnections: this._options.maxConnections,
             onProgress: function(id, fileName, loaded, total){                
                 self._onProgress(id, fileName, loaded, total);
                 self._options.onProgress(id, fileName, loaded, total);                    
@@ -1200,8 +1201,15 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         xhr.open("POST", queryString, true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
-        xhr.setRequestHeader("Content-Type", "application/octet-stream");
-        xhr.send(file);
+        if (this._options.encoding == 'multipart' && typeof FormData !== 'undefined') {
+            var formData = new FormData();
+            alert(file);
+            formData.append('qqfile', file);
+            xhr.send(formData);
+        } else {
+            xhr.setRequestHeader("Content-Type", "application/octet-stream");
+            xhr.send(file);
+        }
     },
     _onComplete: function(id, xhr){
         // the request was aborted/cancelled

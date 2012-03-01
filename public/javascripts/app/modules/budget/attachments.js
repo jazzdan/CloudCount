@@ -62,6 +62,95 @@ function(cc, Backbone, Utils) {
 
     template: 'budget/attachments/form',
 
+    events: {
+      'keyup .info .field': 'validate',
+      'focus .info .field': 'validate',
+      'blur  .info .field': 'validate'
+    },
+
+    validate: function (e) {
+      var tar = $(e.target),
+          ctn = tar.closest('.control-group');
+
+      switch(tar.attr('id')) {
+        case 'label':
+          var re = new RegExp('^[A-Za-z0-9_\/-]+$');
+          break;
+        case 'description':
+          var re = new RegExp('^.+$');
+          break;
+      }
+      valid = re.test(tar.val());
+      this.valid[tar.attr('id')] = valid;
+      if(valid)
+        ctn.removeClass('error');
+      else
+        ctn.addClass('error');
+
+      this.check_valid();
+    },
+
+    check_valid: function () {
+      if(this.valid.label && this.valid.description)
+        this.parent.show('confirm');
+      else
+        this.parent.hide('confirm');
+    },
+
+    initialize: function (opts) {
+      FORM = this; 
+      var that = this;
+      this.parent = opts.parent;
+      this.valid = {
+        'label': false,
+        'description': false
+      }
+      var position = 0;
+      this.parent.bind('confirm', function(){
+        if(position == 0)
+          that.next();
+        else
+          that.upload();
+      });
+    },
+
+    next: function () {
+      this.uploader();
+      $('.info').hide();
+      $('.file').show();
+      this.uploader.setParams({
+        'label': $('#label').val(),
+        'description': $('#description').val()
+      });
+      this.parent.hide('confirm');
+    },
+
+    uploader: function () {
+      var that = this;
+      this.uploader = new qq.FileUploader({
+        element: $('#file')[0],
+        action: that.upload_url(),
+        debug: true,
+        encoding: 'multipart',
+        onSubmit: function () {
+          $('.file').hide();
+          $('.loading').show();
+        },
+        onProgress: function(id, fileName, loaded, total){
+          var percent = (loaded / total) * 100;
+          $('#progress').css('width:' + percent + '%;');
+        },
+        onComplete: function(id, fileName, responseJSON){
+          $('.loading').hide();
+          $('.done').show();
+        }
+      });
+    },
+
+    upload_url: function () {
+      return '/budgets/' + this.budget_id + '/attachments/create';
+    },
+
   });
 
   /**
@@ -128,12 +217,14 @@ function(cc, Backbone, Utils) {
       // render the modal
       var modal = this.view('.tmp', new Utils.Views.Modal({
         title: 'Upload Attachment',
-        action: 'Upload',
+        action: 'Next',
         content: Attachments.Views.Form
       }));
 
       // render the modal
       modal.render();
+
+      modal.content.budget_id = this.collection.budget_id;
 
       modal.bind('close', function () {
         delete that.views['.tmp'];
