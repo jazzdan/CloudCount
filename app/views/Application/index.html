@@ -1,5 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Cloud Count' /}
 
+<!-- user data -->
+<script type="text/javascript">
+  var USER = {
+    id: ${user.id},
+    email: "${user.email}"
+  }
+</script>
+
 <!-- load the app -->
 <script data-main="/public/javascripts/app/index" src="@{'/public/javascripts/libs/require.js'}" type="text/javascript" charset="${_response_encoding}"></script>

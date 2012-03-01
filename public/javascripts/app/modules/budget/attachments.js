@@ -68,7 +68,9 @@ function(cc, Backbone, Utils) {
     },
 
     upload: function () {
-      //alert(JSON.stringify(this.package()));
+      alert(JSON.stringify(this.package()));
+      this.uploader.uploadifySettings('scriptData', JSON.stringify(this.package()));
+      this.uploader.uploadifySettings('script', this.url());
       this.uploader.uploadifyUpload();
     },
 
@@ -81,6 +83,10 @@ function(cc, Backbone, Utils) {
       return manage(that).render();
     },
 
+    url: function () {
+      return '/budgets/' + this.budget_id + '/attachments/create';
+    },
+
     uploadify: function () {
 
       var that = this,
@@ -89,21 +95,17 @@ function(cc, Backbone, Utils) {
       uploader.uploadify({
         uploader: '/public/uploadify/uploadify.swf',
         expressInstall: '/public/uploadify/expressInstall.swf',
-        script: '/uploadify/butts.php',
         cancelImg: '/public/images/uploadify-cancel.png',
         auto: false,
         uploaderType: 'html5',
         buttonText: 'Select File',
-        postData: function() { return that.package(); },
         debug: true,
-        checkExisting: false
+        checkExisting: false,
+        // events
+        onError: that.error
       });
 
       that.uploader = uploader;
-
-      that.uploader.bind('onUploadComplete', that.complete);
-
-      that.uploader.bind('onUploadError', that.error);
 
     },
 
@@ -111,15 +113,16 @@ function(cc, Backbone, Utils) {
       return;
     },
 
-    error: function () {
-      alert('shit');
+    error: function (event,ID,fileObj,errorObj) {
+      console.log('ERROR: [' + errorObj.type + '] ' + errorObj.info);
     },
 
     package: function () {
       return {
         'label': $('#label').val(),
         'description': $('#description').val(),
-        'budgetId': 1
+        'budgetId': 1,
+        'userID': USER.id
       }
     }
 
@@ -170,6 +173,8 @@ function(cc, Backbone, Utils) {
 
       // render the modal
       modal.render().then(modal.content.uploadify);
+
+      modal.content.budget_id = this.collection.budget_id;
 
       // bind the modal close event
       modal.bind('close', function () {

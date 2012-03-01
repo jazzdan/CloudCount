@@ -11,7 +11,8 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-        render();
+        User user = User.find("byEmail", Security.connected()).first();
+        render(user);
     }
 
 }

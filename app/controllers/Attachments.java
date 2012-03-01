@@ -22,15 +22,30 @@ import models.Attachment;
 @With(Secure.class)
 public class Attachments extends Controller {
 
-  public static void index(Long budget_id) {
-    List<Attachment> attachments = Attachment.q().filter("budgetId", budget_id).asList();
+  public static void index(long budgetId) {
+    List<Attachment> attachments = Attachment.q().filter("budgetId", budgetId).asList();
     renderJSON(attachments);
   }
 
-  public static void create(String label, String description, long budgetId, File attachment){
-    long userId = Long.parseLong(Security.connected());
-    Attachment a = new Attachment(label, description, userId, budgetId, attachment);
+  public static void form(long budgetId) {
+    render(budgetId);
+  }
+
+  public static void create(long budgetId, String label, String description, File attachment){
+
+    User user = User.find("byEmail", Security.connected()).first();
+    long uid = user.getNumId();
+
+    // logging
+    System.out.println("label: " + label);
+    System.out.println("description: " + description);
+    System.out.println("bid: " + budgetId);
+    System.out.println("uid: " + uid);
+
+    Attachment a = new Attachment(label, description, uid, budgetId, attachment);
     a.save();
+
+    render(label);
   }
 
   public static void showFile(long attachmentId){

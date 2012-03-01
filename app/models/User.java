@@ -13,7 +13,11 @@ import java.util.*;
 @AutoTimestamp
 @Entity
 public class User extends Model {
+  
   @Id long id;
+  public long getNumId() {
+    return id;
+  }
 
   @Required
   public String username;
