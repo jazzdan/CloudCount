@@ -34,7 +34,7 @@ public class Attachment extends Model {
   public String name;
 
   @Required
-  @Match("^[A-Za-z0-9_\/-]+$")
+  @Match("^[A-Za-z0-9_/-]+$")
   //searchText.matches("[A-Za-z0-9_\\-]+")
   public String label;
 
