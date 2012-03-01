@@ -10,6 +10,7 @@ require.config({
     underscore: "../libs/underscore",
     backbone: "../libs/backbone",
     handlebars: "../libs/handlebars",
+    uploader: "../libs/uploader",
 
     // Plugins
     use: "../plugins/use",
@@ -29,6 +30,10 @@ require.config({
     
     layoutmanager: {
       deps: ["use!backbone", "handlebars"]
+    },
+
+    uploader: {
+      deps: ["jquery"]
     },
 
     bootstrap: {
