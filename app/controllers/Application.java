@@ -7,6 +7,8 @@ import java.util.*;
 
 import models.*;
 
+import java.io.File;
+
 @With(Secure.class)
 public class Application extends Controller {
 

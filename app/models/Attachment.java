@@ -42,13 +42,11 @@ public class Attachment extends Model {
     this.description = description;
     this.userId = userId;
     this.budgetId = budgetId;
-    //TODO: Create a node with the attachment in it and store that node id
     this.nodeId = createNode(attachment);
   }
 
   public Budget getBudget() {
     return Budget.findById(budgetId);
-    // return null == budget ? null : Budget.findById(budget); //TODO: Figure out why this isn't working
   }
 
   public Node getNode() {
