@@ -134,7 +134,7 @@ function(cc, Backbone, Utils) {
 
       _.bindAll(this, 'render', 'upload');
 
-      this.collection = new Attachments.Collection({ budget_id: that.options.budget_id });
+      this.collection = new Attachments.Collection([], { budget_id: that.options.budget_id });
 
       this.collection.bind('reset', function(col) {
         that.render();
@@ -145,18 +145,21 @@ function(cc, Backbone, Utils) {
       });
 
       this.collection.fetch();
+
     },
 
     // render function
     render: function(layout) {
       var view = layout(this);
 
-      // render the budgets
-      this.collection.each(function(attachment) {
-        view.insert("tbody.attachments", new Attachments.Views.Row({
-          model: attachment
-        }));
-      });
+      if (this.collection.length > 0) {
+        // render the budgets
+        this.collection.each(function(attachment) {
+          view.insert("tbody.attachments", new Attachments.Views.Row({
+            model: attachment
+          }));
+        });
+      }
 
       // render the view
       return view.render();
