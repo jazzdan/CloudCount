@@ -58,7 +58,7 @@ function(cc, Backbone, Utils) {
     events: {
       'click .cancel a': 'uploadify_cancel'
     },
-    
+
     uploadify_cancel: function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -67,20 +67,60 @@ function(cc, Backbone, Utils) {
       eval(script)();
     },
 
+    upload: function () {
+      //alert(JSON.stringify(this.package()));
+      this.uploader.uploadifyUpload();
+    },
+
+    initialize: function () {
+      _.bindAll(this, 'render', 'uploadify');
+    },
+
     render: function (manage) {
       var that = this;
       return manage(that).render();
     },
 
     uploadify: function () {
-      $('#file').uploadify({
-        swf: '/public/uploadify/uploadify.swf',
+
+      var that = this,
+          uploader = $('#file');
+
+      uploader.uploadify({
+        uploader: '/public/uploadify/uploadify.swf',
+        expressInstall: '/public/uploadify/expressInstall.swf',
         script: '/uploadify/butts.php',
-        cancelImage: '/public/uploadify/uploadify-cancel.png',
+        cancelImg: '/public/images/uploadify-cancel.png',
         auto: false,
         uploaderType: 'html5',
-        buttonText: 'Select File'
+        buttonText: 'Select File',
+        postData: function() { return that.package(); },
+        debug: true,
+        checkExisting: false
       });
+
+      that.uploader = uploader;
+
+      that.uploader.bind('onUploadComplete', that.complete);
+
+      that.uploader.bind('onUploadError', that.error);
+
+    },
+
+    complete: function () {
+      return;
+    },
+
+    error: function () {
+      alert('shit');
+    },
+
+    package: function () {
+      return {
+        'label': $('#label').val(),
+        'description': $('#description').val(),
+        'budgetId': 1
+      }
     }
 
   });
@@ -138,8 +178,7 @@ function(cc, Backbone, Utils) {
 
       // bind the modal confirm event
       modal.bind('confirm', function () {
-        alert('Uploaded something!');
-        modal.remove();
+        modal.content.upload();
       });
     },
 
