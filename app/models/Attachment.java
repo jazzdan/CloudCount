@@ -1,8 +1,7 @@
 package models;
 
 //Default play stuff 
-import play.data.validation.Email;
-import play.data.validation.Required;
+import play.data.validation.*;
 
 //Morphia stuff
 import play.modules.morphia.Model;
@@ -29,6 +28,8 @@ public class Attachment extends Model {
   // public int id;
 
   @Required
+  @Match("[A-Za-z0-9_\\-]+")
+  //searchText.matches("[A-Za-z0-9_\\-]+")
   public String label;
 
   @Required
