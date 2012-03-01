@@ -12,7 +12,7 @@ GET     /budgets                                Budgets.index
 # Attachments
 GET     /budgets/{budgetId}/attachments                             Attachments.index
 GET     /budgets/{budgetId}/attachments/form                        Attachments.form
-GET     /attachments/{attachmentId}/show                            Attachments.showFile
+GET     /attachments/{attachmentId}/show                            Attachments.show
 POST    /budgets/{budgetId}/attachments/create                      Attachments.create
 DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.delete
 

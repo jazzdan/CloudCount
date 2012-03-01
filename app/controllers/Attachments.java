@@ -37,12 +37,6 @@ public class Attachments extends Controller {
     User user = User.find("byEmail", Security.connected()).first();
     long uid = user.getNumId();
 
-    // logging
-    System.out.println("label: " + label);
-    System.out.println("description: " + description);
-    System.out.println("bid: " + budgetId);
-    System.out.println("uid: " + uid);
-
     // make the attachment
     Attachment a = new Attachment(label, description, uid, budgetId, attachment);
     a.save();
@@ -51,7 +45,7 @@ public class Attachments extends Controller {
     render(label);
   }
 
-  public static void showFile(long attachmentId){
+  public static void show(long attachmentId){
     Attachment a = Attachment.findById(attachmentId);
     JcrFile j = a.getFile();
     response.setContentTypeIfNotSet(j.getMimeType());
