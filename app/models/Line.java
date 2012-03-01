@@ -8,10 +8,6 @@ import play.modules.morphia.Model.AutoTimestamp;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Reference;
 
-
-/**
- * The line class
- */
 @AutoTimestamp
 @Entity
 public class Line extends Model {
@@ -27,7 +23,7 @@ public class Line extends Model {
   public User user;
 
   @Required
-  public int lineNumber;
+  public int line_number;
 
   @Required
   public String name;
@@ -40,17 +36,7 @@ public class Line extends Model {
   @Required
   public int order;
 
-  /**
-   * Creates a line object.
-   *
-   * @param budget The budget associated with this line
-   * @param user The user who created/edited this line
-   * @param lineNumber The line number associated with this line.
-   * @param subtotal The subtotal of this line.
-   * @param parentLineId The id of the parent line, if any.
-   * @param order The order that the line is supposed to be rendered.
-   */
-  public Line(Budget budget, User user, int lineNumber, String name, double subtotal, int parentLineId, int order) {
+  public Line(Budget budget, User user, int line_number, String name, double subtotal, int parent_line_id, int order) {
     // this.id = id;
     this.budget = budget;
     this.user = user;
