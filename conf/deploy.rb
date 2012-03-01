@@ -18,10 +18,10 @@ set :application, "CloudCount"	# the name of the play application in general
 set :repository,  "ssh://git@github.com:jazzdan/CloudCount.git"	# for ex: ssh://xxx@github.com/git/xxx/yyy.git
 
 set :scm, :git 				# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :deploy_to, "deployed"	# the directory where capistrano will setup it's env and clone your VCS and deploy current version etc...
+set :deploy_to, "~/deployed"	# the directory where capistrano will setup it's env and clone your VCS and deploy current version etc...
 					# read this for more info about Capistrano deploy https://github.com/mpasternacki/capistrano-documentation-support-files/raw/master/default-execution-path/Capistrano%20Execution%20Path.jpg
 set :play_path, "play"		# this is the path in which play/play.bat can be found
-
+set :use_sudo, false 
 #################################################
 # You can let it like that
 set :shared_path, "#{deploy_to}/shared"
@@ -30,7 +30,7 @@ set :app_path, "#{deploy_to}/current"
 
 #################################################
 # MANDATORY SERVER CONFIG TO SET 
-set :domain, "colbyr"
+set :domain, "colbyr.com"
 set :user, "deploy"
 
 role :web, domain                          # Your HTTP server, Apache/etc
