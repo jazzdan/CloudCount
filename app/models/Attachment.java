@@ -90,6 +90,9 @@ public class Attachment extends Model {
   public String parseLabel(String label) {
     label = label.toLowerCase();
     label = label.replaceAll("\t", " ");
+    label = label.replaceAll("\f", "");
+    label = label.replaceAll("\r", "");
+    label = label.replaceAll("\n", "");
     if(label.startsWith("/")){
       return label;
     }
