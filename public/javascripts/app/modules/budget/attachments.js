@@ -55,77 +55,6 @@ function(cc, Backbone, Utils) {
 
     template: 'budget/attachments/form',
 
-    events: {
-      'click .cancel a': 'uploadify_cancel'
-    },
-
-    uploadify_cancel: function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var tar = $(e.target).closest('a'),
-          script = tar.attr('href').replace('javascript:', '');
-      eval(script)();
-    },
-
-    upload: function () {
-      alert(JSON.stringify(this.package()));
-      this.uploader.uploadifySettings('scriptData', JSON.stringify(this.package()));
-      this.uploader.uploadifySettings('script', this.url());
-      this.uploader.uploadifyUpload();
-    },
-
-    initialize: function () {
-      _.bindAll(this, 'render', 'uploadify');
-    },
-
-    render: function (manage) {
-      var that = this;
-      return manage(that).render();
-    },
-
-    url: function () {
-      return '/budgets/' + this.budget_id + '/attachments/create';
-    },
-
-    uploadify: function () {
-
-      var that = this,
-          uploader = $('#file');
-
-      uploader.uploadify({
-        uploader: '/public/uploadify/uploadify.swf',
-        expressInstall: '/public/uploadify/expressInstall.swf',
-        cancelImg: '/public/images/uploadify-cancel.png',
-        auto: false,
-        uploaderType: 'html5',
-        buttonText: 'Select File',
-        debug: true,
-        checkExisting: false,
-        // events
-        onError: that.error
-      });
-
-      that.uploader = uploader;
-
-    },
-
-    complete: function () {
-      return;
-    },
-
-    error: function (event,ID,fileObj,errorObj) {
-      console.log('ERROR: [' + errorObj.type + '] ' + errorObj.info);
-    },
-
-    package: function () {
-      return {
-        'label': $('#label').val(),
-        'description': $('#description').val(),
-        'budgetId': 1,
-        'userID': USER.id
-      }
-    }
-
   });
 
   /**
@@ -172,7 +101,7 @@ function(cc, Backbone, Utils) {
       }));
 
       // render the modal
-      modal.render().then(modal.content.uploadify);
+      modal.render();
 
       modal.content.budget_id = this.collection.budget_id;
 
@@ -183,7 +112,7 @@ function(cc, Backbone, Utils) {
 
       // bind the modal confirm event
       modal.bind('confirm', function () {
-        modal.content.upload();
+        modal.remove();
       });
     },
 

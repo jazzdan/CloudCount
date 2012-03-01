@@ -10,13 +10,11 @@ require.config({
     underscore: "../libs/underscore",
     backbone: "../libs/backbone",
     handlebars: "../libs/handlebars",
-    swfobject: "../libs/swfobject",
 
     // Plugins
     use: "../plugins/use",
     layoutmanager: "../plugins/backbone.layoutmanager",
-    bootstrap: "../plugins/bootstrap",
-    uploadify: "../plugins/uploadify",
+    bootstrap: "../plugins/bootstrap"
   },
 
   use: {
@@ -31,10 +29,6 @@ require.config({
     
     layoutmanager: {
       deps: ["use!backbone", "handlebars"]
-    },
-
-    uploadify: {
-      deps: ['jquery', 'swfobject']
     },
 
     bootstrap: {
