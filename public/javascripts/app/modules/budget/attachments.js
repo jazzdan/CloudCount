@@ -7,6 +7,9 @@ define([
   // modules
   "modules/utils",
 
+  // uploader script
+  "uploader",
+
   // Plugins
   "use!layoutmanager",
   "use!uploadify"
@@ -71,7 +74,8 @@ function(cc, Backbone, Utils) {
     tagName: 'tr',
 
     events: {
-      'click .delete': 'delete_att'
+      'click .delete': 'delete_att',
+      'dblclick td': 'download'
     },
 
     delete_att: function (e) {
@@ -81,11 +85,20 @@ function(cc, Backbone, Utils) {
         this.model.destroy();
     },
 
+    download: function () {
+      window.open(this.download_url());
+    },
+
     serialize: function () {
       var data = this.model.toJSON(),
           date = new Date(data._modified);
       data['updated'] = date.toLocaleDateString();
+      data['download'] = this.download_url();
       return data;
+    },
+
+    download_url: function () {
+      return '/attachments/' + this.model.get('_id') + '/show';
     }
 
   });
