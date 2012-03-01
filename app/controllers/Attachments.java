@@ -51,7 +51,7 @@ public class Attachments extends Controller {
    * with
    * @param label The desired label of the jackrabbit node
    * @param description The descripton of this particular attachment
-   * @param attachment A binary file uploaded by the user
+   * @param qqFile A binary file uploaded by the user
    */
   public static void create(long budgetId, String label, String description, File qqfile){
 
