@@ -487,7 +487,7 @@ qq.FileUploader = function(o){
                 
         template: '<div class="qq-uploader">' + 
                 '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
-                '<div class="qq-upload-button">Upload a file</div>' +
+                '<div class="btn btn-info qq-upload-button">Upload a file</div>' +
                 '<ul class="qq-upload-list"></ul>' + 
              '</div>',
 
@@ -1130,10 +1130,11 @@ qq.UploadHandlerXhr.isSupported = function(){
     var input = document.createElement('input');
     input.type = 'file';        
     
-    return (
+    /*return (
         'multiple' in input &&
         typeof File != "undefined" &&
-        typeof (new XMLHttpRequest()).upload != "undefined" );       
+        typeof (new XMLHttpRequest()).upload != "undefined" ); */
+    return false;
 };
 
 // @inherits qq.UploadHandlerAbstract

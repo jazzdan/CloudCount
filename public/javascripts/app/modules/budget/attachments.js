@@ -136,10 +136,6 @@ function(cc, Backbone, Utils) {
           $('.file').hide();
           $('.loading').show();
         },
-        onProgress: function(id, fileName, loaded, total){
-          var percent = (loaded / total) * 100;
-          $('#progress').css('width:' + percent + '%;');
-        },
         onComplete: function(id, fileName, responseJSON){
           $('.loading').hide();
           $('.done').show();
