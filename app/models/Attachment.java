@@ -77,6 +77,12 @@ public class Attachment extends Model {
     return n.file;
   }
 
+  public Node getNode() {
+	
+    return Node.findById(nodeId);
+	
+  }
+
   /**
    * Create a node for the supplied file.
    *
