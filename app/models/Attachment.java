@@ -88,6 +88,7 @@ public class Attachment extends Model {
   }
 
   public String parseLabel(String label) {
+    label = label.toLowerCase();
     if(label.startsWith("/")){
       return label;
     }
