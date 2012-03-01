@@ -58,7 +58,7 @@ public class Attachments extends Controller {
     renderBinary(j.getDataProvider().getInputStream());
   }
 
-  public static void delete(long budgetId, long attachmentId) {
+  public static void delete(long attachmentId) {
     Attachment a = Attachment.find("by_id", attachmentId).first();
     a.delete();
   }
