@@ -26,9 +26,7 @@ function(cc, Backbone, Utils) {
   Attachments.Model = Backbone.Model.extend({
 
     // set the id to a mongo style _id
-    idAttribute: '_id'
-
-    
+    idAttribute: '_id', 
 
   });
 
@@ -71,6 +69,17 @@ function(cc, Backbone, Utils) {
     template: 'budget/attachments/row',
 
     tagName: 'tr',
+
+    events: {
+      'click .delete': 'delete_att'
+    },
+
+    delete_att: function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if(confirm("Are you sure you want to delete this attachment?"))
+        this.model.destroy();
+    },
 
     serialize: function () {
       var data = this.model.toJSON(),
@@ -128,6 +137,10 @@ function(cc, Backbone, Utils) {
       this.collection = new Attachments.Collection({ budget_id: that.options.budget_id });
 
       this.collection.bind('reset', function(col) {
+        that.render();
+      });
+
+      this.collection.bind('remove', function(col) {
         that.render();
       });
 
