@@ -88,6 +88,7 @@ function(cc, Backbone, Utils) {
 
     // upload event
     upload: function (e) {
+      var that = this;
 
       // halt default link actions
       e.preventDefault();
@@ -103,30 +104,25 @@ function(cc, Backbone, Utils) {
       // render the modal
       modal.render();
 
-      modal.content.budget_id = this.collection.budget_id;
-
-      // bind the modal close event
       modal.bind('close', function () {
-        modal.remove();
+        delete that.views['.tmp'];
+        that.collection.fetch();
       });
 
-      // bind the modal confirm event
-      modal.bind('confirm', function () {
-        modal.remove();
-      });
     },
 
     initialize: function (options) {
       var that = this;
+
+      _.bindAll(this, 'render', 'upload');
+
       this.collection = new Attachments.Collection({ budget_id: that.options.budget_id });
 
-      this.collection.fetch({
-
-        success: function (collection, response) {
-          that.render();
-        }
-
+      this.collection.bind('reset', function(col) {
+        that.render();
       });
+
+      this.collection.fetch();
     },
 
     // render function
@@ -141,7 +137,7 @@ function(cc, Backbone, Utils) {
       });
 
       // render the view
-      return view.render(this.collection);
+      return view.render();
     }
 
   });

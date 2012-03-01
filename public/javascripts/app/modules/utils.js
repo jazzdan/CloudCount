@@ -49,7 +49,6 @@ function(cc, Backbone) {
     // view events
     events: {
       'click [data-action]': 'action',
-      'keyup': 'keyup'
     },
 
     // button actions
@@ -65,20 +64,6 @@ function(cc, Backbone) {
       // fire an action event
       this.trigger(action);
 
-    },
-
-    // keyboard event handlers
-    keyup: function (e) {
-
-      if (e.which === 13) { // return
-
-        this.trigger('confirm');
-
-      } else if (e.which === 27) { // esc
-
-        this.trigger('close');
-
-      }
     },
 
     // render the modal
