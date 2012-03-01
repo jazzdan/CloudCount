@@ -33,6 +33,7 @@ public class Attachments extends Controller {
 
   public static void create(long budgetId, String label, String description, File attachment){
 
+    // find the user
     User user = User.find("byEmail", Security.connected()).first();
     long uid = user.getNumId();
 
@@ -42,9 +43,11 @@ public class Attachments extends Controller {
     System.out.println("bid: " + budgetId);
     System.out.println("uid: " + uid);
 
+    // make the attachment
     Attachment a = new Attachment(label, description, uid, budgetId, attachment);
     a.save();
 
+    // render the thank you form
     render(label);
   }
 
