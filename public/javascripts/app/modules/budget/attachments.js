@@ -77,7 +77,9 @@ function(cc, Backbone, Utils) {
         swf: '/public/uploadify/uploadify.swf',
         script: '/uploadify/butts.php',
         cancelImage: '/public/uploadify/uploadify-cancel.png',
-        auto: false
+        auto: false,
+        uploaderType: 'html5',
+        buttonText: 'Select File'
       });
     }
 
