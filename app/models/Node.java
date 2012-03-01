@@ -10,6 +10,9 @@ import org.jcrom.annotations.JcrFileNode;
 import play.data.validation.Required;
 import play.modules.cream.Model;
 
+/**
+ * The jackrabbit node class.
+ */
 @JcrNode(mixinTypes = { "mix:created", "mix:lastModified", "mix:versionable" })
 public class Node extends Model {
 
@@ -26,6 +29,12 @@ public class Node extends Model {
     // @JcrReference
     // public Attachment attachment;
 
+    /**
+     * The node constructor.
+     *
+     * @param label The label to be given to the jackrabbit node.
+     * @param description The description of the file that was uploaded.
+     */
     public Node(String label, String description) {
       this.label = label;
       this.description = description;

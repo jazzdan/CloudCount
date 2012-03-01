@@ -10,6 +10,9 @@ import com.google.code.morphia.annotations.Id;
 
 import java.util.*;
 
+/**
+ * The user class.
+ */
 @AutoTimestamp
 @Entity
 public class User extends Model {
@@ -46,7 +49,16 @@ public class User extends Model {
     this.password = "herpderp";
     this.admin = false;
   }
-
+  
+  /**
+   * The user constructor
+   *
+   * @param username Username of the user
+   * @param last_name Last name of the user
+   * @param first_name First name of the user
+   * @param email Email of the user
+   * @param admin True if user is admin, false otherwise.
+   */
   public User(String username, String last_name, String first_name, String email, boolean admin) {
     this.username = username;
     this.last_name = last_name;
@@ -55,15 +67,29 @@ public class User extends Model {
     this.admin = admin;
   }
 
+  /**
+   * Finds a user by email and returns the user for secure class.
+   *
+   * @param email Email of the user
+   * @param password Password of the user TODO: Encrypt/salt
+   *
+   * @return User that is to be authenticated
+   */
   public static User connect(String email, String password) {
     return find("byEmailAndPassword", email, password).first();
   }
 
   public String toString() {
-    // return last_name + ", " + first_name + ": " + email;
     return String.valueOf(this.id);
   }
 
+  /**
+   * Removes a user from MongoDB
+   *
+   * @param username Username of the user to be removed/deleted
+   *
+   * @return Returns true if success, false otherwise
+   */
   public static boolean removeUser(String username) {
     User user = User.find("username", username).first();
     try {
