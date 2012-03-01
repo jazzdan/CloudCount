@@ -75,7 +75,7 @@ function(cc, Backbone, Utils) {
 
     events: {
       'click .delete': 'delete_att',
-      'dblclick td': 'download'
+      'dblclick': 'download'
     },
 
     delete_att: function (e) {
@@ -92,7 +92,7 @@ function(cc, Backbone, Utils) {
     serialize: function () {
       var data = this.model.toJSON(),
           date = new Date(data._modified);
-      data['updated'] = date.toLocaleDateString();
+      data['updated'] = date.toLocaleDateString() + ' (' + date.toLocaleTimeString() +')';
       data['download'] = this.download_url();
       return data;
     },
