@@ -27,11 +27,6 @@ function(cc, Backbone) {
     // wrapper tag
     tagName: "div",
 
-    /* Cleanup */
-    cleanup: function () {
-      this.unbind();
-    }
-
   });
 
   /**
@@ -41,11 +36,6 @@ function(cc, Backbone) {
 
     // view template
     template: "utils/controlbar-budget",
-
-    /* Cleanup */
-    cleanup: function () {
-      this.unbind();
-    }
 
   });
 
@@ -112,11 +102,6 @@ function(cc, Backbone) {
         close: that.options.close || 'Close'
       };
     },
-
-    /* Cleanup */
-    cleanup: function () {
-      this.unbind();
-    }
 
   })
 

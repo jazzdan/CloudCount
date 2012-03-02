@@ -147,14 +147,6 @@ function(cc, Backbone, Utils) {
       return '/budgets/' + this.budget_id + '/attachments/create';
     },
 
-    /**
-     * Cleanup
-     */
-    cleanup: function() {
-      this.remove();
-      this.unbind();
-    }
-
   });
 
   /**
@@ -193,14 +185,6 @@ function(cc, Backbone, Utils) {
     download_url: function () {
       return '/attachments/' + this.model.get('_id') + '/show';
     },
-
-    /**
-     * Cleanup
-     */
-    cleanup: function() {
-      this.remove();
-      this.unbind();
-    }
 
   });
 
@@ -283,11 +267,9 @@ function(cc, Backbone, Utils) {
     },
 
     /* Cleanup */
-    cleanup: function () {
-      this.collection.unbind('reset');
-      this.collection.unbind('remove');
-      this.remove();
-      this.unbind();
+    onCleanup: function () {
+      this.collection.unbind('reset', this.render);
+      this.collection.unbind('remove', this.render);
     }
 
   });

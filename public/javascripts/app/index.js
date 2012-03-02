@@ -72,14 +72,13 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
       useLayout: function(name) {
         var currentLayout = this.currentLayout;
 
-        // If there is an existing layout and its the current one, return it.
-        if (currentLayout && currentLayout.options.template == name) {
-          return currentLayout;
-        }
+        if(currentLayout) currentLayout.remove();
 
         // Create the new layout and set it as current.
         this.currentLayout = new Backbone.LayoutManager({
-          template: name
+
+          template: name,
+
         });
 
         return this.currentLayout;
@@ -103,6 +102,8 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
 
           // on success render the views
           success: function (collection, response) {
+
+            main.cleanup();
 
             // Set all the views
             main.setViews({
@@ -128,6 +129,8 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         var main = this.useLayout("main");
 
         var render_views = function (budget) {
+
+          main.cleanup();
 
           // Set all the views
           main.setViews({

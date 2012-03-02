@@ -58,11 +58,21 @@ function($, _, Backbone) {
     render: function(template, context) {
       return template(context);
     }
-  });
 
-  Backbone.View.prototype.cleanup = function () {
-    throw 'Exception: View must have its own cleanup() function';
+  });
+  
+  var cleanup = function(){
+    alert('cleaning up');
+    this.remove();
+    this.unbind();
+    if (this.onCleanup){
+      this.onCleanup();
+    }
   }
+
+  Backbone.View.prototype.cleanup = cleanup;
+  Backbone.LayoutManager.prototype.cleanup = cleanup;
+  Backbone.LayoutManager.View.prototype.cleanup = cleanup;
 
   return {
     // Create a custom object with a nested Views object

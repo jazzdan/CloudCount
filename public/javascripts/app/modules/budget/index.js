@@ -43,12 +43,6 @@ function(cc, Backbone, Attachments) {
     // view template
     template: 'budget/nav',
 
-    /* Cleanup */
-    cleanup: function () {
-      this.remove();
-      this.unbind();
-    }
-
   });
 
   /**
@@ -59,12 +53,6 @@ function(cc, Backbone, Attachments) {
 
     // view template
     template: 'budget/budget',
-
-    /* Cleanup */
-    cleanup: function () {
-      this.remove();
-      this.unbind();
-    }
 
   });
 
@@ -100,12 +88,6 @@ function(cc, Backbone, Attachments) {
     // view template
     template: 'budget/notes',
 
-    /* Cleanup */
-    cleanup: function () {
-      this.remove();
-      this.unbind();
-    }
-
   });
 
   /**
@@ -116,12 +98,6 @@ function(cc, Backbone, Attachments) {
 
     // view template
     template: 'budget/audit',
-
-    /* Cleanup */
-    cleanup: function () {
-      this.remove();
-      this.unbind();
-    }
 
   });
   
@@ -187,12 +163,6 @@ function(cc, Backbone, Attachments) {
     serialize: function () {
       return this.model.toJSON();
     },
-
-    /* Cleanup */
-    cleanup: function () {
-      this.remove();
-      this.unbind();
-    }
 
   });
 
