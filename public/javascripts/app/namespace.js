@@ -60,6 +60,10 @@ function($, _, Backbone) {
     }
   });
 
+  Backbone.View.prototype.cleanup = function () {
+    throw 'Exception: View must have its own cleanup() function';
+  }
+
   return {
     // Create a custom object with a nested Views object
     module: function(additionalProps) {

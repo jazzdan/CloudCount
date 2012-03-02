@@ -137,8 +137,6 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
             })
           });
 
-          _VIEW = main;
-
           // Render to the page
           main.render(function(el) {
             $("#main").html(el);

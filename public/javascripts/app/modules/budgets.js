@@ -66,6 +66,12 @@ function(cc, Backbone, Budget) {
       return this.model.toJSON();
     },
 
+    /* Cleanup */
+    cleanup: function () {
+      this.remove();
+      this.unbind();
+    }
+
   });
 
   /**
@@ -89,8 +95,14 @@ function(cc, Backbone, Budget) {
 
       // render the view
       return view.render(this.collection);
+    },
+
+    /* Cleanup */
+    cleanup: function () {
+      this.remove();
+      this.unbind();
     }
-    
+
   });
 
   // Required, return the module for AMD compliance
