@@ -64,6 +64,8 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
     // Shorthand the application namespace
     var app = cc.app;
 
+    _APP = cc.app;
+
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
       // Super-simple layout swapping and reusing
@@ -125,34 +127,40 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         // set the layout
         var main = this.useLayout("main");
 
+        var render_views = function (budget) {
+
+          // Set all the views
+          main.setViews({
+            '.controlbar': new Utils.Views.BudgetBar(),
+            ".canvas": new Budget.Views.Index({
+              model: budget
+            })
+          });
+
+          _VIEW = main;
+
+          // Render to the page
+          main.render(function(el) {
+            $("#main").html(el);
+          });
+        }
+
         // fetch the collection if it isn't there
         if(!app.budgets) app.budgets = new Budgets.Collection();
 
-        // refresh the budgets collection
-        app.budgets.fetch({
-
-          // on success render the views
-          success: function (collection, response) {
-
-            // fetch the budget we need
-            var budget = app.budgets.get(id);
-
-            // Set all the views
-            main.setViews({
-              '.controlbar': new Utils.Views.BudgetBar(),
-              ".canvas": new Budget.Views.Index({
-                model: budget
-              })
-            });
-
-            // Render to the page
-            main.render(function(el) {
-              $("#main").html(el);
-            });
-
-          }
-
-        });
+        if(app.budgets.length == 0){
+          // fetch the budget from the server
+          var budget = new Budgets.Model({ '_id': id });
+          budget.fetch({
+            success: function (model, resp) {
+              app.budgets.add(model);
+              render_views(model);
+            }
+          })
+        }else{
+          // retrieve the budget from the collection
+          render_views(app.budgets.get(id));
+        }
 
       }
 

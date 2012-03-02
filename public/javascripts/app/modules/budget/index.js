@@ -26,7 +26,11 @@ function(cc, Backbone, Attachments) {
   Budget.Model = Backbone.Model.extend({
 
     // set the id to a mongo style _id
-    idAttribute: '_id'
+    idAttribute: '_id',
+
+    url: function () {
+      return '/budgets/' + this.get('_id');
+    }
 
   });
 
