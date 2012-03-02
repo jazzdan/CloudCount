@@ -5,6 +5,10 @@ body {
   padding-bottom: 40px;
 }
 
+.brand img {
+  vertical-align: top;
+}
+
 /* Control Bar */
 .controlbar {
   top: 40px;
