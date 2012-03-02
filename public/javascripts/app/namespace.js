@@ -62,9 +62,14 @@ function($, _, Backbone) {
   });
   
   var cleanup = function(){
-    alert('cleaning up');
+
+    _.each(this.views, function (view) {
+      if(view.cleanup) view.cleanup();
+    });
+
     this.remove();
     this.unbind();
+
     if (this.onCleanup){
       this.onCleanup();
     }

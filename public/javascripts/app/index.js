@@ -72,7 +72,7 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
       useLayout: function(name) {
         var currentLayout = this.currentLayout;
 
-        if(currentLayout) currentLayout.remove();
+        if(currentLayout) this.currentLayout.cleanup();
 
         // Create the new layout and set it as current.
         this.currentLayout = new Backbone.LayoutManager({
@@ -103,8 +103,6 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
           // on success render the views
           success: function (collection, response) {
 
-            main.cleanup();
-
             // Set all the views
             main.setViews({
               ".controlbar": new Utils.Views.RefreshBar(),
@@ -129,8 +127,6 @@ function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
         var main = this.useLayout("main");
 
         var render_views = function (budget) {
-
-          main.cleanup();
 
           // Set all the views
           main.setViews({
