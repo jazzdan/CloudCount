@@ -1,111 +1,111 @@
+"use strict";
+
 define([
-  "namespace",
+    "namespace",
 
-  // Libs
-  "use!backbone",
+    // Libs
+    "use!backbone",
 
-  // Plugins
-  "use!layoutmanager"
-],
+    // Plugins
+    "use!layoutmanager"
+], function (cc, Backbone) {
 
-function(cc, Backbone) {
+    // Shorthand the app
+    var app = cc.app;
 
-  // Shorthand the app
-  var app = cc.app;
+    // Create a new module
+    var Utils = cc.module();
 
-  // Create a new module
-  var Utils = cc.module();
+    /**
+     * Refresh Control Bar
+     */
+    Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
 
-  /**
-   * Refresh Control Bar
-   */
-  Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
+        // view template
+        template: "utils/controlbar-refresh",
 
-    // view template
-    template: "utils/controlbar-refresh",
+        // wrapper tag
+        tagName: "div",
 
-    // wrapper tag
-    tagName: "div",
+    });
 
-  });
+    /**
+     * Budget Control Bar
+     */
+    Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
 
-  /**
-   * Budget Control Bar
-   */
-  Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
+        // view template
+        template: "utils/controlbar-budget",
 
-    // view template
-    template: "utils/controlbar-budget",
+    });
 
-  });
+    /**
+     * Modal Dialog
+     */
+    Utils.Views.Modal = Backbone.LayoutManager.View.extend({
 
-  /**
-   * Modal Dialog
-   */
-  Utils.Views.Modal = Backbone.LayoutManager.View.extend({
+        // view template
+        template: 'utils/modal',
 
-    // view template
-    template: 'utils/modal',
+        // view events
+        events: {
+            'click [data-action]': 'action',
+        },
 
-    // view events
-    events: {
-      'click [data-action]': 'action',
-    },
+        // button actions
+        action: function (e) {
 
-    // button actions
-    action: function (e) {
+            // halt the event
+            e.preventDefault();
+            e.stopPropagation();
 
-      // halt the event
-      e.preventDefault();
-      e.stopPropagation();
+            // get the action
+            var action = $(e.target).data('action');
 
-      // get the action
-      var action = $(e.target).data('action');
+            // fire an action event
+            this.trigger(action);
 
-      // fire an action event
-      this.trigger(action);
+        },
 
-    },
+        // render the modal
+        render: function (manage) {
 
-    // render the modal
-    render: function(manage) {
+            var view = manage(this);
 
-      var view = manage(this);
+            // insert the content into the modal
+            this.content = new this.options.content({ parent: this });
+            view.insert(".modal-body", this.content);
 
-      // insert the content into the modal
-      this.content = new this.options.content({ parent: this });
-      view.insert(".modal-body", this.content);
+            // render the modal
+            return view.render();
 
-      // render the modal
-      return view.render();
+        },
 
-    },
+        show: function (type) {
+            $('#' + type).show();
+        },
 
-    show: function (type) {
-      $('#' + type).show();
-    },
+        hide: function (type) {
+            $('#' + type).hide();
+        },
 
-    hide: function (type) {
-      $('#' + type).hide();
-    },
+        // serialize function
+        serialize: function () {
 
-    // serialize function
-    serialize: function () {
+            // this/that
+            var that = this;
 
-      // this/that
-      var that = this;
+            // return serialized object
+            return {
+                title: that.options.title || 'Modal',
+                action: that.options.action || 'Ok',
+                close: that.options.close || 'Close'
+            };
+        },
 
-      // return serialized object
-      return {
-        title: that.options.title || 'Modal',
-        action: that.options.action || 'Ok',
-        close: that.options.close || 'Close'
-      };
-    },
+    });
 
-  })
-
-  // Required, return the module for AMD compliance
-  return Utils;
+    // Required, return the module for AMD compliance
+    return Utils;
 
 });
