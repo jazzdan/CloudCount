@@ -1,99 +1,97 @@
+"use strict";
+
 define([
-  "namespace",
+    "namespace",
 
-  // Libs
-  "use!backbone",
-  
-  // Modules
-  "modules/budget/index",
+    // Libs
+    "use!backbone",
 
-  // Plugins
-  "use!layoutmanager"
-],
+    // Modules
+    "modules/budget/index",
 
-function(cc, Backbone, Budget) {
+    // Plugins
+    "use!layoutmanager"
+], function (cc, Backbone, Budget) {
 
-  // Shorthand the app
-  var app = cc.app;
+    // Shorthand the app
+    var app = cc.app,
+        Budgets = cc.module(); // Create a new module
 
-  // Create a new module
-  var Budgets = cc.module();
+    /**
+     * Budget Modal (from Budget module)
+     */
+    Budgets.Model = Budget.Model;
 
-  /**
-   * Budget Modal (from Budget module)
-   */
-  Budgets.Model = Budget.Model;
+    /**
+     * Budgets Collection
+     */
+    Budgets.Collection = Backbone.Collection.extend({
 
-  /**
-   * Budgets Collection
-   */
-  Budgets.Collection = Backbone.Collection.extend({
+        // set the collection's model
+        model: Budgets.Model,
 
-    // set the collection's model
-    model: Budgets.Model,
+        // set the collection URL
+        url: function () {
+            return '/budgets';
+        }
 
-    // set the collection URL
-    url: function () {
-      return '/budgets';
-    }
+    });
 
-  });
+    /**
+     * Budget Row
+     */
+    Budgets.Views.Row = Backbone.LayoutManager.View.extend({
 
-  /**
-   * Budget Row
-   */
-  Budgets.Views.Row = Backbone.LayoutManager.View.extend({
+        // view template
+        template: 'budgets/row',
 
-    // view template
-    template: 'budgets/row',
+        // wrapper tag
+        tagName: 'tr',
 
-    // wrapper tag
-    tagName: 'tr',
+        // events
+        events: {
+            'click .delete': 'delete_budget'
+        },
 
-    // events
-    events: {
-      'click .delete': 'delete_budget'
-    },
+        // delete budget event
+        delete_budget: function (e) {
+            e.preventDefault();
+            alert('delete');
+        },
 
-    // delete budget event
-    delete_budget: function (e) {
-      e.preventDefault();
-      alert('delete');
-    },
+        // serialize data for rendering
+        serialize: function () {
+            return this.model.toJSON();
+        },
 
-    // serialize data for rendering
-    serialize: function() {
-      return this.model.toJSON();
-    },
+    });
 
-  });
+    /**
+     * Budgets Index
+     */
+    Budgets.Views.Index = Backbone.LayoutManager.View.extend({
 
-  /**
-   * Budgets Index
-   */
-  Budgets.Views.Index = Backbone.LayoutManager.View.extend({
+        // view template
+        template: 'budgets/list',
 
-    // view template
-    template: 'budgets/list',
+        // render function
+        render: function (layout) {
+            var view = layout(this);
 
-    // render function
-    render: function(layout) {
-      var view = layout(this);
+            // render the budgets
+            this.collection.each(function (budget) {
+                view.insert("tbody.budgets", new Budgets.Views.Row({
+                    model: budget
+                }));
+            });
 
-      // render the budgets
-      this.collection.each(function(budget) {
-        view.insert("tbody.budgets", new Budgets.Views.Row({
-          model: budget
-        }));
-      });
+            // render the view
+            return view.render(this.collection);
+        },
 
-      // render the view
-      return view.render(this.collection);
-    },
+    });
 
-  });
-
-  // Required, return the module for AMD compliance
-  return Budgets;
+    // Required, return the module for AMD compliance
+    return Budgets;
 
 });
