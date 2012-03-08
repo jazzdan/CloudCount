@@ -1,92 +1,100 @@
+"use strict";
+
 define([
-  // Libs
-  "jquery",
-  "use!underscore",
-  "use!backbone",
+    // Libs
+    "jquery",
+    "use!underscore",
+    "use!backbone",
 
-  // Plugins
-  "use!layoutmanager"
-],
-
-function($, _, Backbone) {
-
-  // Customize the LayoutManager
-  Backbone.LayoutManager.configure({
+    // Plugins
+    "use!layoutmanager"
+], function ($, _, Backbone) {
 
     /**
-     * template & layout paths
+     * View Cleanup Function
      */
-    paths: {
-      layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
-      template: "http://" + document.location.host + "/public/javascripts/app/templates/"
-    },
+    var cleanup = function () {
+
+        _.each(this.views, function (view) {
+            if (view.cleanup) {
+                view.cleanup();
+            }
+        });
+
+        this.remove();
+        this.unbind();
+
+        if (this.onCleanup) {
+            this.onCleanup();
+        }
+
+    };
 
     /**
-     * Fetch (for retrieving templates)
+     * Apply Cleanup Function to appropriate Views
      */
-    fetch: function(path) {
+    Backbone.View.prototype.cleanup = cleanup;
+    Backbone.LayoutManager.prototype.cleanup = cleanup;
+    Backbone.LayoutManager.View.prototype.cleanup = cleanup;
 
-      // automatically append .hbs extension
-      path = path + ".hbs";
+    // Customize the LayoutManager
+    Backbone.LayoutManager.configure({
 
-      // setup and async method
-      var done = this.async();
+        /**
+         * template & layout paths
+         */
+        paths: {
+            layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
+            template: "http://" + document.location.host + "/public/javascripts/app/templates/"
+        },
 
-      var JST = window.JST = window.JST || {};
+        /**
+         * Fetch (for retrieving templates)
+         */
+        fetch: function (path) {
 
-      // Should be an instant synchronous way of getting the template, if it
-      // exists in the JST object.
-      if (JST[path]) {
-        return done(JST[path]);
-      }
+            // setup and async method
+            var done = this.async(),
+                JST = window.JST = window.JST || {};
 
-      // Fetch it asynchronously if not available from JST
-      $.get(path, function(contents) {
+            // automatically append .hbs extension
+            path = path + ".hbs";
 
-        // compile the returned template with Handlebars
-        var tmpl = Handlebars.compile(contents);
+            // Should be an instant synchronous way of getting the template, if it
+            // exists in the JST object.
+            if (JST[path]) {
+                return done(JST[path]);
+            }
 
-        // store the template for future use
-        JST[path] = tmpl;
+            // Fetch it asynchronously if not available from JST
+            $.get(path, function (contents) {
 
-        // callback the async method
-        done(tmpl);
-      });
-    },
+                // compile the returned template with Handlebars
+                var tmpl = Handlebars.compile(contents);
 
-    // render the template
-    render: function(template, context) {
-      return template(context);
-    }
+                // store the template for future use
+                JST[path] = tmpl;
 
-  });
-  
-  var cleanup = function(){
+                // callback the async method
+                done(tmpl);
+            });
+        },
 
-    _.each(this.views, function (view) {
-      if(view.cleanup) view.cleanup();
+        // render the template
+        render: function (template, context) {
+            return template(context);
+        }
+
     });
 
-    this.remove();
-    this.unbind();
+    return {
+        // Create a custom object with a nested Views object
+        module: function (additionalProps) {
+            return _.extend({ Views: {} }, additionalProps);
+        },
 
-    if (this.onCleanup){
-      this.onCleanup();
-    }
-  }
-
-  Backbone.View.prototype.cleanup = cleanup;
-  Backbone.LayoutManager.prototype.cleanup = cleanup;
-  Backbone.LayoutManager.View.prototype.cleanup = cleanup;
-
-  return {
-    // Create a custom object with a nested Views object
-    module: function(additionalProps) {
-      return _.extend({ Views: {} }, additionalProps);
-    },
-
-    // Keep active application instances namespaced under an app object.
-    app: _.extend({}, Backbone.Events)
-  };
+        // Keep active application instances namespaced under an app object.
+        app: _.extend({}, Backbone.Events)
+    };
 
 });
