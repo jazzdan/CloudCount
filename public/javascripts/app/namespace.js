@@ -10,33 +10,6 @@ define([
 
     "use strict";
 
-    /**
-     * View Cleanup Function
-     */
-    var cleanup = function () {
-
-        _.each(this.views, function (view) {
-            if (view.cleanup) {
-                view.cleanup();
-            }
-        });
-
-        this.remove();
-        this.unbind();
-
-        if (this.onCleanup) {
-            this.onCleanup();
-        }
-
-    };
-
-    /**
-     * Apply Cleanup Function to appropriate Views
-     */
-    Backbone.View.prototype.cleanup = cleanup;
-    Backbone.LayoutManager.prototype.cleanup = cleanup;
-    Backbone.LayoutManager.View.prototype.cleanup = cleanup;
-
     // Customize the LayoutManager
     Backbone.LayoutManager.configure({
 

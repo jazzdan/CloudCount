@@ -48,12 +48,13 @@ require([
     // Libs
     "jquery",
     "use!backbone",
+    "use!layoutmanager",
 
     // Modules
     "modules/utils",
     "modules/budgets",
     "modules/budget/index"
-], function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
+], function (cc, jQuery, Backbone, LayoutManager, Utils, Budgets, Budget) {
 
     "use strict";
 
@@ -73,15 +74,15 @@ require([
         Router = Backbone.Router.extend({
             // Super-simple layout swapping and reusing
             useLayout: function (name) {
-                //var currentLayout = this.currentLayout;
-                if (this.currentLayout !== undefined) {
-                    this.currentLayout.cleanup();
-                }
+
                 // Create the new layout and set it as current.
                 this.currentLayout = new Backbone.LayoutManager({
                     template: name,
                 });
+
+                // return the current layout
                 return this.currentLayout;
+
             },
 
             // routes definition
@@ -134,14 +135,11 @@ require([
                 // fetch the collection if it isn't there
                 if (app.budgets === undefined) {
                     app.budgets = (function () {
-                        alert('new');
                         return new Budgets.Collection();
                     }());
                 }
 
                 if (app.budgets.length === 0) {
-
-                    alert('empty!');
 
                     // fetch the budget from the server
                     budget = new Budgets.Model({ '_id': id });
@@ -153,13 +151,11 @@ require([
                         }
 
                     }).then(function () {
-                        alert('then');
                         set_render(budget);
                     });
 
                 } else {
 
-                    alert('old');
                     budget = app.budgets.get(id);
                     budget.fetch().then(set_render(budget));
 
