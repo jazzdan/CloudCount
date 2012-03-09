@@ -102,12 +102,6 @@ define([
         // view template
         template: 'budget/index',
 
-        // nested views
-        views: {
-            '.nav': new Budget.Views.Nav(),
-            '.section.budget': new Budget.Views.Budget()
-        },
-
         // view events
         events: {
             'click .section-nav': 'section_nav'
@@ -149,6 +143,16 @@ define([
                 $('.section-label').html(proper_name);
 
             }
+
+        },
+
+        initialize: function () {
+
+            // set our nested views
+            this.views = {
+                '.nav': new Budget.Views.Nav(),
+                '.section.budget': new Budget.Views.Budget()
+            };
 
         },
 
