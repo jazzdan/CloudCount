@@ -134,9 +134,7 @@ require([
 
                 // fetch the collection if it isn't there
                 if (app.budgets === undefined) {
-                    app.budgets = (function () {
-                        return new Budgets.Collection();
-                    }());
+                    app.budgets = new Budgets.Collection();
                 }
 
                 if (app.budgets.length === 0) {
@@ -144,20 +142,34 @@ require([
                     // fetch the budget from the server
                     budget = new Budgets.Model({ '_id': id });
 
+                    // update the budget
                     budget.fetch({
 
+                        // on success, update the view
                         success: function (model, resp) {
-                            app.budgets.add(budget);
+                            // add the newly retrieved model to the collection
+                            app.budgets.add(model);
+                            // render the views
+                            set_render(model);
                         }
 
-                    }).then(function () {
-                        set_render(budget);
                     });
 
                 } else {
 
+                    // fetch the budget from the collection
                     budget = app.budgets.get(id);
-                    budget.fetch().then(set_render(budget));
+
+                    // update the budget
+                    budget.fetch({
+
+                        // on success, update the view
+                        success: function (model) {
+                            // render the views
+                            set_render(model);
+                        }
+
+                    });
 
                 }
 
