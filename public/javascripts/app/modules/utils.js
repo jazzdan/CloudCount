@@ -1,5 +1,3 @@
-"use strict";
-
 define([
     "namespace",
 
@@ -9,6 +7,8 @@ define([
     // Plugins
     "use!layoutmanager"
 ], function (cc, Backbone) {
+
+    "use strict";
 
     // Shorthand the app
     var app = cc.app;

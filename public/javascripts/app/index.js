@@ -1,5 +1,3 @@
-"use strict";
-
 // Set the require.js configuration for your application.
 require.config({
     paths: {
@@ -56,6 +54,9 @@ require([
     "modules/budgets",
     "modules/budget/index"
 ], function (cc, jQuery, Backbone, Utils, Budgets, Budget) {
+
+    "use strict";
+
     // Treat the jQuery ready function as the entry point to the application.
     // Inside this function, kick-off all initialization, everything up to this
     // point should be definitions.

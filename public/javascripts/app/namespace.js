@@ -1,5 +1,3 @@
-"use strict";
-
 define([
     // Libs
     "jquery",
@@ -9,6 +7,8 @@ define([
     // Plugins
     "use!layoutmanager"
 ], function ($, _, Backbone) {
+
+    "use strict";
 
     /**
      * View Cleanup Function

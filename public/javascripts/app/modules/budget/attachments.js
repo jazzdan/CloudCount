@@ -1,5 +1,3 @@
-"use strict";
-
 define([
     "namespace",
 
@@ -16,6 +14,8 @@ define([
     "use!layoutmanager",
     "use!uploadify"
 ], function (cc, Backbone, Utils) {
+
+    "use strict";
 
     // Shorthand the app
     var app = cc.app,
