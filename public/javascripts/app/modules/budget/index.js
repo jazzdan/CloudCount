@@ -43,6 +43,7 @@ define([
 
         // initialize
         initialize: function (opts) {
+            // set the sections and current section
             this.section = opts.section || 'budget';
             this.sections = this.parse_sections(opts.sections);
         },
@@ -176,6 +177,10 @@ define([
 
         },
 
+        // sections
+        sections: [ 'budget', 'description', 'attachments', 'notes', 'audit' ],
+
+        // initialize
         initialize: function (opts) {
 
             var that = this,
@@ -183,8 +188,8 @@ define([
                 section = $(tab),
                 view = opts.tab.charAt(0).toUpperCase() + opts.tab.slice(1);
 
+            // set the current section
             this.section = tab;
-            this.sections = [ 'budget', 'description', 'attachments', 'notes', 'audit' ];
 
             // set our nested views
             this.views = {};
@@ -201,6 +206,7 @@ define([
             var that = this,
                 data = this.model.toJSON();
 
+            // serialize the sections and current sections
             data['section'] = this.section;
             data['sections'] = this.sections;
 
@@ -212,6 +218,8 @@ define([
     /**
      * Handlebars Helper
      */
+
+    // helper for determining if a section is active
     Handlebars.registerHelper('active', function(section, active){
         var res = '';
 
