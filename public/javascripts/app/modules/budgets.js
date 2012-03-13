@@ -50,7 +50,12 @@ define([
 
         // events
         events: {
-            'click .delete': 'delete_budget'
+            'click .delete': 'delete_budget',
+            'dblclick': 'edit'
+        },
+
+        edit: function () {
+            $('.edit', this.$el).click();
         },
 
         // delete budget event
