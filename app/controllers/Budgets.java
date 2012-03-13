@@ -31,4 +31,12 @@ public class Budgets extends Controller {
       renderJSON(budget);
     }
 
+    /**
+     * Delete Budget
+     */
+    public static void delete(long id) {
+        Budget budget = Budget.find("by_id", id).first();
+        budget.delete();
+    }
+
 }

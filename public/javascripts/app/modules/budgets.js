@@ -50,7 +50,7 @@ define([
 
         // events
         events: {
-            'click .delete': 'delete_budget',
+            'click .delete': 'delete',
             'dblclick': 'edit'
         },
 
@@ -59,9 +59,12 @@ define([
         },
 
         // delete budget event
-        delete_budget: function (e) {
+        delete: function (e) {
             e.preventDefault();
-            alert('delete');
+            e.stopPropagation();
+            if (confirm("Are you sure you want to delete this budget?")) {
+                this.model.destroy();
+            }
         },
 
         // serialize data for rendering
@@ -78,6 +81,17 @@ define([
 
         // view template
         template: 'budgets/list',
+
+
+        // initialize the vew
+        initialize: function () {
+            var that = this;
+
+            // refresh the view if a budget is deleted
+            this.collection.bind('remove', function () {
+                that.render();
+            });
+        },
 
         // render function
         render: function (layout) {
