@@ -204,14 +204,19 @@ define([
     /**
      * Attachments
      *    List of downloadable attachments
+     * 
+     * @extends Utils:List
      */
-    Attachments.Views.Index = Backbone.LayoutManager.View.extend({
+    Attachments.Views.Index = Utils.Views.List.extend({
 
         // view template
         template: 'budget/attachments/index',
 
         // view events
         events: {
+            // inherited events:
+            'click tr': 'select',
+            // events:
             'click .upload': 'upload'
         },
 
