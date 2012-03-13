@@ -17,6 +17,31 @@ define([
     var Utils = cc.module();
 
     /**
+     * List View
+     *      has selectable rows
+     */
+    Utils.Views.List = Backbone.LayoutManager.View.extend({
+
+        // events hash
+        events: {
+            'click tr': 'select'
+        },
+
+        // select event
+        select: function (e) {
+            // find the row from the event target
+            var el = $(e.target).closest('tr');
+
+            // select the row (if it isn't already)
+            if (!el.hasClass('selected')) {
+                $('.selected', this.$el).removeClass('selected');
+                el.addClass('selected');
+            }
+        } 
+
+    });
+
+    /**
      * Refresh Control Bar
      */
     Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({

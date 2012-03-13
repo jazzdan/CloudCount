@@ -6,10 +6,11 @@ define([
 
     // Modules
     "modules/budget/index",
+    "modules/utils",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Budget) {
+], function (cc, Backbone, Budget, Utils) {
 
     "use strict";
 
@@ -77,26 +78,14 @@ define([
     /**
      * Budgets Index
      */
-    Budgets.Views.Index = Backbone.LayoutManager.View.extend({
+    Budgets.Views.Index = Utils.Views.List.extend({
 
         // view template
         template: 'budgets/list',
 
-        // events hash
+        // events hash (explicitly delcare it so we don't forget the inherited events
         events: {
             'click tr': 'select'
-        },
-
-        // select event
-        select: function (e) {
-            // find the row from the event target
-            var el = $(e.target).closest('tr');
-
-            // select the row (if it isn't already)
-            if (!el.hasClass('selected')) {
-                $('.selected', this.$el).removeClass('selected');
-                el.addClass('selected');
-            }
         },
 
         // initialize the vew
