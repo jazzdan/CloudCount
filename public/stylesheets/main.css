@@ -51,6 +51,7 @@ body {
   vertical-align: middle;
 }
 
+tr.selected,
 .table.cc-table tbody tr:hover {
   background-color: #eee;
   cursor: pointer;
@@ -62,6 +63,7 @@ tr td .controls {
   text-align: right;
   min-width: 125px;
 }
+tr.selected .controls,
 tr:hover td .controls {
   visibility: visible;
 }
