@@ -146,21 +146,45 @@ define([
 
         },
 
-        initialize: function () {
+        initialize: function (opts) {
+
+            var tab = (opts.tab || 'budget'),
+                section = $(tab),
+                view = opts.tab.charAt(0).toUpperCase() + opts.tab.slice(1);
 
             // set our nested views
-            this.views = {
-                '.nav': new Budget.Views.Nav(),
-                '.section.budget': new Budget.Views.Budget()
-            };
+            this.views = {};
+            this.views['.nav'] = new Budget.Views.Nav();
+            this.views['.section.' + tab] = new Budget.Views[view]();
+
+            this.section = tab;
 
         },
 
         // serialize for rendering
         serialize: function () {
-            return this.model.toJSON();
+            var that = this,
+                data = this.model.toJSON();
+
+            data['section'] = this.section;
+            data['sections'] = [ 'budget', 'description', 'attachments', 'notes', 'audit' ];
+
+            return data;
         },
 
+    });
+
+    /**
+     * Handlebars Helper
+     */
+    Handlebars.registerHelper('active', function(section){
+        var active = '';
+
+        if (this === section) {
+            active = 'active';
+        }
+
+        return active;
     });
 
     // Required, return the module for AMD compliance
