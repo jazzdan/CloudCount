@@ -41,6 +41,36 @@ define([
         // view template
         template: 'budget/nav',
 
+        // initialize
+        initialize: function (opts) {
+            this.section = opts.section || 'budget';
+            this.sections = this.parse_sections(opts.sections);
+        },
+
+        // serialize for rendering
+        serialize: function () {
+            var data = {};
+
+            data.section = this.section;
+            data.sections = this.sections;
+
+            return data;
+        },
+
+        /* Helper functions */
+        parse_sections: function (sections) {
+            var res = [];
+
+            _.each(sections, function (sec) {
+                res.push({
+                    name: sec,
+                    proper: sec.charAt(0).toUpperCase() + sec.slice(1)
+                });
+            });
+
+            return res;
+        }
+
     });
 
     /**
@@ -148,16 +178,21 @@ define([
 
         initialize: function (opts) {
 
-            var tab = (opts.tab || 'budget'),
+            var that = this,
+                tab = opts.tab || 'budget',
                 section = $(tab),
                 view = opts.tab.charAt(0).toUpperCase() + opts.tab.slice(1);
 
+            this.section = tab;
+            this.sections = [ 'budget', 'description', 'attachments', 'notes', 'audit' ];
+
             // set our nested views
             this.views = {};
-            this.views['.nav'] = new Budget.Views.Nav();
+            this.views['.nav'] = new Budget.Views.Nav({
+                section: that.section,
+                sections: that.sections
+            });
             this.views['.section.' + tab] = new Budget.Views[view]();
-
-            this.section = tab;
 
         },
 
@@ -167,7 +202,7 @@ define([
                 data = this.model.toJSON();
 
             data['section'] = this.section;
-            data['sections'] = [ 'budget', 'description', 'attachments', 'notes', 'audit' ];
+            data['sections'] = this.sections;
 
             return data;
         },
@@ -177,14 +212,14 @@ define([
     /**
      * Handlebars Helper
      */
-    Handlebars.registerHelper('active', function(section){
-        var active = '';
+    Handlebars.registerHelper('active', function(section, active){
+        var res = '';
 
-        if (this === section) {
-            active = 'active';
+        if (section === active) {
+            res = 'active';
         }
 
-        return active;
+        return res;
     });
 
     // Required, return the module for AMD compliance
