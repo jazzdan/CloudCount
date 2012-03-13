@@ -82,6 +82,25 @@ define([
         // view template
         template: 'budgets/list',
 
+        // events hash
+        events: {
+            'click tr': 'select'
+        },
+
+        // select event
+        select: function (e) {
+            // find the row from the event target
+            var el = $(e.target).closest('tr');
+
+            // catch the event
+            e.stopPropagation();
+
+            // select the row (if it isn't already)
+            if (!el.hasClass('selected')) {
+                $('.selected').removeClass('selected');
+                el.addClass('selected');
+            }
+        },
 
         // initialize the vew
         initialize: function () {
