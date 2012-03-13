@@ -94,13 +94,15 @@ define([
 
             // select the row (if it isn't already)
             if (!el.hasClass('selected')) {
-                $('.selected').removeClass('selected');
+                $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
             }
         },
 
         // initialize the vew
         initialize: function () {
+
+            // the ol' this-that
             var that = this;
 
             // refresh the view if a budget is deleted
@@ -111,6 +113,8 @@ define([
 
         // render function
         render: function (layout) {
+
+            // the ol' this-that
             var view = layout(this);
 
             // render the budgets
