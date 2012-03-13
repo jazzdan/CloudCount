@@ -77,6 +77,8 @@ define([
 
     /**
      * Budgets Index
+     * 
+     * @extends Utils:List
      */
     Budgets.Views.Index = Utils.Views.List.extend({
 
@@ -85,7 +87,9 @@ define([
 
         // events hash (explicitly delcare it so we don't forget the inherited events
         events: {
+            // inherited events:
             'click tr': 'select'
+            // events:
         },
 
         // initialize the vew
