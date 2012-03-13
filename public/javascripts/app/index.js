@@ -88,7 +88,8 @@ require([
             // routes definition
             routes: {
                 "": "index",
-                "budget/:id": "budget"
+                "budget/:id": "budget",
+                "budget/:id/:tab": "budget"
             },
 
             // ROUTE: index
@@ -114,18 +115,22 @@ require([
             },
 
             // ROUTE: budget
-            budget: function (id) {
+            budget: function (id, tab) {
 
                 // vars
                 var budget,
-                    main = this.useLayout("main"),
-                    set_render;
+                    set_render,
+                    tab = tab || 'budget',
+                    main = this.useLayout("main");
 
                 set_render = function (budget) {
                     // Set all the views
                     main.setViews({
                         '.controlbar': new Utils.Views.BudgetBar(),
-                        ".canvas": new Budget.Views.Index({ model: budget })
+                        ".canvas": new Budget.Views.Index({
+                            tab: tab,
+                            model: budget
+                        })
                     });
 
                     // Render to the page
