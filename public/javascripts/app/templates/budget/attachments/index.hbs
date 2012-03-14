@@ -5,10 +5,14 @@
   <a class="upload btn" data-toggle="modal" href="#"><i class="icon-upload"></i> Upload Attachment</a>
 
   <!-- Filter -->
-  <form class="pull-right">
-    <select>
-      <option>-- Filter --</option>
+  <form class="filter pull-right form-inline">
+    <input placeholder="Filter" class="filter-match input-medium" />
+    <select class="filter-by input-medium">
+      <option value="by">By</option>
+      <option value="name">Name</option>
+      <option value="label" selected="selected">Label</option>
     </select>
+    <button type="submit" class="btn">Filter</button>
   </form>
 
 </div>

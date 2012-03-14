@@ -217,7 +217,8 @@ define([
             // inherited events:
             'click tr': 'select',
             // events:
-            'click .upload': 'upload'
+            'click .upload': 'upload',
+            'submit .filter': 'filter',
         },
 
         // upload event
@@ -247,6 +248,20 @@ define([
                 that.collection.fetch();
             });
 
+        },
+
+        // filter event
+        filter: function (e) {
+            var match = $('.filter-match', this.$el).val(),
+                by = $('.filter-by', this.$el).val();
+
+            e.preventDefault();
+
+            if (match != '') {
+                alert(match + ', ' + by);
+            } else {
+                alert('reset');
+            }
         },
 
         initialize: function (options) {
