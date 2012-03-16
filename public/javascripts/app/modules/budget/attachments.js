@@ -295,7 +295,6 @@ define([
             });
 
             this.collection.fetch();
-
         },
 
         // render function
@@ -321,6 +320,25 @@ define([
 
             // render the view
             return view.render();
+        },
+
+        // serialize for rendering
+        serialize: function () {
+            var data = {};
+
+            // get labels for filtering
+            data.labels = this.collection.reduce(function (memo, model) {
+                var label = model.get('label');
+
+                // if the label isn't there, store it
+                if (_.indexOf(memo, label) < 0) {
+                    memo.push(label);
+                }
+
+                return memo;
+            }, []);
+
+            return data;
         },
 
         /* Cleanup */

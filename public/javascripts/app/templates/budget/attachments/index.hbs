@@ -1,19 +1,16 @@
 <!-- attachments controls -->
 <div class="controls">
 
-  <!-- new attachment -->
-  <a class="upload btn" data-toggle="modal" href="#"><i class="icon-upload"></i> Upload Attachment</a>
+    <!-- new attachment -->
+    <a class="upload btn" data-toggle="modal" href="#"><i class="icon-upload"></i> Upload Attachment</a>
 
-  <!-- Filter -->
-  <form class="filter pull-right form-inline">
-    <input placeholder="Filter" class="filter-match input-medium" />
-    <select class="filter-by input-small">
-      <option value="user">By</option>
-      <option value="name">Name</option>
-      <option value="label" selected="selected">Label</option>
+    <!-- Filter -->
+    <select class="filter-by input-medium pull-right">
+        <option value="/">-- Label --</option>
+        {{#each labels}}
+        <option value="{{.}}">{{.}}</option>
+        {{/each}}
     </select>
-    <button type="submit" class="btn">Filter</button>
-  </form>
 
 </div>
 
