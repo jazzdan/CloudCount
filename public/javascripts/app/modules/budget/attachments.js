@@ -252,16 +252,31 @@ define([
 
         // filter event
         filter: function (e) {
-            var match = $('.filter-match', this.$el).val(),
-                by = $('.filter-by', this.$el).val();
+            var fmatch = $('.filter-match', this.$el).val(),
+                by = $('.filter-by', this.$el).val(),
+                filter;
 
             e.preventDefault();
 
-            if (match != '') {
-                alert(match + ', ' + by);
+            this.render();
+
+            // if the filter isn't empty, filter
+            if (fmatch !== '') {
+                filter = function (model) {
+                    var reg = new RegExp(fmatch, 'i');
+                    return reg.test(model.get(by));
+                };
+                this.render.filter = filter;
             } else {
-                alert('reset');
+                this.render.filter = undefined;
             }
+
+            // render the view
+            this.render();
+
+            // restore the filter value
+            $('.filter-match', this.$el).val(fmatch);
+
         },
 
         initialize: function (options) {
@@ -285,11 +300,19 @@ define([
 
         // render function
         render: function (layout) {
-            var view = layout(this);
+            var view = layout(this),
+                collection;
 
-            if (this.collection.length > 0) {
+            // if a filter is set, filter the collection
+            if (this.render.filter) {
+                collection = this.collection.filter(this.render.filter);
+            } else {
+                collection = this.collection;
+            }
+
+            if (collection.length > 0) {
                 // render the budgets
-                this.collection.each(function (attachment) {
+                _.each((collection.models || collection), function (attachment) {
                     view.insert("tbody.attachments", new Attachments.Views.Row({
                         model: attachment
                     }));
