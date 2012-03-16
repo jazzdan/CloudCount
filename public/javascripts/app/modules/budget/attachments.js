@@ -299,14 +299,15 @@ define([
 
             // if a filter is set, filter the collection
             if (this.filter_by !== '') {
-                collection = this.collection.reduce([], function (memo, model) {
+                collection = this.collection.reduce(function (memo, model) {
                     var label = model.get('label'),
                         reg = new RegExp('^' + that.filter_by);
                     if (reg.test(label)) {
                         memo.push(model);
                     }
                     return memo;
-                });
+                }, []);
+                window.alert(JSON.stringify(collection));
             } else {
                 collection = this.collection;
             }
