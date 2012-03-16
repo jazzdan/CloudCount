@@ -31,10 +31,10 @@ define([
             // find the row from the event target
             var el = $(e.target).closest('tr');
 
-            // select the row (if it isn't already)
+            // if its already selected, unselect it
             if (el.hasClass('selected')) {
                 el.removeClass('selected');
-            } else {
+            } else { // otherwise, clear any selections and select it
                 $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
             }
