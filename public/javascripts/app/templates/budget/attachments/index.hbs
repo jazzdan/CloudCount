@@ -5,12 +5,14 @@
     <a class="upload btn" data-toggle="modal" href="#"><i class="icon-upload"></i> Upload Attachment</a>
 
     <!-- Filter -->
-    <select class="filter-by input-medium pull-right">
-        <option value="/">-- Label --</option>
-        {{#each labels}}
-        <option value="{{.}}">{{.}}</option>
-        {{/each}}
-    </select>
+    <div class="pull-right">
+        <select class="filter-by input-medium">
+            <option value="">-- Label --</option>
+            {{#each labels}}
+            <option value="{{.}}">{{.}}</option>
+            {{/each}}
+        </select>
+    </div>
 
 </div>
 
