@@ -63,7 +63,7 @@ define([
         delete: function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if (confirm("Are you sure you want to delete this budget?")) {
+            if (window.confirm("Are you sure you want to delete this budget?")) {
                 this.model.destroy();
             }
         },

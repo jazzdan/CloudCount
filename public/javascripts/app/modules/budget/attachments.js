@@ -176,7 +176,7 @@ define([
         delete_att: function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if (confirm("Are you sure you want to delete this attachment?")) {
+            if (window.confirm("Are you sure you want to delete this attachment?")) {
                 this.model.destroy();
             }
         },
@@ -189,7 +189,7 @@ define([
             var data = this.model.toJSON(),
                 date = new Date(data._modified);
 
-            data.updated = date.toLocaleDateString() + ' (' + date.toLocaleTimeString() +')';
+            data.updated = date.toLocaleDateString() + ' (' + date.toLocaleTimeString() + ')';
             data.download = this.download_url();
 
             return data;
