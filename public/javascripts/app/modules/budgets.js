@@ -88,7 +88,7 @@ define([
         // events hash (explicitly delcare it so we don't forget the inherited events
         events: {
             // inherited events:
-            'click tr': 'select'
+            'click tbody tr': 'select'
             // events:
         },
 

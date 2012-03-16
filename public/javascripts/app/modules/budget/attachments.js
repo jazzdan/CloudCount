@@ -215,7 +215,7 @@ define([
         // view events
         events: {
             // inherited events:
-            'click tr': 'select',
+            'click tbody tr': 'select',
             // events:
             'click .upload': 'upload',
             'change .filter-by': 'filter'

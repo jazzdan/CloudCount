@@ -23,7 +23,7 @@ define([
 
         // events hash
         events: {
-            'click tr': 'select'
+            'click tbody tr': 'select'
         },
 
         // select event
