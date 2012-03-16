@@ -293,13 +293,20 @@ define([
 
         // render function
         render: function (layout) {
-            var view = layout(this),
+            var that = this,
+                view = layout(this),
                 collection;
 
             // if a filter is set, filter the collection
             if (this.filter_by !== '') {
-                alert(this.filter);
-                collection = this.collection;
+                collection = this.collection.reduce([], function (memo, model) {
+                    var label = model.get('label'),
+                        reg = new RegExp('^' + that.filter_by);
+                    if (reg.test(label)) {
+                        memo.push(model);
+                    }
+                    return memo;
+                });
             } else {
                 collection = this.collection;
             }
