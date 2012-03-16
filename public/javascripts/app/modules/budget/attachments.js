@@ -218,7 +218,7 @@ define([
             'click tr': 'select',
             // events:
             'click .upload': 'upload',
-            'submit .filter': 'filter',
+            'change .filter': 'filter',
         },
 
         // upload event
@@ -252,30 +252,24 @@ define([
 
         // filter event
         filter: function (e) {
-            var fmatch = $('.filter-match', this.$el).val(),
-                by = $('.filter-by', this.$el).val(),
-                filter;
+            var label = $(e.target).val();
 
             e.preventDefault();
 
-            this.render();
-
             // if the filter isn't empty, filter
             if (fmatch !== '') {
-                filter = function (model) {
-                    var reg = new RegExp(fmatch, 'i');
-                    return reg.test(model.get(by));
-                };
-                this.render.filter = filter;
+                this.filter = label;
             } else {
-                this.render.filter = undefined;
+                this.filter = '';
             }
+
+            alert(this.filter);
 
             // render the view
             this.render();
 
             // restore the filter value
-            $('.filter-match', this.$el).val(fmatch);
+            //$('.filter-match', this.$el).val(label);
 
         },
 
@@ -283,6 +277,8 @@ define([
             var that = this;
 
             _.bindAll(this, 'render', 'upload');
+
+            this.filter = options.filter || '';
 
             this.collection = new Attachments.Collection([], { budget_id: that.options.budget_id });
 
@@ -303,8 +299,9 @@ define([
                 collection;
 
             // if a filter is set, filter the collection
-            if (this.render.filter) {
-                collection = this.collection.filter(this.render.filter);
+            if (this.filter !== '') {
+                alert(this.filter);
+                collection = this.collection;
             } else {
                 collection = this.collection;
             }
