@@ -218,7 +218,7 @@ define([
             'click tr': 'select',
             // events:
             'click .upload': 'upload',
-            'change .filter': 'filter',
+            'change .filter-by': 'filter'
         },
 
         // upload event
@@ -257,13 +257,11 @@ define([
             e.preventDefault();
 
             // if the filter isn't empty, filter
-            if (fmatch !== '') {
-                this.filter = label;
+            if (label !== '') {
+                this.filter_by = label;
             } else {
-                this.filter = '';
+                this.filter_by = '';
             }
-
-            alert(this.filter);
 
             // render the view
             this.render();
@@ -278,7 +276,7 @@ define([
 
             _.bindAll(this, 'render', 'upload');
 
-            this.filter = options.filter || '';
+            this.filter_by = options.filter_by || '';
 
             this.collection = new Attachments.Collection([], { budget_id: that.options.budget_id });
 
@@ -299,7 +297,7 @@ define([
                 collection;
 
             // if a filter is set, filter the collection
-            if (this.filter !== '') {
+            if (this.filter_by !== '') {
                 alert(this.filter);
                 collection = this.collection;
             } else {
@@ -322,6 +320,9 @@ define([
         // serialize for rendering
         serialize: function () {
             var data = {};
+
+            // filtered by...
+            data.filter_by = this.filter_by;
 
             // get labels for filtering
             data.labels = this.collection.reduce(function (memo, model) {
