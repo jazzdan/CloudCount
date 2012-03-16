@@ -305,7 +305,6 @@ define([
                     }
                     return memo;
                 }, []);
-                window.alert(JSON.stringify(collection));
             } else {
                 collection = this.collection;
             }
