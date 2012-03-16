@@ -209,8 +209,8 @@ define([
                 data = this.model.toJSON();
 
             // serialize the sections and current sections
-            data['section'] = this.section;
-            data['sections'] = this.sections;
+            data.section = this.section;
+            data.sections = this.sections;
 
             return data;
         },
@@ -222,7 +222,7 @@ define([
      */
 
     // helper for determining if a section is active
-    Handlebars.registerHelper('active', function(section, active){
+    Handlebars.registerHelper('active', function (section, active) {
         var res = '';
 
         if (section === active) {

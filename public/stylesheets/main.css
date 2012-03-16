@@ -71,6 +71,9 @@ body {
 .table.cc-table td{
   vertical-align: middle;
 }
+.table.cc-table td:first-child {
+    border-left: 1px solid transparent;
+}
 
 tr.selected,
 .table.cc-table tbody tr:hover {
@@ -84,7 +87,23 @@ tr td .controls {
   text-align: right;
   min-width: 125px;
 }
+
+.cc-table tr.selected td:first-child,
+.cc-table tr:hover td:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.cc-table tr.selected td:last-child,
+.cc-table tr:hover td:last-child {
+    border-right: 1px solid #ddd;
+}
+
 tr.selected .controls,
 tr:hover td .controls {
   visibility: visible;
+}
+
+tr.selected:last-child td,
+tr:hover:last-child td {
+  border-bottom: 1px solid #ddd;
 }

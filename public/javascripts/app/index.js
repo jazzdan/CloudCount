@@ -115,12 +115,12 @@ require([
             },
 
             // ROUTE: budget
-            budget: function (id, tab) {
+            budget: function (id, t) {
 
                 // vars
                 var budget,
                     set_render,
-                    tab = tab || 'budget',
+                    tab = t || 'budget',
                     main = this.useLayout("main");
 
                 set_render = function (budget) {

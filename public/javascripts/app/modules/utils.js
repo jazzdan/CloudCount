@@ -10,11 +10,10 @@ define([
 
     "use strict";
 
-    // Shorthand the app
-    var app = cc.app;
-
-    // Create a new module
-    var Utils = cc.module();
+        // Shorthand the app
+    var app = cc.app,
+        // Create a new module
+        Utils = cc.module();
 
     /**
      * List View
@@ -37,7 +36,7 @@ define([
                 $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
             }
-        } 
+        }
 
     });
 
