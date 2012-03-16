@@ -32,7 +32,9 @@ define([
             var el = $(e.target).closest('tr');
 
             // select the row (if it isn't already)
-            if (!el.hasClass('selected')) {
+            if (el.hasClass('selected')) {
+                el.removeClass('selected');
+            } else {
                 $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
             }
