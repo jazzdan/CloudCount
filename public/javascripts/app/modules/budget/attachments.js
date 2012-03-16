@@ -252,8 +252,7 @@ define([
 
         // filter event
         filter: function (e) {
-            var tar = $(e.target),
-                label = tar.val();
+            var label = $(e.target).val();
 
             e.preventDefault();
 
@@ -266,6 +265,8 @@ define([
 
             // render the view
             this.render();
+
+            $('.filter-by', this.$el).val(label);
 
         },
 
