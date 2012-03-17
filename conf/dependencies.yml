@@ -10,4 +10,4 @@ require:
     - asm -> asm-commons 3.3.1:
         force: true
     - play -> capistrano 1.0.0
-
+    - play -> qunit 1.0
