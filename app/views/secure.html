@@ -12,10 +12,12 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<!-- styles -->
-<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}" />
+<!-- libs -->
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap/bootstrap.css'}" />
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap/bootstrap-responsive.css'}" />
+
+<!-- styles -->
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}" />
 
 <!-- icons -->
 <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
@@ -30,7 +32,7 @@
     <div class="container">
 
       <!-- title -->
-      <a class="brand" href="#">Cloud Count</a>
+      <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/cc-icon-20-w.png'}" /> Cloud Count</a>
 
     </div>
   </div>

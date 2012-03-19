@@ -7,6 +7,9 @@ import play.modules.morphia.Model.AutoTimestamp;
 
 import com.google.code.morphia.annotations.Entity;
 
+/**
+ * The budget class
+ */
 @AutoTimestamp
 @Entity
 public class Budget extends Model {
@@ -29,6 +32,15 @@ public class Budget extends Model {
   @Required
   public String rolls;
 
+  /**
+   * Creates a budget object.
+   *
+   * @param title The title of the budget
+   * @param description The description of the budget
+   * @param start The start date of the budget
+   * @param ends The end date of the budget
+   * @param rolls The roll of the budget
+   */
   public Budget(String title, String description, int start, int ends, String rolls) {
     // this.id = id;
     this.title = title;

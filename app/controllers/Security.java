@@ -7,10 +7,18 @@ import java.util.*;
 
 import models.*;
 
+/**
+ * Security class that handles authenticating users and permissions.
+ */
+
 public class Security extends Secure.Security {
     
     /**
-     * Authenticate User
+     * Authenticates User
+     * @param email Email of the user
+     * @param password Users password TODO: Encrypt/salt this
+     *
+     * @return True if authentication succeeded, false otherwise.
      */
     static boolean authenticate(String email, String password) {
         User user = User.find("byEmail", email).first();
@@ -20,6 +28,9 @@ public class Security extends Secure.Security {
 
     /**
      * Is Admin
+     * @param profile
+     *
+     * @return true if user is admin, false otherwise.
      */
     static boolean isAdmin(String profile) {
         User user = User.find("byEmail", connected()).first();

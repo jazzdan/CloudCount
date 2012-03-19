@@ -1,15 +1,18 @@
 <!-- attachments controls -->
 <div class="controls">
 
-  <!-- new attachment -->
-  <a class="upload btn" data-toggle="modal" href="#"><i class="icon-upload"></i> Upload Attachment</a>
+    <!-- new attachment -->
+    <a class="upload btn" data-toggle="modal" href="#"><i class="icon-upload"></i> Upload Attachment</a>
 
-  <!-- Filter -->
-  <form class="pull-right">
-    <select>
-      <option>-- Filter --</option>
-    </select>
-  </form>
+    <!-- Filter -->
+    <div class="pull-right">
+        <select class="filter-by input-medium">
+            <option value="">-- No Filter --</option>
+            {{#each labels}}
+            <option value="{{.}}">{{.}}</option>
+            {{/each}}
+        </select>
+    </div>
 
 </div>
 
@@ -20,7 +23,7 @@
     <tr>
       <th>Document Name</th>
       <th>Label</th>
-      <th>Updated</th>
+      <th>Uploaded</th>
       <th>By</th>
       <th></th>
     </tr>

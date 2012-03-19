@@ -1,117 +1,137 @@
 define([
-  "namespace",
+    "namespace",
 
-  // Libs
-  "use!backbone",
+    // Libs
+    "use!backbone",
 
-  // Plugins
-  "use!layoutmanager"
-],
+    // Plugins
+    "use!layoutmanager"
+], function (cc, Backbone) {
 
-function(cc, Backbone) {
+    "use strict";
 
-  // Shorthand the app
-  var app = cc.app;
+        // Shorthand the app
+    var app = cc.app,
+        // Create a new module
+        Utils = cc.module();
 
-  // Create a new module
-  var Utils = cc.module();
+    /**
+     * List View
+     *      has selectable rows
+     */
+    Utils.Views.List = Backbone.LayoutManager.View.extend({
 
-  /**
-   * Refresh Control Bar
-   */
-  Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
+        // events hash
+        events: {
+            'click tbody tr': 'select'
+        },
 
-    // view template
-    template: "utils/controlbar-refresh",
+        // select event
+        select: function (e) {
+            // find the row from the event target
+            var el = $(e.target).closest('tr');
 
-    // wrapper tag
-    tagName: "div"
-  });
+            // if its already selected, unselect it
+            if (el.hasClass('selected')) {
+                el.removeClass('selected');
+            } else { // otherwise, clear any selections and select it
+                $('.selected', this.$el).removeClass('selected');
+                el.addClass('selected');
+            }
+        }
 
-  /**
-   * Budget Control Bar
-   */
-  Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
+    });
 
-    // view template
-    template: "utils/controlbar-budget",
+    /**
+     * Refresh Control Bar
+     */
+    Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
 
-  });
+        // view template
+        template: "utils/controlbar-refresh",
 
-  /**
-   * Modal Dialog
-   */
-  Utils.Views.Modal = Backbone.LayoutManager.View.extend({
+        // wrapper tag
+        tagName: "div",
 
-    // view template
-    template: 'utils/modal',
+    });
 
-    // view events
-    events: {
-      'click [data-action]': 'action',
-      'keyup': 'keyup'
-    },
+    /**
+     * Budget Control Bar
+     */
+    Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
 
-    // button actions
-    action: function (e) {
+        // view template
+        template: "utils/controlbar-budget",
 
-      // halt the event
-      e.preventDefault();
-      e.stopPropagation();
+    });
 
-      // get the action
-      var action = $(e.target).data('action');
+    /**
+     * Modal Dialog
+     */
+    Utils.Views.Modal = Backbone.LayoutManager.View.extend({
 
-      // fire an action event
-      this.trigger(action);
+        // view template
+        template: 'utils/modal',
 
-    },
+        // view events
+        events: {
+            'click [data-action]': 'action',
+        },
 
-    // keyboard event handlers
-    keyup: function (e) {
+        // button actions
+        action: function (e) {
 
-      if (e.which === 13) { // return
+            // halt the event
+            e.preventDefault();
+            e.stopPropagation();
 
-        this.trigger('confirm');
+            // get the action
+            var action = $(e.target).data('action');
 
-      } else if (e.which === 27) { // esc
+            // fire an action event
+            this.trigger(action);
 
-        this.trigger('close');
+        },
 
-      }
-    },
+        // render the modal
+        render: function (manage) {
 
-    // render the modal
-    render: function(manage) {
+            var view = manage(this);
 
-      var view = manage(this);
+            // insert the content into the modal
+            this.content = new this.options.content({ parent: this });
+            view.insert(".modal-body", this.content);
 
-      // insert the content into the modal
-      this.content = new this.options.content;
-      view.insert(".modal-body", this.content);
+            // render the modal
+            return view.render();
 
-      // render the modal
-      return view.render();
+        },
 
-    },
+        show: function (type) {
+            $('#' + type).show();
+        },
 
-    // serialize function
-    serialize: function () {
+        hide: function (type) {
+            $('#' + type).hide();
+        },
 
-      // this/that
-      var that = this;
+        // serialize function
+        serialize: function () {
 
-      // return serialized object
-      return {
-        title: that.options.title || 'Modal',
-        action: that.options.action || 'Ok',
-        close: that.options.close || 'Close'
-      };
-    }
+            // this/that
+            var that = this;
 
-  })
+            // return serialized object
+            return {
+                title: that.options.title || 'Modal',
+                action: that.options.action || 'Ok',
+                close: that.options.close || 'Close'
+            };
+        },
 
-  // Required, return the module for AMD compliance
-  return Utils;
+    });
+
+    // Required, return the module for AMD compliance
+    return Utils;
 
 });

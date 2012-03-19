@@ -17,5 +17,6 @@ public class BudgetTest extends UnitTest {
   public void testStoreBudget() {
     Budget b = new Budget("derp", "derping around town", 0, 100, "derp");
     b.save();
+    b.delete();
   }
 }

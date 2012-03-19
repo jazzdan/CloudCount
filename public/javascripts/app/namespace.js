@@ -1,73 +1,73 @@
 define([
-  // Libs
-  "jquery",
-  "use!underscore",
-  "use!backbone",
+    // Libs
+    "jquery",
+    "use!underscore",
+    "use!backbone",
 
-  // Plugins
-  "use!layoutmanager"
-],
+    // Plugins
+    "use!layoutmanager"
+], function ($, _, Backbone) {
 
-function($, _, Backbone) {
+    "use strict";
 
-  // Customize the LayoutManager
-  Backbone.LayoutManager.configure({
+    // Customize the LayoutManager
+    Backbone.LayoutManager.configure({
 
-    /**
-     * template & layout paths
-     */
-    paths: {
-      layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
-      template: "http://" + document.location.host + "/public/javascripts/app/templates/"
-    },
+        /**
+         * template & layout paths
+         */
+        paths: {
+            layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
+            template: "http://" + document.location.host + "/public/javascripts/app/templates/"
+        },
 
-    /**
-     * Fetch (for retrieving templates)
-     */
-    fetch: function(path) {
+        /**
+         * Fetch (for retrieving templates)
+         */
+        fetch: function (path) {
 
-      // automatically append .hbs extension
-      path = path + ".hbs";
+            // setup and async method
+            var done = this.async(),
+                JST = window.JST = window.JST || {};
 
-      // setup and async method
-      var done = this.async();
+            // automatically append .hbs extension
+            path = path + ".hbs";
 
-      var JST = window.JST = window.JST || {};
+            // Should be an instant synchronous way of getting the template, if it
+            // exists in the JST object.
+            if (JST[path]) {
+                return done(JST[path]);
+            }
 
-      // Should be an instant synchronous way of getting the template, if it
-      // exists in the JST object.
-      if (JST[path]) {
-        return done(JST[path]);
-      }
+            // Fetch it asynchronously if not available from JST
+            $.get(path, function (contents) {
 
-      // Fetch it asynchronously if not available from JST
-      $.get(path, function(contents) {
+                // compile the returned template with Handlebars
+                var tmpl = Handlebars.compile(contents);
 
-        // compile the returned template with Handlebars
-        var tmpl = Handlebars.compile(contents);
+                // store the template for future use
+                JST[path] = tmpl;
 
-        // store the template for future use
-        JST[path] = tmpl;
+                // callback the async method
+                done(tmpl);
+            });
+        },
 
-        // callback the async method
-        done(tmpl);
-      });
-    },
+        // render the template
+        render: function (template, context) {
+            return template(context);
+        }
 
-    // render the template
-    render: function(template, context) {
-      return template(context);
-    }
-  });
+    });
 
-  return {
-    // Create a custom object with a nested Views object
-    module: function(additionalProps) {
-      return _.extend({ Views: {} }, additionalProps);
-    },
+    return {
+        // Create a custom object with a nested Views object
+        module: function (additionalProps) {
+            return _.extend({ Views: {} }, additionalProps);
+        },
 
-    // Keep active application instances namespaced under an app object.
-    app: _.extend({}, Backbone.Events)
-  };
+        // Keep active application instances namespaced under an app object.
+        app: _.extend({}, Backbone.Events)
+    };
 
 });

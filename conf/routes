@@ -8,9 +8,15 @@ GET     /                                       Application.index
 
 # Budgets
 GET     /budgets                                Budgets.index
+GET     /budgets/{id}                           Budgets.budget
+DELETE  /budgets/{id}                           Budgets.delete
 
 # Attachments
-GET     /budgets/{budget_id}/attachments        Attachments.index
+GET     /budgets/{budgetId}/attachments                             Attachments.index
+GET     /budgets/{budgetId}/attachments/form                        Attachments.form
+GET     /attachments/{attachmentId}/show                            Attachments.show
+POST    /budgets/{budgetId}/attachments/create                      Attachments.create
+DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.delete
 
 # Users
 GET     /users                                  Users.index

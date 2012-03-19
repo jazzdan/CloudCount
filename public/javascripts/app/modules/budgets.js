@@ -1,99 +1,129 @@
 define([
-  "namespace",
+    "namespace",
 
-  // Libs
-  "use!backbone",
-  
-  // Modules
-  "modules/budget/index",
+    // Libs
+    "use!backbone",
 
-  // Plugins
-  "use!layoutmanager"
-],
+    // Modules
+    "modules/budget/index",
+    "modules/utils",
 
-function(cc, Backbone, Budget) {
+    // Plugins
+    "use!layoutmanager"
+], function (cc, Backbone, Budget, Utils) {
 
-  // Shorthand the app
-  var app = cc.app;
+    "use strict";
 
-  // Create a new module
-  var Budgets = cc.module();
+    // Shorthand the app
+    var app = cc.app,
+        Budgets = cc.module(); // Create a new module
 
-  /**
-   * Budget Modal (from Budget module)
-   */
-  Budgets.Model = Budget.Model;
+    /**
+     * Budget Modal (from Budget module)
+     */
+    Budgets.Model = Budget.Model;
 
-  /**
-   * Budgets Collection
-   */
-  Budgets.Collection = Backbone.Collection.extend({
+    /**
+     * Budgets Collection
+     */
+    Budgets.Collection = Backbone.Collection.extend({
 
-    // set the collection's model
-    model: Budgets.Model,
+        // set the collection's model
+        model: Budgets.Model,
 
-    // set the collection URL
-    url: function () {
-      return '/budgets';
-    }
+        // set the collection URL
+        url: function () {
+            return '/budgets';
+        }
 
-  });
+    });
 
-  /**
-   * Budget Row
-   */
-  Budgets.Views.Row = Backbone.LayoutManager.View.extend({
+    /**
+     * Budget Row
+     */
+    Budgets.Views.Row = Backbone.LayoutManager.View.extend({
 
-    // view template
-    template: 'budgets/row',
+        // view template
+        template: 'budgets/row',
 
-    // wrapper tag
-    tagName: 'tr',
+        // wrapper tag
+        tagName: 'tr',
 
-    // events
-    events: {
-      'click .delete': 'delete_budget'
-    },
+        // events
+        events: {
+            'click .delete': 'delete',
+            'dblclick': 'edit'
+        },
 
-    // delete budget event
-    delete_budget: function (e) {
-      e.preventDefault();
-      alert('delete');
-    },
+        edit: function () {
+            $('.edit', this.$el).click();
+        },
 
-    // serialize data for rendering
-    serialize: function() {
-      return this.model.toJSON();
-    },
+        // delete budget event
+        delete: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.confirm("Are you sure you want to delete this budget?")) {
+                this.model.destroy();
+            }
+        },
 
-  });
+        // serialize data for rendering
+        serialize: function () {
+            return this.model.toJSON();
+        },
 
-  /**
-   * Budgets Index
-   */
-  Budgets.Views.Index = Backbone.LayoutManager.View.extend({
+    });
 
-    // view template
-    template: 'budgets/list',
+    /**
+     * Budgets Index
+     * 
+     * @extends Utils:List
+     */
+    Budgets.Views.Index = Utils.Views.List.extend({
 
-    // render function
-    render: function(layout) {
-      var view = layout(this);
+        // view template
+        template: 'budgets/list',
 
-      // render the budgets
-      this.collection.each(function(budget) {
-        view.insert("tbody.budgets", new Budgets.Views.Row({
-          model: budget
-        }));
-      });
+        // events hash (explicitly delcare it so we don't forget the inherited events
+        events: {
+            // inherited events:
+            'click tbody tr': 'select'
+            // events:
+        },
 
-      // render the view
-      return view.render(this.collection);
-    }
-    
-  });
+        // initialize the vew
+        initialize: function () {
 
-  // Required, return the module for AMD compliance
-  return Budgets;
+            // the ol' this-that
+            var that = this;
+
+            // refresh the view if a budget is deleted
+            this.collection.bind('remove', function () {
+                that.render();
+            });
+        },
+
+        // render function
+        render: function (layout) {
+
+            // the ol' this-that
+            var view = layout(this);
+
+            // render the budgets
+            this.collection.each(function (budget) {
+                view.insert("tbody.budgets", new Budgets.Views.Row({
+                    model: budget
+                }));
+            });
+
+            // render the view
+            return view.render(this.collection);
+        },
+
+    });
+
+    // Required, return the module for AMD compliance
+    return Budgets;
 
 });

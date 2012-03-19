@@ -7,12 +7,6 @@
 
 </div>
 
-<section class="budget active section span12"></section>
-
-<section class="description section span12"></section>
-
-<section class="attachments section span12"></section>
-
-<section class="notes section span12"></section>
-
-<section class="audit section span12"></section>
+{{#each sections}}
+<section class="{{.}} {{active . ../section}} section span12"></section>
+{{/each}}

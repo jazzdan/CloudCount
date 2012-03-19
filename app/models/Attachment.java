@@ -1,8 +1,7 @@
 package models;
 
 //Default play stuff 
-import play.data.validation.Email;
-import play.data.validation.Required;
+import play.data.validation.*;
 
 //Morphia stuff
 import play.modules.morphia.Model;
@@ -17,6 +16,9 @@ import org.jcrom.JcrMappingException;
 import java.io.File;
 import play.libs.MimeTypes;
 
+/**
+ * The attachment model
+ */
 @AutoTimestamp
 @Entity
 public class Attachment extends Model {
@@ -29,72 +31,65 @@ public class Attachment extends Model {
   // public int id;
 
   @Required
+  public String name;
+
+  @Required
+  @Match("^[A-Za-z0-9_/-]+$")
+  //searchText.matches("[A-Za-z0-9_\\-]+")
   public String label;
 
   @Required
   public String description;
 
-  public File attachment;
-
-  // @Required
-  // @Reference
-  // public User uploaded_by;
-
-  // @Required
-  // @Reference
-  // public Budget budget;
+  @Required
+  public String user;
 
   @Required
   public Node node;
 
-  public Attachment(String label, String description, long userId, long budgetId, File attachment) {
-    this.label = label;
+  /**
+   * Attachment object constructor.
+   *
+   * @param label Jackrabbit label of the attachment
+   * @param description The description of the attachment set by the
+   * user
+   * @param userId The id of the user who uploaded the attachment
+   * @param budgetId The id of the associated budget
+   * @param attachment The binary file of the uploaded attachment
+   */
+  public Attachment(String label, String description, long userId, String user, long budgetId, File attachment) {
+    this.name = attachment.getName();
+    this.label = parseLabel(label);
     this.description = description;
+    this.user = user;
     this.userId = userId;
     this.budgetId = budgetId;
-    this.attachment = attachment;
-    //TODO: Create a node with the attachment in it and store that node id
     this.nodeId = createNode(attachment);
   }
 
-  // public Attachment(String label, String descrption[>, User uploaded_by, Budget budget, Node node<]) {
-    // this.label = label;
-    // this.description = description;
-    // this.uploaded_by = uploaded_by;
-    // this.budget = budget;
-    // this.node = node;*/
-  // }
-
-  public Budget getBudget() {
-    return Budget.findById(budgetId);
-    // return null == budget ? null : Budget.findById(budget); //TODO: Figure out why this isn't working
-  }
-
-  public Node getNode() {
-    return Node.findById(nodeId);
-  }
-
-  public User getUser() {
-    return User.findById(userId);
-  }
-
-  public void setBudget(long budgetId) {
-    this.budgetId = budgetId;
-  }
-
-  public void setUser(long userId) {
-    this.userId = userId;
-  }
-
-  public void setNode(long budgetId) {
-    this.budgetId = budgetId;
-  }
-
+  /**
+   * Fetch associated file from Jackrabbit
+   *
+   * @return The jackrabbit representation of the file
+   */
   public JcrFile getFile() {
     Node n = getNode();
     return n.file;
   }
 
+  public Node getNode() {
+	
+    return Node.findById(nodeId);
+	
+  }
+
+  /**
+   * Create a node for the supplied file.
+   *
+   * @param attachment The binary file uploaded the controller
+   *
+   * @return the jackrabbit id of the node the file was uploaded to
+   */
   public String createNode(File attachment) {
     Node n = new Node(this.label, this.description);
     n.file = JcrFile.fromFile(this.label, attachment,MimeTypes.getContentType(attachment.getName()));
@@ -105,6 +100,31 @@ public class Attachment extends Model {
 
   public String toString() {
     return label;
+  }
+
+  /**
+   * Helper function to sanitize label input. Removes tabs, forms,
+   * carriage returns in new lines. Also ensure that label starts with a
+   * "/"
+   *
+   * @param label The label we are sanitizing.
+   *
+   * @return The sanitized label
+   */
+  public String parseLabel(String label) {
+    label = label.toLowerCase();
+    label = label.replaceAll("\t", " ");
+    label = label.replaceAll("\f", "");
+    label = label.replaceAll("\r", "");
+    label = label.replaceAll("\n", "");
+    if(label.startsWith("/")){
+      return label;
+    }
+    else {
+      String newLabel = "/" + label;
+      return newLabel;
+    }
+
   }
 
 }
