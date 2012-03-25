@@ -40,6 +40,8 @@ define([
 
             var that = this;
 
+            alert('initializing keyboard');
+
             // initialize all keyboard events
             _.each(that.keyboard, function (val, key) {
 
@@ -132,6 +134,22 @@ define([
             this.initialize_keyboard()
 
         },
+
+        // keyboard event functions
+        keyboard: {
+            'k': 'previous_row',
+            'j': 'next_row'
+        },
+
+        previous_row: function (event, keys, combo) {
+            alert('previous_row');
+            return false;
+        },
+
+        next_row: function () {
+            alert('next_row');
+            return false;
+        }
 
     });
 
