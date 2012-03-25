@@ -7,9 +7,9 @@ define([
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, KeyBoard) {
+], function (cc, Backbone) {
 
-    "use strict";
+    //"use strict";
 
         // Shorthand the app
     var app = cc.app,
@@ -17,10 +17,64 @@ define([
         Utils = cc.module();
 
     /**
+     * Keyboard Events
+     *      implements keyboard events
+     */
+    Utils.Views.Keyboard = Backbone.LayoutManager.View.extend({
+
+        // initialize view
+        initialize: function () {
+
+            _.bindAll(this, 'initialize_keyboard');
+
+            // initialize keyboard events
+            this.initialize_keyboard()
+
+        },
+
+        // keyboard event hash
+        keyboard: {},
+
+        // initlialize keyboard events
+        initialize_keyboard: function () {
+
+            var that = this;
+
+            // initialize all keyboard events
+            _.each(that.keyboard, function (val, key) {
+
+                var clean = KeyboardJS.bind.key(key, that[val.down], that[val.up]);
+
+                that.keyboard_cleanups.push(clean);
+
+            });
+
+        },
+
+        // array of keyboard event clear functions
+        keyboard_cleanups: [],
+
+        // clear all object key events
+        cleanup_keyboard: function () {
+            _.each(this.keyboard_cleanups, function (val) {
+                val.clear();
+            });
+        },
+
+        // cleanup function
+        cleanup: function () {
+            // always execute onCleanup
+            this.onCleanup();
+            this.cleanup_keyboard();
+        }
+
+    });
+
+    /**
      * List View
      *      has selectable rows
      */
-    Utils.Views.List = Backbone.LayoutManager.View.extend({
+    Utils.Views.List = Utils.Views.Keyboard.extend({
 
         // events hash
         events: {
@@ -39,7 +93,15 @@ define([
                 $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
             }
-        }
+        },
+
+        // initialize the view
+        initialize: function () {
+
+            // initialize keyboard events
+            this.initialize_keyboard()
+
+        },
 
     });
 
