@@ -3,10 +3,11 @@ define([
 
     // Libs
     "use!backbone",
+    "keyboard",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone) {
+], function (cc, Backbone, KeyBoard) {
 
     "use strict";
 

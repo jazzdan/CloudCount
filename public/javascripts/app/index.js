@@ -11,6 +11,7 @@ require.config({
         backbone: "../libs/backbone",
         handlebars: "../libs/handlebars",
         uploader: "../libs/uploader",
+        uploader: "../libs/keyboard",
 
         // Plugins
         use: "../plugins/use",
