@@ -9,7 +9,7 @@ define([
     "use!layoutmanager"
 ], function (cc, Backbone) {
 
-    //"use strict";
+    "use strict";
 
         // Shorthand the app
     var app = cc.app,
@@ -92,6 +92,9 @@ define([
             'click tbody tr': 'select'
         },
 
+        // list identifier
+        list: 'list',
+
         // select event
         select: function (e) {
             // find the row from the event target
@@ -100,11 +103,27 @@ define([
             // if its already selected, unselect it
             if (el.hasClass('selected')) {
                 el.removeClass('selected');
+                this.$selected = undefined;
             } else { // otherwise, clear any selections and select it
                 $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
+                this.$selected = el;
             }
         },
+
+        // get the view object of the selected element
+        get_selected: function () {
+            var that = this;
+            return _.find(this.views[this.list], function (view) {
+                if (view.$el && that.$selected) {
+                    return view.$el[0] === that.$selected[0];
+                } else {
+                    return false;
+                }
+            })
+        },
+
+        $selected: undefined,
 
         // initialize the view
         initialize: function () {
