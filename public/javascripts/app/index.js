@@ -11,7 +11,7 @@ require.config({
         backbone: "../libs/backbone",
         handlebars: "../libs/handlebars",
         uploader: "../libs/uploader",
-        uploader: "../libs/keyboard",
+        keyboard: "../libs/keyboard",
 
         // Plugins
         use: "../plugins/use",
@@ -50,12 +50,13 @@ require([
     "jquery",
     "use!backbone",
     "use!layoutmanager",
+    "use!keyboard",
 
     // Modules
     "modules/utils",
     "modules/budgets",
     "modules/budget/index"
-], function (cc, jQuery, Backbone, LayoutManager, Utils, Budgets, Budget) {
+], function (cc, jQuery, Backbone, LayoutManager, KeyBoard, Utils, Budgets, Budget) {
 
     "use strict";
 
