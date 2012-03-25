@@ -115,6 +115,10 @@ define([
 
         // keyboard event functions
         keyboard: {
+            // inherited events
+            'k': 'previous_row',
+            'j': 'next_row',
+            // new events
             'enter': 'enter_down'
         },
 
