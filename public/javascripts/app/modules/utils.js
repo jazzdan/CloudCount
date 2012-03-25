@@ -43,7 +43,18 @@ define([
             // initialize all keyboard events
             _.each(that.keyboard, function (val, key) {
 
-                var clean = KeyboardJS.bind.key(key, that[val.down], that[val.up]);
+                var clean,
+                    down,
+                    up;
+
+                if (_.isString(val)) {
+                    down = val;
+                } else {
+                    down = val.down;
+                    up = val.up;
+                }
+
+                var clean = KeyboardJS.bind.key(key, that[down], that[up]);
 
                 that.keyboard_cleanups.push(clean);
 
