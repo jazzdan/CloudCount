@@ -14,7 +14,7 @@ define([
     "use!layoutmanager"
 ], function (cc, $, _, Backbone, Budget, Utils) {
 
-    "use strict";
+    //"use strict";
 
     // Shorthand the app
     var app = cc.app,
@@ -261,15 +261,12 @@ define([
 
         // keyboard event functions
         keyboard: {
-            // inherited events
-            'k': 'previous_row',
-            'j': 'next_row',
-            // new events
             'enter': 'enter_down'
         },
 
         // enter-down keyboard event
         enter_down: function (event) {
+
             var selected = this.get_selected();
             if (selected !== undefined) {
                 selected.edit();
