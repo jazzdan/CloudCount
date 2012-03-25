@@ -12,7 +12,7 @@ define([
     "use!layoutmanager"
 ], function (cc, Backbone, Budget, Utils) {
 
-    "use strict";
+    //"use strict";
 
     // Shorthand the app
     var app = cc.app,
@@ -92,16 +92,38 @@ define([
             // events:
         },
 
+        list: 'tbody.budgets',
+
         // initialize the vew
         initialize: function () {
 
+            _.bindAll(this, 'enter_down');
+
             // the ol' this-that
             var that = this;
+
+            _ARG = this;
+
+            // initialize keyboard events
+            this.initialize_keyboard();
 
             // refresh the view if a budget is deleted
             this.collection.bind('remove', function () {
                 that.render();
             });
+        },
+
+        // keyboard event functions
+        keyboard: {
+            'enter': 'enter_down'
+        },
+
+        // enter-down keyboard event
+        enter_down: function (event, keys, combo) {
+            var selected = this.get_selected();
+            if (selected !== undefined) {
+                selected.edit();
+            }
         },
 
         // render function
