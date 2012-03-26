@@ -18,19 +18,32 @@ define([
     // define Keyboard
     var Keyboard = Backbone.View.extend({
 
+        keyboard: {},
+
         initialize: function (options) {
 
             var that = this;
 
             this.el = $(window);
 
-            this.el.bind('keyup', function () {
-                console.log('window.keyup - ' + that.lookup(event.keyCode));
+            this.el.bind('keypress', function () {
+                console.log('window.keypress - ' + that.lookup(event.keyCode));
+            });
+        },
+
+        listen: function (key, callback) {
+            var event_stack = this.keyboard[key];
+
+            if (!event_stack) {
+                event_stack = [];
+                this.keyboard[key] = event_stack;
+            }
+
+            event_stack.unshift({
+                callback: callback
             });
 
-            this.el.bind('keydown', function (event) {
-                console.log('window.keydown - ' + that.lookup(event.keyCode));
-            });
+            return this;
         },
 
         lookup: function (code) {
