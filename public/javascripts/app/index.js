@@ -11,11 +11,11 @@ require.config({
         backbone: "../libs/backbone",
         handlebars: "../libs/handlebars",
         uploader: "../libs/uploader",
-        keyboard: "../libs/keyboard",
 
         // Plugins
         use: "../plugins/use",
         layoutmanager: "../plugins/backbone.layoutmanager",
+        keyboard: "../plugins/backbone.keyboard",
         bootstrap: "../plugins/bootstrap"
     },
 
@@ -33,13 +33,17 @@ require.config({
             deps: ["use!backbone", "handlebars"]
         },
 
+        layoutmanager: {
+            deps: ["use!backbone", "jquery"]
+        },
+
         uploader: {
             deps: ["jquery"]
         },
 
         bootstrap: {
             deps: ["jquery"]
-        }
+        },
     }
 });
 
