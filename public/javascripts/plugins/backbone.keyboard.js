@@ -3,14 +3,17 @@
  * Copyright 2012, Colby Rabideau (@colbyrabideau)
  * backbone.keyboard.js may be freely distributed under the MIT license.
  */
-(function (window) {
+define([
+    // Libs
+    "jquery",
+    "use!underscore",
+    "use!backbone",
+
+    // Plugins
+    "use!layoutmanager"
+], function ($, _, Backbone) {
 
     "use strict";
-
-    // environment variables
-    var Backbone = window.Backbone,
-        _ = window._,
-        $ = window.$;
 
     // define Keyboard
     var Keyboard = Backbone.View.extend({
@@ -25,4 +28,4 @@
     Backbone.KeyboardView = Keyboard;
     Backbone.Keyboard = new Keyboard();
 
-}(this));
+});
