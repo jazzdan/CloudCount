@@ -5,13 +5,15 @@
  */
 (function (window) {
 
+    "use strict";
+
     // environment variables
     var Backbone = window.Backbone,
         _ = window._,
         $ = window.$;
 
     // define Keyboard
-    var Keyboard = Backbone.view.extend({
+    var Keyboard = Backbone.View.extend({
 
         clean: function () {
             alert('clean keyboard events');
