@@ -33,8 +33,8 @@ require.config({
             deps: ["use!backbone", "handlebars"]
         },
 
-        layoutmanager: {
-            deps: ["use!backbone", "jquery"]
+        keyboard: {
+            deps: ["use!backbone"]
         },
 
         uploader: {

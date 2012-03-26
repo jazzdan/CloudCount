@@ -5,7 +5,8 @@ define([
     "use!backbone",
 
     // Plugins
-    "use!layoutmanager"
+    "use!layoutmanager",
+    "use!keyboard"
 ], function ($, _, Backbone) {
 
     "use strict";
