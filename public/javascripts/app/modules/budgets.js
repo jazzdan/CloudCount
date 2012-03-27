@@ -105,7 +105,7 @@ define([
             _ARG = this;
 
             // initialize keyboard events
-            this.initialize_keyboard();
+            //this.initialize_keyboard();
 
             // refresh the view if a budget is deleted
             this.collection.bind('remove', function () {
