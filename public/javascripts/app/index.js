@@ -43,7 +43,7 @@ require.config({
 
         bootstrap: {
             deps: ["jquery"]
-        },
+        }
     }
 });
 
@@ -81,9 +81,13 @@ require([
             // Super-simple layout swapping and reusing
             useLayout: function (name) {
 
+                if (this.currentLayout) {
+                    Backbone.LayoutManager.clean_views(this.currentLayout.views);
+                }
+
                 // Create the new layout and set it as current.
                 this.currentLayout = new Backbone.LayoutManager({
-                    template: name,
+                    template: name
                 });
 
                 // return the current layout

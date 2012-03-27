@@ -2,12 +2,14 @@ define([
     "namespace",
 
     // Libs
+    "jquery",
+    "use!underscore",
     "use!backbone",
     "keyboard",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone) {
+], function (cc, $, _, Backbone) {
 
     "use strict";
 
@@ -28,7 +30,7 @@ define([
             _.bindAll(this, 'initialize_keyboard');
 
             // initialize keyboard events
-            this.initialize_keyboard()
+            this.initialize_keyboard();
 
         },
 
@@ -40,23 +42,10 @@ define([
 
             var that = this;
 
-            alert('initializing keyboard');
-
             // initialize all keyboard events
-            _.each(that.keyboard, function (val, key) {
+            _.each(that.keyboard, function (callback, key) {
 
-                var clean,
-                    down,
-                    up;
-
-                if (_.isString(val)) {
-                    down = val;
-                } else {
-                    down = val.down;
-                    up = val.up;
-                }
-
-                var clean = KeyboardJS.bind.key(key, that[down], that[up]);
+                var clean = Backbone.Keyboard.listen(key, that[callback]);
 
                 that.keyboard_cleanups.push(clean);
 
@@ -122,7 +111,7 @@ define([
                 } else {
                     return false;
                 }
-            })
+            });
         },
 
         $selected: undefined,
@@ -131,7 +120,7 @@ define([
         initialize: function () {
 
             // initialize keyboard events
-            this.initialize_keyboard()
+            this.initialize_keyboard();
 
         },
 
@@ -162,7 +151,7 @@ define([
         template: "utils/controlbar-refresh",
 
         // wrapper tag
-        tagName: "div",
+        tagName: "div"
 
     });
 
@@ -172,7 +161,7 @@ define([
     Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
 
         // view template
-        template: "utils/controlbar-budget",
+        template: "utils/controlbar-budget"
 
     });
 
@@ -186,7 +175,7 @@ define([
 
         // view events
         events: {
-            'click [data-action]': 'action',
+            'click [data-action]': 'action'
         },
 
         // button actions
@@ -238,7 +227,7 @@ define([
                 action: that.options.action || 'Ok',
                 close: that.options.close || 'Close'
             };
-        },
+        }
 
     });
 

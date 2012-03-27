@@ -252,7 +252,7 @@ var LayoutManager = Backbone.View.extend({
           }
         }
 
-        // Break this callback out so that its not duplicated inside the 
+        // Break this callback out so that its not duplicated inside the
         // following safety try/catch.
         function renderCallback() {
           if (!view.__manager__.hasRendered) {
@@ -331,7 +331,7 @@ var LayoutManager = Backbone.View.extend({
       
       // Create a list of promises to wait on until rendering is done. Since
       // this method will run on all children as well, its sufficient for a
-      // full hierarchical. 
+      // full hierarchical.
       var promises = _.map(root.views, function(view) {
         var def;
 
@@ -413,7 +413,7 @@ var LayoutManager = Backbone.View.extend({
   },
 
   // This static method allows for global configuration of LayoutManager.
-  configure: function(opts) { 
+  configure: function(opts) {
     if (_.isObject(opts)) {
       _.extend(LayoutManager.prototype.options, opts);
     }
@@ -430,7 +430,12 @@ var LayoutManager = Backbone.View.extend({
     };
 
     return handler;
+  },
+
+  clean_views: function (views) {
+    cleanViews(views);
   }
+
 });
 
 

@@ -4,6 +4,7 @@
  * backbone.keyboard.js may be freely distributed under the MIT license.
  */
 define([
+
     // Libs
     "jquery",
     "use!underscore",
@@ -11,6 +12,7 @@ define([
 
     // Plugins
     "use!layoutmanager"
+
 ], function ($, _, Backbone) {
 
     "use strict";
@@ -30,7 +32,7 @@ define([
             var that = this;
 
             // bind the current scope (for callbacks and the like)
-            _.bindAll(this, 'fire');
+            _.bindAll(this, 'listen', 'fire');
 
             // set the el to the browser window
             this.el = $(window);
@@ -46,6 +48,10 @@ define([
             var stack,
                 callback,
                 key;
+
+            if (this.silent) {
+                return;
+            }
 
             // lookup the key
             key = this.lookup(event.keyCode);
@@ -69,12 +75,12 @@ define([
         listen: function (key, callback) {
 
             // get the stack
-            var event_stack = this.keyboard[key];
+            var event_stack = this.event_stack[key];
 
             // if the stack for this key isn't set, then set it
             if (!event_stack) {
                 event_stack = [];
-                this.keyboard[key] = event_stack;
+                this.event_stack[key] = event_stack;
             }
 
             // push the event onto the event stack
@@ -94,6 +100,14 @@ define([
         // clean that shit
         clean: function () {
             window.alert('clean keyboard events');
+        },
+
+        silence: function () {
+            this.silent = true;
+        },
+
+        unsilence: function () {
+            this.silent = false;
         },
 
         // render - throws an exception

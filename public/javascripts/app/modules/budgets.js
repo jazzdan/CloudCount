@@ -2,6 +2,8 @@ define([
     "namespace",
 
     // Libs
+    "jquery",
+    "use!underscore",
     "use!backbone",
 
     // Modules
@@ -10,9 +12,9 @@ define([
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Budget, Utils) {
+], function (cc, $, _, Backbone, Budget, Utils) {
 
-    //"use strict";
+    "use strict";
 
     // Shorthand the app
     var app = cc.app,
@@ -71,13 +73,13 @@ define([
         // serialize data for rendering
         serialize: function () {
             return this.model.toJSON();
-        },
+        }
 
     });
 
     /**
      * Budgets Index
-     * 
+     *
      * @extends Utils:List
      */
     Budgets.Views.Index = Utils.Views.List.extend({
@@ -102,10 +104,8 @@ define([
             // the ol' this-that
             var that = this;
 
-            _ARG = this;
-
             // initialize keyboard events
-            //this.initialize_keyboard();
+            this.initialize_keyboard();
 
             // refresh the view if a budget is deleted
             this.collection.bind('remove', function () {
@@ -123,7 +123,7 @@ define([
         },
 
         // enter-down keyboard event
-        enter_down: function (event, keys, combo) {
+        enter_down: function (event) {
             var selected = this.get_selected();
             if (selected !== undefined) {
                 selected.edit();
@@ -145,7 +145,7 @@ define([
 
             // render the view
             return view.render(this.collection);
-        },
+        }
 
     });
 
