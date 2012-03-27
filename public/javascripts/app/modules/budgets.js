@@ -14,7 +14,7 @@ define([
     "use!layoutmanager"
 ], function (cc, $, _, Backbone, Budget, Utils) {
 
-    //"use strict";
+    "use strict";
 
     // Shorthand the app
     var app = cc.app,
@@ -266,7 +266,10 @@ define([
 
         // enter-down keyboard event
         enter_down: function (event) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> did a bunch of stuff...
             var selected = this.get_selected();
             if (selected !== undefined) {
                 selected.edit();
@@ -288,7 +291,7 @@ define([
 
             // render the view
             return view.render(this.collection);
-        },
+        }
 
         delete_view: function (key) {
             this.views[key].remove();

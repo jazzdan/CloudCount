@@ -9,7 +9,6 @@ define([
 
     // Plugins
     "use!layoutmanager"
-
 ], function (cc, $, _, Backbone) {
 
     //"use strict";
@@ -177,10 +176,14 @@ define([
 
             // initialize keyboard events
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.initialize_keyboard();
 =======
             this.initialize_keyboard()
 >>>>>>> first iteration of kb event object
+=======
+            this.initialize_keyboard();
+>>>>>>> did a bunch of stuff...
 
         },
 
@@ -194,6 +197,7 @@ define([
 
             // initialize all keyboard events
 <<<<<<< HEAD
+<<<<<<< HEAD
             _.each(that.keyboard, function (callback, key) {
 
                 var clean = Backbone.Keyboard.listen(key, that[callback]);
@@ -202,6 +206,11 @@ define([
 
                 var clean = KeyboardJS.bind.key(key, that[val.down], that[val.up]);
 >>>>>>> first iteration of kb event object
+=======
+            _.each(that.keyboard, function (callback, key) {
+
+                var clean = Backbone.Keyboard.listen(key, that[callback]);
+>>>>>>> did a bunch of stuff...
 
                 that.keyboard_cleanups.push(clean);
 
@@ -280,6 +289,9 @@ define([
 
             // initialize keyboard events
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> did a bunch of stuff...
             this.initialize_keyboard();
 
         },
