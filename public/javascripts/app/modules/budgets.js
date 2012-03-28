@@ -41,6 +41,15 @@ define([
     });
 
     /**
+     * Budget Form
+     */
+    Budgets.Views.Form = Backbone.LayoutManager.View.extend({
+
+        template: 'budgets/form',
+
+    });
+
+    /**
      * Budget Row
      */
     Budgets.Views.Row = Backbone.LayoutManager.View.extend({
@@ -90,8 +99,36 @@ define([
         // events hash (explicitly delcare it so we don't forget the inherited events
         events: {
             // inherited events:
-            'click tbody tr': 'select'
+            'click tbody tr': 'select',
             // events:
+            'click .new_budget': 'new_budget'
+        },
+
+        // new budget event
+        new_budget: function (e) {
+
+            // the ol' this-that
+            var that = this,
+                modal;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            // render the modal
+            modal = this.view('.tmp', new Utils.Views.Modal({
+                title: 'New Budget',
+                action: 'Save',
+                content: Budgets.Views.Form
+            }));
+
+            // render the modal
+            modal.render();
+
+            modal.bind('close', function () {
+                that.views['.tmp'].remove();
+                modal.unbind();
+            });
+
         },
 
         list: 'tbody.budgets',
