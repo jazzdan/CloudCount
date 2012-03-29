@@ -47,6 +47,25 @@ define([
 
         template: 'budgets/form',
 
+        model: Budget.Model,
+
+        extract: function () {
+            var fields,
+                data,
+                model;
+
+            fields = $('.field', this.$el);
+            data = {};
+
+            _.each(fields, function (field) {
+                var field = $(field);
+                data[field.data('attr')] = field.val();
+            });
+
+            return new this.model(data);
+
+        }
+
     });
 
     /**
@@ -109,7 +128,8 @@ define([
 
             // the ol' this-that
             var that = this,
-                modal;
+                modal,
+                close_modal;
 
             e.preventDefault();
             e.stopPropagation();
@@ -121,12 +141,27 @@ define([
                 content: Budgets.Views.Form
             }));
 
+            close_modal = function () {
+                that.delete_view('.tmp');
+                modal.unbind();
+            };
+
             // render the modal
             modal.render();
 
+            // bind modal confirm event
+            modal.bind('confirm', function () {
+                var model = modal.content.extract();
+                if (model.isValid()) {
+                    close_modal();
+                } else {
+                    alert('invalid submission');
+                }
+            });
+
+            // bind modal close event
             modal.bind('close', function () {
-                that.views['.tmp'].remove();
-                modal.unbind();
+                close_modal();
             });
 
         },
@@ -148,6 +183,7 @@ define([
             this.collection.bind('remove', function () {
                 that.render();
             });
+
         },
 
         // keyboard event functions
@@ -182,6 +218,11 @@ define([
 
             // render the view
             return view.render(this.collection);
+        }
+
+        delete_view: function (key) {
+            this.views[key].remove();
+            delete this.views[key];
         }
 
     });
