@@ -26,6 +26,30 @@ define([
         // set the id to a mongo style _id
         idAttribute: '_id',
 
+        rules: {
+            'title': /[^\s]+/,
+            'roll': /[^\s]+/,
+            'starts': /[^\s]+/,
+            'ends': /[^\s]+/
+        },
+
+        validate: function (attrs) {
+            var that = this,
+                errors;
+
+            errors = _.reduce(attrs, function (memo, val, key) {
+                
+                if (that.rules[key] && !that.rules[key].test(val)) {
+                    memo.push('invalid: ' + key);
+                }
+                return memo;
+            }, []);
+
+            console.log(errors);
+
+            return (errors.length > 0) ? errors : undefined;
+        },
+
         url: function () {
             return '/budgets/' + this.get('_id');
         }
