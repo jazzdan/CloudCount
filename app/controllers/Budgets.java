@@ -32,6 +32,17 @@ public class Budgets extends Controller {
     }
 
     /**
+     * Create Budget
+     */
+
+    public static void create(String title, String description, int start, int ends, String rolls) {
+      Budget b = new Budget(title, description, start, ends, rolls);
+      b.save();
+      //render(something) //we're probably going to want to render some
+      //form here.
+    }
+
+    /**
      * Delete Budget
      */
     public static void delete(long id) {
