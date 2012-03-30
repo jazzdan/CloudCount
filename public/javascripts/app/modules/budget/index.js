@@ -26,30 +26,111 @@ define([
         // set the id to a mongo style _id
         idAttribute: '_id',
 
+        // validation errors
+        errors: [],
+
+        // validation rules
         rules: {
-            'title': /[^\s]+/,
-            'roll': /[^\s]+/,
-            'starts': /[^\s]+/,
-            'ends': /[^\s]+/
+            'title': 'required',
+            'roll': 'required',
+            'starts': ['required', 'date'],
+            'ends': ['required', 'date']
         },
 
+        // validations
+        validations: {
+            'date': {
+                exp: /^[0-3]?\d-[01]?\d-\d{4}$/,
+                msg: ':key is not a valid date (dd-mm-yyyy).'
+            },
+            'email': {
+                exp: /^[\w]+@[\w]+\.[\w]{3}$/,
+                msg: ':key is not a valid email.'
+            },
+            'required': {
+                exp: /[^\s]+/,
+                msg: ':key is required.'
+            },
+            'url': {
+                exp: /^([\w]{2,4}):\/\/([\w]+.[\w]+)(\/[\w]*)*(\?([\w]+=[\w]*)*)?$/,
+                msg: ':key is not a url.'
+            }
+        },
+
+        // validate model
         validate: function (attrs) {
             var that = this,
-                errors;
+                errors = [];
 
             errors = _.reduce(attrs, function (memo, val, key) {
                 
-                if (that.rules[key] && !that.rules[key].test(val)) {
-                    memo.push('invalid: ' + key);
+                var res = that.test(key, val);
+
+                console.log(res);
+
+                if (res) {
+                    memo.push({ 
+                        key: key,
+                        error: res
+                    });
                 }
                 return memo;
             }, []);
 
-            console.log(errors);
+            // set the model errors
+            this.errors = errors;
 
             return (errors.length > 0) ? errors : undefined;
         },
 
+        // test 
+        test: function (key, val) {
+
+            var that = this,
+                rules,
+                test_rule,
+                error;
+
+            test_rule = function (rule) {
+                var v = that.validations[rule];
+                if (!v.exp.test(val)) {
+                    return that.format_message(v.msg, key);
+                }
+            };
+
+            rules = this.rules[key];
+
+            if (typeof rules === 'string') {
+
+                error = test_rule(rules);
+
+            } else if (rules instanceof Array) {
+
+                error = _.reduce(rules, function (memo, rule) {
+                    var error = test_rule(rule);
+                    if (error) {
+                        memo.push(error);
+                    }
+                    return memo;
+                }, []);
+
+                if (error.length === 0) {
+                    error = undefined;
+                }
+
+            }
+
+            return error;
+
+        },
+
+        // format an error message
+        format_message: function (msg, key) {
+            var field = key[0].toUpperCase() + key.slice(1);
+            return msg.replace(':key', field);
+        },
+
+        // model url
         url: function () {
             return '/budgets/' + this.get('_id');
         }
