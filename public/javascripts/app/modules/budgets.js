@@ -99,13 +99,13 @@ define([
         // serialize data for rendering
         serialize: function () {
             return this.model.toJSON();
-        },
+        }
 
     });
 
     /**
      * Budgets Index
-     * 
+     *
      * @extends Utils:List
      */
     Budgets.Views.Index = Utils.Views.List.extend({
@@ -192,7 +192,7 @@ define([
 
             // render the view
             return view.render(this.collection);
-        },
+        }
 
         delete_view: function (key) {
             this.views[key].remove();

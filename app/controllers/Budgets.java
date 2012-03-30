@@ -32,6 +32,34 @@ public class Budgets extends Controller {
     }
 
     /**
+     * Create Budget
+     */
+
+    public static void create(String title, String description, int start, int ends, String rolls) {
+      Budget b = new Budget(title, description, start, ends, rolls);
+      b.save();
+      //render(something) //we're probably going to want to render some
+      //form here.
+    }
+
+    /**
+     * Update an existing budget.
+     */
+
+    public static void update(long id, String title, String description, int start, int ends, String rolls) {
+      Budget b = Budget.find("by_id", id).first();
+
+      b.title = title;
+      b.description = description;
+      b.start = start;
+      b.ends = ends;
+      b.rolls = rolls;
+
+      b.save();
+      //render(something)
+    }
+
+    /**
      * Delete Budget
      */
     public static void delete(long id) {
