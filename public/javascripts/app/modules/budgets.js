@@ -45,10 +45,51 @@ define([
      */
     Budgets.Views.Form = Backbone.LayoutManager.View.extend({
 
+        // form template
         template: 'budgets/form',
 
-        model: Budget.Model,
+        // initialize form
+        initialize: function () {
 
+            _.bindAll(this, 'show_errors');
+
+            this.model = new Budget.Model();
+
+            this.model.bind('error', this.show_errors);
+
+        },
+
+        // form is valid?
+        isValid: function () {
+            var has_errors;
+
+            this.model.set(this.extract());
+
+            has_errors = this.model.has_errors();
+
+            return !has_errors;
+        },
+
+        // show errors
+        show_errors: function () {
+
+            var that = this;
+
+            that.clear_errors();
+
+            _.each(this.model.errors, function (error) {
+                var field = $('.' + error.key, that.$el);
+                field.addClass('error');
+            });
+
+        },
+
+        // clear field errors
+        clear_errors: function () {
+            $('.error', this.$el).removeClass('error');
+        },
+
+        // extract form data
         extract: function () {
             var fields,
                 data,
@@ -62,8 +103,12 @@ define([
                 data[field.data('attr')] = field.val();
             });
 
-            return new this.model(data);
+            return data;
 
+        },
+
+        save: function () {
+            return (this.isValid()) ? this.model.save() : false;
         }
 
     });
@@ -151,11 +196,13 @@ define([
 
             // bind modal confirm event
             modal.bind('confirm', function () {
-                var model = modal.content.extract();
-                if (model.isValid()) {
+                if (modal.content.save()) {
+
+                    // update budgets
+                    that.collection.add(modal.content.model);
+
                     close_modal();
-                } else {
-                    alert('invalid submission');
+
                 }
             });
 
@@ -181,6 +228,11 @@ define([
 
             // refresh the view if a budget is deleted
             this.collection.bind('remove', function () {
+                that.render();
+            });
+
+            // refresh the view if a budget is added
+            this.collection.bind('add', function () {
                 that.render();
             });
 
@@ -218,7 +270,7 @@ define([
 
             // render the view
             return view.render(this.collection);
-        }
+        },
 
         delete_view: function (key) {
             this.views[key].remove();
