@@ -27,7 +27,7 @@ define([
         idAttribute: '_id',
 
         // validation errors
-        errors: [],
+        errors: undefined,
 
         // validation rules
         rules: {
@@ -59,53 +59,76 @@ define([
 
         // validate model
         validate: function (attrs) {
+
+            // variables
             var that = this,
                 errors = [];
 
-            errors = _.reduce(attrs, function (memo, val, key) {
+            // validate all attibutes and get errors
+            errors = _.reduce(attrs, function (errors, val, key) {
                 
+                // test given key with given value
                 var res = that.test(key, val);
 
-                console.log(res);
-
+                // if there's an error, store it 
                 if (res) {
-                    memo.push({ 
+                    errors.push({ 
                         key: key,
                         error: res
                     });
                 }
-                return memo;
+                return errors;
             }, []);
 
             // set the model errors
             this.errors = errors;
 
+            // if there are errors return them
             return (errors.length > 0) ? errors : undefined;
         },
 
-        // test 
+        // tests a key:value pair
         test: function (key, val) {
 
+            // variable
             var that = this,
                 rules,
                 test_rule,
                 error;
 
+            // test a rule
             test_rule = function (rule) {
                 var v = that.validations[rule];
-                if (!v.exp.test(val)) {
+
+                if (!v) {
+
+                    // if the rule is undefined throw an exception
+                    throw 'Validation rule "' + rule + '" is not defined.';
+
+                } else if (!v.exp.test(val)) {
+
+                    // format and return the error
                     return that.format_message(v.msg, key);
+
                 }
             };
 
+            // get the rules specified for this key
             rules = this.rules[key];
 
             if (typeof rules === 'string') {
 
+                // if theres only one rule just execute it
                 error = test_rule(rules);
+
+                // if theres an error wrap it in an array
+                if (error) {
+                    error = [error];
+                }
 
             } else if (rules instanceof Array) {
 
+                // get array of errors
                 error = _.reduce(rules, function (memo, rule) {
                     var error = test_rule(rule);
                     if (error) {
@@ -114,6 +137,7 @@ define([
                     return memo;
                 }, []);
 
+                // if its empty return undefined
                 if (error.length === 0) {
                     error = undefined;
                 }
@@ -126,8 +150,13 @@ define([
 
         // format an error message
         format_message: function (msg, key) {
+
+            // uppercase the key
             var field = key[0].toUpperCase() + key.slice(1);
+
+            // format and return the message
             return msg.replace(':key', field);
+
         },
 
         // model url
