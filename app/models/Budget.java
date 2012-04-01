@@ -6,6 +6,7 @@ import play.modules.morphia.Model;
 import play.modules.morphia.Model.AutoTimestamp;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
 
 /**
  * The budget class
@@ -14,17 +15,15 @@ import com.google.code.morphia.annotations.Entity;
 @Entity
 public class Budget extends Model {
 
-  // @Required
-  // public int id;
-
   @Required
+  @Indexed
   public String title;
 
   @Required
   public String description;
 
   @Required
-  public int start;
+  public int starts;
 
   @Required
   public int ends;
@@ -37,15 +36,14 @@ public class Budget extends Model {
    *
    * @param title The title of the budget
    * @param description The description of the budget
-   * @param start The start date of the budget
+   * @param starts The start date of the budget
    * @param ends The end date of the budget
    * @param rolls The roll of the budget
    */
-  public Budget(String title, String description, int start, int ends, String rolls) {
-    // this.id = id;
+  public Budget(String title, String description, int starts, int ends, String rolls) {
     this.title = title;
     this.description = description;
-    this.start = start;
+    this.starts = starts;
     this.ends = ends;
     this.rolls = rolls;
   }

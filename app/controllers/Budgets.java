@@ -46,12 +46,12 @@ public class Budgets extends Controller {
      * Update an existing budget.
      */
 
-    public static void update(long id, String title, String description, int start, int ends, String rolls) {
+    public static void update(long id, String title, String description, int starts, int ends, String rolls) {
       Budget b = Budget.find("by_id", id).first();
 
       b.title = title;
       b.description = description;
-      b.start = start;
+      b.starts = starts;
       b.ends = ends;
       b.rolls = rolls;
 
