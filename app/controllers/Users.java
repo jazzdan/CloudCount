@@ -5,7 +5,7 @@ import play.mvc.*;
 
 import java.util.*;
 
-import models.*;
+import models.User;
 
 /**
  * The user class handles users and their metadata.
@@ -34,9 +34,9 @@ public class Users extends Controller {
 	*/
 	
 	
-	public static void create (String username, String last_name, String first_name, String email, boolean admin) {
+	public static void create(String username, String last_name, String first_name, String email, boolean admin) {
 	
-	  User user= new user(username, lastname, first_name, email, admin); 
+	  User user = new User(username, last_name, first_name, email, admin);
 	  user.save();
 	}
 
@@ -49,9 +49,9 @@ public class Users extends Controller {
 	*/
 	
 	
-	public static void delete (long userId){
+	public static void delete(long userId){
 	
-	  User u= User.find("by_id", userId).first();
+	  User u = User.find("by_id", userId).first();
 	  u.delete();
 	
 	}
