@@ -22,7 +22,7 @@ public class Security extends Secure.Security {
      */
     static boolean authenticate(String email, String password) {
         User user = User.find("byEmail", email).first();
-        Boolean authed = user != null && user.password.equals(password);
+        Boolean authed = user != null && user.getPassword().equals(password);
         return authed;
     }
 
