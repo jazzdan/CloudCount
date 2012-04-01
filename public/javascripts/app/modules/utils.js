@@ -72,6 +72,7 @@ define([
                 if (res) {
                     errors.push({ 
                         key: key,
+                        value: val,
                         errors: res
                     });
                 }
