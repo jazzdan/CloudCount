@@ -161,7 +161,7 @@ require([
                     budget.fetch({
 
                         error: function (model, response) {
-                            console.log('FAILed to get budget: ');
+                            console.log('FAIL: count not get budget: ');
                             console.log(response);
                         },
 
@@ -183,6 +183,11 @@ require([
 
                     // update the budget
                     budget.fetch({
+
+                        error: function (collection, response) {
+                            console.log('FAIL: could not fetch collection:')
+                            console.log(response);
+                        },
 
                         // on success, update the view
                         success: function (model) {
