@@ -39,6 +39,79 @@ define([
     });
 
     /**
+     * Budget Form
+     */
+    Budgets.Views.Form = Backbone.LayoutManager.View.extend({
+
+        // form template
+        template: 'budgets/form',
+
+        // initialize form
+        initialize: function () {
+
+            _.bindAll(this, 'show_errors');
+
+            this.model = new Budget.Model();
+
+            this.model.bind('error', this.show_errors);
+
+        },
+
+        // form is valid?
+        isValid: function () {
+            var has_errors;
+
+            this.model.set(this.extract());
+
+            has_errors = this.model.has_errors();
+
+            return !has_errors;
+        },
+
+        // show errors
+        show_errors: function () {
+
+            var that = this;
+
+            that.clear_errors();
+
+            _.each(this.model.errors, function (error) {
+                var field = $('.' + error.key, that.$el);
+                field.addClass('error');
+            });
+
+        },
+
+        // clear field errors
+        clear_errors: function () {
+            $('.error', this.$el).removeClass('error');
+        },
+
+        // extract form data
+        extract: function () {
+            var fields,
+                data,
+                model;
+
+            fields = $('.field', this.$el);
+            data = {};
+
+            _.each(fields, function (field) {
+                var field = $(field);
+                data[field.data('attr')] = field.val();
+            });
+
+            return data;
+
+        },
+
+        save: function () {
+            return (this.isValid()) ? this.model.save() : false;
+        }
+
+    });
+
+    /**
      * Budget Row
      */
     Budgets.Views.Row = Backbone.LayoutManager.View.extend({
@@ -70,7 +143,15 @@ define([
 
         // serialize data for rendering
         serialize: function () {
-            return this.model.toJSON();
+            var data = this.model.toJSON(),
+                starts = new Date(data.starts),
+                ends = new Date(data.ends);
+
+            // prettify dates
+            data.starts = starts.toLocaleDateString();
+            data.ends = ends.toLocaleDateString();
+
+            return data;
         }
 
     });
@@ -88,8 +169,54 @@ define([
         // events hash (explicitly delcare it so we don't forget the inherited events
         events: {
             // inherited events:
-            'click tbody tr': 'select'
+            'click tbody tr': 'select',
             // events:
+            'click .new_budget': 'new_budget'
+        },
+
+        // new budget event
+        new_budget: function (e) {
+
+            // the ol' this-that
+            var that = this,
+                modal,
+                close_modal;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            // render the modal
+            modal = this.view('.tmp', new Utils.Views.Modal({
+                title: 'New Budget',
+                action: 'Save',
+                content: Budgets.Views.Form
+            }));
+
+            close_modal = function () {
+                that.delete_view('.tmp');
+                modal.unbind();
+            };
+
+            // render the modal
+            modal.render();
+
+            // bind modal confirm event
+            modal.bind('confirm', function () {
+                if (modal.content.save()) {
+
+                    // update budgets
+                    that.collection.add(modal.content.model);
+
+                    close_modal();
+
+                }
+            });
+
+            // bind modal close event
+            modal.bind('close', function () {
+                close_modal();
+            });
+
         },
 
         // initialize the vew
@@ -102,6 +229,12 @@ define([
             this.collection.bind('remove', function () {
                 that.render();
             });
+
+            // refresh the view if a budget is added
+            this.collection.bind('add', function () {
+                that.render();
+            });
+
         },
 
         // render function
@@ -119,6 +252,11 @@ define([
 
             // render the view
             return view.render(this.collection);
+        },
+
+        delete_view: function (key) {
+            this.views[key].remove();
+            delete this.views[key];
         }
 
     });
