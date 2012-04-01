@@ -35,7 +35,7 @@ public class Users extends Controller {
 	
 	
 	public static void create(String username, String last_name, String first_name, String email, String password, boolean admin) {
-	
+
 	  User user = new User(username, last_name, first_name, email, password, admin);
 	  user.save();
 	}
