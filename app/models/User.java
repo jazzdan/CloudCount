@@ -59,11 +59,12 @@ public class User extends Model {
    * @param email Email of the user
    * @param admin True if user is admin, false otherwise.
    */
-  public User(String username, String last_name, String first_name, String email, boolean admin) {
+  public User(String username, String last_name, String first_name, String email, String password, boolean admin) {
     this.username = username;
     this.last_name = last_name;
     this.first_name = first_name;
     this.email = email;
+    this.password = password;
     this.admin = admin;
   }
 
