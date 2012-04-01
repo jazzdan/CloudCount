@@ -65,6 +65,7 @@ public class Budgets extends Controller {
      */
     public static void delete(long id) {
         Budget budget = Budget.find("by_id", id).first();
+        //TODO: Remove associated attachments and lines.
         budget.delete();
     }
 
