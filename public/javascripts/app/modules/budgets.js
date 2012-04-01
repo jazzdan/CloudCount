@@ -145,7 +145,15 @@ define([
 
         // serialize data for rendering
         serialize: function () {
-            return this.model.toJSON();
+            var data = this.model.toJSON(),
+                starts = new Date(data.starts),
+                ends = new Date(data.ends);
+
+            // prettify dates
+            data.starts = starts.toLocaleDateString();
+            data.ends = ends.toLocaleDateString();
+
+            return data;
         }
 
     });

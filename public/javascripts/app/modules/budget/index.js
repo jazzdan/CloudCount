@@ -30,9 +30,37 @@ define([
         // validation rules
         rules: {
             'title': 'required',
-            'roll': 'required',
+            'description': 'required',
+            'rolls': 'required',
             'starts': ['required', 'date'],
             'ends': ['required', 'date']
+        },
+
+        initialize: function () {
+
+            var that = this;
+
+            this.bind('change:starts', function (model, value, opts) {
+                that.parse_date('starts');
+            });
+            this.bind('change:ends', function (model, value, opts) {
+                that.parse_date('ends');
+            });
+
+        },
+
+        parse_date: function (key) {
+            var value = this.get(key),
+                date,
+                parsed;
+
+            if (typeof value === 'string') {
+                date = new Date(value);
+                parsed = {};
+                parsed[key] = date.getTime();
+                this.set(parsed, {silent: true});
+            }
+            
         },
 
         // model url

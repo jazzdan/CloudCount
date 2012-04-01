@@ -35,9 +35,9 @@ public class Budgets extends Controller {
      * Create Budget
      */
 
-    public static void create(String title, String description, int starts, int ends, String rolls) {
-      Budget b = new Budget(title, description, starts, ends, rolls);
-      b.save();
+    public static void create(Budget body) {
+      System.out.println(body);
+      body.save();
       //render(something) //we're probably going to want to render some
       //form here.
     }
