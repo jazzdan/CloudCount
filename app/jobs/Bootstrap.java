@@ -16,8 +16,7 @@ public class Bootstrap extends Job {
    */
   public void doJob() {
     if(User.find("username", "derp").first() == null) {
-      User u = new User("derp", "Derpington", "Derpmeister", "derp@derp.com", true);
-      u.password = "derp";
+      User u = new User("derp", "Derpington", "Derpmeister", "derp@derp.com", "derp", true);
       u.save();
     } else {
       System.out.println("Derp already exists in this installation.");
