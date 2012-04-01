@@ -160,8 +160,14 @@ require([
                     // update the budget
                     budget.fetch({
 
+                        error: function (model, response) {
+                            console.log('FAILed to get budget: ');
+                            console.log(response);
+                        },
+
                         // on success, update the view
                         success: function (model, resp) {
+                            console.log('got budget');
                             // add the newly retrieved model to the collection
                             app.budgets.add(model);
                             // render the views
