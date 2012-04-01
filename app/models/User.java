@@ -4,6 +4,7 @@ import play.data.validation.Email;
 import play.data.validation.Required;
 import play.modules.morphia.Model;
 import play.modules.morphia.Model.AutoTimestamp;
+import play.libs.Crypto;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
@@ -64,7 +65,7 @@ public class User extends Model {
     this.last_name = last_name;
     this.first_name = first_name;
     this.email = email;
-    this.password = password;
+    this.password = Crypto.encryptAES(password);
     this.admin = admin;
   }
 
@@ -101,5 +102,9 @@ public class User extends Model {
       System.out.println("ERROR: " + e);
       return false;
     }
+  }
+
+  public String getPassword() {
+    return Crypto.decryptAES(this.password);
   }
 }
