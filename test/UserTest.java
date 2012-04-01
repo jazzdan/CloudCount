@@ -35,10 +35,10 @@ public class UserTest extends UnitTest {
       
     @Test
     public void testDeleteUser() {
-      User u = new User("crabideau", "Rabideau", "Colby", "colby@rabideau.com", true);
+      User u = new User("carley", "Keefe", "Carley", "carley@cloudcount.com", true);
       u.save();
 
-      User.removeUser("crabideau");
+      //User.removeUser("crabideau");
       // assertNull(u);
     }
 
