@@ -38,7 +38,9 @@ public class Budgets extends Controller {
     public static void create(Budget body) {
       System.out.println(params.get("body"));
       System.out.println(body);
+
       body.save();
+      renderJSON(body);
       //render(something) //we're probably going to want to render some
       //form here.
     }
