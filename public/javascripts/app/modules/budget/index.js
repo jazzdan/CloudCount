@@ -43,6 +43,7 @@ define([
             this.bind('change:starts', function (model, value, opts) {
                 that.parse_date('starts');
             });
+
             this.bind('change:ends', function (model, value, opts) {
                 that.parse_date('ends');
             });

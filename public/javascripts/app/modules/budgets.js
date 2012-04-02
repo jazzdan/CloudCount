@@ -204,14 +204,22 @@ define([
 
             // bind modal confirm event
             modal.bind('confirm', function () {
+
                 if (modal.content.save()) {
 
-                    // update budgets
-                    that.collection.add(modal.content.model);
-
-                    close_modal();
+                    // refresh collection
+                    that.collection.fetch({
+                        success: function () {
+                            close_modal();
+                        },
+                        error: function (collection, response) {
+                            console.log('FAIL: could not fetch collection');
+                            console.log(response);
+                        }
+                    });
 
                 }
+
             });
 
             // bind modal close event
@@ -241,6 +249,11 @@ define([
 
             // refresh the view if a budget is added
             this.collection.bind('add', function () {
+                that.render();
+            });
+
+            // refresh the view if the collection is refreshed
+            this.collection.bind('reset', function () {
                 that.render();
             });
 
