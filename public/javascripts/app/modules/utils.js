@@ -175,15 +175,8 @@ define([
             _.bindAll(this, 'initialize_keyboard');
 
             // initialize keyboard events
-<<<<<<< HEAD
-<<<<<<< HEAD
+
             this.initialize_keyboard();
-=======
-            this.initialize_keyboard()
->>>>>>> first iteration of kb event object
-=======
-            this.initialize_keyboard();
->>>>>>> did a bunch of stuff...
 
         },
 
@@ -196,21 +189,10 @@ define([
             var that = this;
 
             // initialize all keyboard events
-<<<<<<< HEAD
-<<<<<<< HEAD
+
             _.each(that.keyboard, function (callback, key) {
 
                 var clean = Backbone.Keyboard.listen(key, that[callback]);
-=======
-            _.each(that.keyboard, function (val, key) {
-
-                var clean = KeyboardJS.bind.key(key, that[val.down], that[val.up]);
->>>>>>> first iteration of kb event object
-=======
-            _.each(that.keyboard, function (callback, key) {
-
-                var clean = Backbone.Keyboard.listen(key, that[callback]);
->>>>>>> did a bunch of stuff...
 
                 that.keyboard_cleanups.push(clean);
 
@@ -267,7 +249,6 @@ define([
             }
         },
 
-<<<<<<< HEAD
         // get the view object of the selected element
         get_selected: function () {
             var that = this;
@@ -282,16 +263,9 @@ define([
 
         $selected: undefined,
 
-=======
->>>>>>> first iteration of kb event object
         // initialize the view
         initialize: function () {
 
-            // initialize keyboard events
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> did a bunch of stuff...
             this.initialize_keyboard();
 
         },
@@ -311,11 +285,6 @@ define([
             alert('next_row');
             return false;
         }
-=======
-            this.initialize_keyboard()
-
-        },
->>>>>>> first iteration of kb event object
 
     });
 
