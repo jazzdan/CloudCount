@@ -24,7 +24,14 @@
     <div class="rolls control-group">
       <label class="control-rolls" for="rolls">Rolls *</label>
       <div class="controls">
-        <input type="text" class="input-xlarge field" data-attr="rolls">
+        <select class="input-xlarge field" data-attr="rolls">
+          <option value="" selected="selected">-- select roll --</option>
+          <option value="daily">daily</option>
+          <option value="weekly">weekly</option>
+          <option value="monthly">monthly</option>
+          <option value="quarterly">quarterly</option>
+          <option value="yearly">yearly</option>
+        </select>
         <p class="help-block">How often the budget rolls.</p>
       </div>
     </div>
