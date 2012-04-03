@@ -4,6 +4,7 @@ import play.data.validation.Email;
 import play.data.validation.Required;
 import play.modules.morphia.Model;
 import play.modules.morphia.Model.AutoTimestamp;
+import play.libs.Crypto;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
@@ -59,11 +60,12 @@ public class User extends Model {
    * @param email Email of the user
    * @param admin True if user is admin, false otherwise.
    */
-  public User(String username, String last_name, String first_name, String email, boolean admin) {
+  public User(String username, String last_name, String first_name, String email, String password, boolean admin) {
     this.username = username;
     this.last_name = last_name;
     this.first_name = first_name;
     this.email = email;
+    this.password = Crypto.encryptAES(password);
     this.admin = admin;
   }
 
@@ -100,5 +102,9 @@ public class User extends Model {
       System.out.println("ERROR: " + e);
       return false;
     }
+  }
+
+  public String getPassword() {
+    return Crypto.decryptAES(this.password);
   }
 }

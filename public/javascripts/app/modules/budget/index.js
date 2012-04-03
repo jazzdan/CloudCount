@@ -5,11 +5,12 @@ define([
     "use!backbone",
 
     // modules
+    "modules/utils",
     "modules/budget/attachments",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Attachments) {
+], function (cc, Backbone, Utils, Attachments) {
 
     "use strict";
 
@@ -21,13 +22,51 @@ define([
      * Model
      *    The Budget Model
      */
-    Budget.Model = Backbone.Model.extend({
+    Budget.Model = Utils.Models.Validated.extend({
 
         // set the id to a mongo style _id
         idAttribute: '_id',
 
+        // validation rules
+        rules: {
+            'title': 'required',
+            'description': 'required',
+            'rolls': 'required',
+            'starts': ['required', 'date'],
+            'ends': ['required', 'date']
+        },
+
+        initialize: function () {
+
+            var that = this;
+
+            this.bind('change:starts', function (model, value, opts) {
+                that.parse_date('starts');
+            });
+            this.bind('change:ends', function (model, value, opts) {
+                that.parse_date('ends');
+            });
+
+        },
+
+        parse_date: function (key) {
+            var value = this.get(key),
+                date,
+                parsed;
+
+            if (typeof value === 'string') {
+                date = new Date(value);
+                parsed = {};
+                parsed[key] = date.getTime();
+                this.set(parsed, {silent: true});
+            }
+            
+        },
+
+        // model url
         url: function () {
-            return '/budgets/' + this.get('_id');
+            var id = this.get('_id');
+            return '/budgets/' + ((id) ? id : 'create');
         }
 
     });
