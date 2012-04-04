@@ -52,11 +52,15 @@ define([
 
         parse_date: function (key) {
             var value = this.get(key),
+                s,
                 date,
                 parsed;
 
             if (typeof value === 'string') {
-                date = new Date(value);
+                s = value.split('-');
+                // note to self... months are 0 -> 11 :(
+                date = new Date(s[0], parseInt(s[1]) - 1, s[2]);
+                console.log(s);
                 parsed = {};
                 parsed[key] = date.getTime();
                 this.set(parsed, {silent: true});
