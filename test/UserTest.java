@@ -27,7 +27,7 @@ public class UserTest extends UnitTest {
 
     @Test
     public void testStoreUser() {
-      User u = new User("jazzdan", "Miller", "Dan", "jazzdan@gmail.com", true);
+      User u = new User("jazzdan", "Miller", "Dan", "jazzdan@gmail.com", "jazz", true);
       u.save();
 
       u.delete();
@@ -35,7 +35,7 @@ public class UserTest extends UnitTest {
       
     @Test
     public void testDeleteUser() {
-      User u = new User("carley", "Keefe", "Carley", "carley@cloudcount.com", true);
+      User u = new User("carley", "Keefe", "Carley", "carley@cloudcount.com", "password", true);
       u.save();
 
       //User.removeUser("crabideau");
@@ -46,7 +46,7 @@ public class UserTest extends UnitTest {
     public void seleniumUser() {
       User test = User.find("username", "selenium").first();
       if(test == null) {
-        test = new User("selenium", "Sel", "Enium", "sel@enium.com", true);
+        test = new User("selenium", "Sel", "Enium", "sel@enium.com", "password", true);
         test.save();
       }
     }
