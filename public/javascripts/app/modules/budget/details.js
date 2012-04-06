@@ -1,4 +1,5 @@
 define([
+
     "namespace",
 
     // Libs
@@ -6,6 +7,7 @@ define([
 
     // modules
     "modules/utils",
+    "modules/budget/index",
 
     // uploader script
     "uploader",
@@ -13,7 +15,8 @@ define([
     // Plugins
     "use!layoutmanager",
     "use!uploadify"
-], function (cc, Backbone, Utils) {
+
+], function (cc, Backbone, Utils, Budget) {
 
     "use strict";
 
@@ -29,6 +32,62 @@ define([
         // view template
         template: 'budget/details/index',
 
+        events: {
+            'click .edit': 'edit'
+        },
+
+        edit: function (e) {
+
+            // the ol' this-that
+            var that = this,
+                modal,
+                close_modal;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            // render the modal
+            modal = this.view('.tmp', new Utils.Views.Modal({
+                title: 'Edit Budget',
+                action: 'Save',
+                content: Budget.Views.Form
+            }));
+
+            close_modal = function () {
+                that.delete_view('.tmp');
+                modal.unbind();
+            };
+
+            // render the modal
+            modal.render();
+
+            // bind modal confirm event
+            modal.bind('confirm', function () {
+
+                if (modal.content.save()) {
+
+                    // refresh collection
+                    that.collection.fetch({
+                        success: function () {
+                            close_modal();
+                        },
+                        error: function (collection, response) {
+                            console.log('FAIL: could not fetch collection');
+                            console.log(response);
+                        }
+                    });
+
+                }
+
+            });
+
+            // bind modal close event
+            modal.bind('close', function () {
+                close_modal();
+            });
+
+        },
+
         // initialize
         initialize: function (opts) {
 
@@ -37,6 +96,7 @@ define([
 
         },
 
+        // serialize for rendering
         serialize: function () {
             var starts,
                 ends,
