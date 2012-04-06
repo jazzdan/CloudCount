@@ -36,6 +36,7 @@ define([
             'ends': ['required', 'date']
         },
 
+        // initialize the model
         initialize: function () {
 
             var that = this;
@@ -50,6 +51,7 @@ define([
 
         },
 
+        // parses date from 
         parse_date: function (key) {
             var value = this.get(key),
                 s,
