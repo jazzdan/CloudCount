@@ -6,11 +6,12 @@ define([
 
     // modules
     "modules/utils",
+    "modules/budget/details",
     "modules/budget/attachments",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils, Attachments) {
+], function (cc, Backbone, Utils, Details, Attachments) {
 
     "use strict";
 
@@ -135,12 +136,7 @@ define([
      * Description
      *    List of recent changes to the budget
      */
-    Budget.Views.Description = Backbone.LayoutManager.View.extend({
-
-        // view template
-        template: 'budget/description',
-
-    });
+    Budget.Views.Details = Details.Views.Index;
 
     /**
      * Attachments (alias)
@@ -206,7 +202,8 @@ define([
                 // if the section view isnt already rendered, render it
                 if (!this.views['.section.' + section_class]) {
                     view = this.view('.section.' + section_class, new Budget.Views[proper_name]({
-                        budget_id: that.model.get('_id')
+                        budget_id: that.model.get('_id'),
+                        budget: that.model
                     })).render();
                 }
 
@@ -224,7 +221,7 @@ define([
         },
 
         // sections
-        sections: [ 'budget', 'description', 'attachments', 'notes', 'audit' ],
+        sections: [ 'budget', 'details', 'attachments', 'notes', 'audit' ],
 
         // initialize
         initialize: function (opts) {
