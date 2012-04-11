@@ -7,7 +7,7 @@ import java.util.*;
 
 import models.*;
 
-@With(Secure.class)
+// @With(Secure.class)
 
 /**
  * Budgets controller
@@ -39,6 +39,9 @@ public class Budgets extends Controller {
       System.out.println(params.get("body"));
       System.out.println(body);
 
+      System.out.println("starts: " + body.starts);
+      System.out.println("ends: " + body.ends);
+
       body.save();
       renderJSON(body);
       //render(something) //we're probably going to want to render some
@@ -49,17 +52,20 @@ public class Budgets extends Controller {
      * Update an existing budget.
      */
 
-    public static void update(long id, String title, String description, int starts, int ends, String rolls) {
-      Budget b = Budget.find("by_id", id).first();
+    public static void update(Budget body) {
+      System.out.println("UPDATE!!");
+      System.out.println(params.get("body"));
+      System.out.println(body.getId());
 
-      b.title = title;
-      b.description = description;
-      b.starts = starts;
-      b.ends = ends;
-      b.rolls = rolls;
+      Budget b = Budget.find("by_id", body.getId()).first();
+      b.title = body.title;
+      b.description = body.description;
+      b.starts = body.starts;
+      b.ends = body.ends;
+      b.rolls = body.rolls;
 
       b.save();
-      //render(something)
+      renderJSON(b);
     }
 
     /**

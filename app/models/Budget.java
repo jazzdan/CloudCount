@@ -23,10 +23,10 @@ public class Budget extends Model {
   public String description;
 
   @Required
-  public int starts;
+  public long starts;
 
   @Required
-  public int ends;
+  public long ends;
 
   @Required
   public String rolls;
@@ -40,7 +40,7 @@ public class Budget extends Model {
    * @param ends The end date of the budget
    * @param rolls The roll of the budget
    */
-  public Budget(String title, String description, int starts, int ends, String rolls) {
+  public Budget(String title, String description, long starts, long ends, String rolls) {
     this.title = title;
     this.description = description;
     this.starts = starts;

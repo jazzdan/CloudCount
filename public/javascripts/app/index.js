@@ -104,7 +104,7 @@ require([
                 app.budgets.fetch().then(function () {
                     // Set all the views
                     main.setViews({
-                        ".controlbar": new Utils.Views.RefreshBar(),
+                        // ".controlbar": new Utils.Views.RefreshBar(),
                         ".canvas": new Budgets.Views.Index({ collection: app.budgets })
                     });
 
@@ -126,7 +126,7 @@ require([
                 set_render = function (budget) {
                     // Set all the views
                     main.setViews({
-                        '.controlbar': new Utils.Views.BudgetBar(),
+                        // '.controlbar': new Utils.Views.BudgetBar(),
                         ".canvas": new Budget.Views.Index({
                             tab: tab,
                             model: budget

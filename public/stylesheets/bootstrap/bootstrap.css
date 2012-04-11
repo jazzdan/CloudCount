@@ -289,60 +289,62 @@ p small {
   font-weight: 200;
   line-height: 27px;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, .alpha,
+h2, .beta,
+h3, .gamma,
+h4, .delta,
+h5, .epsilon
+h6, .zeta {
   margin: 0;
   font-weight: bold;
   color: #333333;
   text-rendering: optimizelegibility;
 }
-h1 small,
-h2 small,
-h3 small,
-h4 small,
-h5 small,
-h6 small {
+h1 small, .alpha small,
+h2 small, .beta small,
+h3 small, .gamma small,
+h4 small, .delta small,
+h5 small, .epsilon small,
+h6 small, .zeta small {
   font-weight: normal;
   color: #999999;
 }
-h1 {
+h1, .alpha {
   font-size: 30px;
   line-height: 36px;
 }
-h1 small {
+h1 small, .alpha small {
   font-size: 18px;
 }
-h2 {
+h2, .beta {
   font-size: 24px;
   line-height: 36px;
 }
-h2 small {
+h2 small, .beta small {
   font-size: 18px;
 }
-h3 {
+h3, .gamma {
   line-height: 27px;
   font-size: 18px;
 }
-h3 small {
+h3 small, .gamma small {
   font-size: 14px;
 }
-h4, h5, h6 {
+h4, .delta,
+h5, .epsilon,
+h6, .zeta {
   line-height: 18px;
 }
-h4 {
+h4, .delta {
   font-size: 14px;
 }
-h4 small {
+h4 small, .delta small {
   font-size: 12px;
 }
-h5 {
+h5, .epsilon {
   font-size: 12px;
 }
-h6 {
+h6, .zeta {
   font-size: 11px;
   color: #999999;
   text-transform: uppercase;

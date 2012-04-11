@@ -10,6 +10,7 @@ GET     /                                       Application.index
 GET     /budgets                                Budgets.index
 GET     /budgets/{id}                           Budgets.budget
 POST    /budgets/create                         Budgets.create
+POST    /budgets/                               Budgets.update
 DELETE  /budgets/{id}                           Budgets.delete
 
 # Attachments
