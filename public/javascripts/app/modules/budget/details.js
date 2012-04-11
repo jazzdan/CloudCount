@@ -53,7 +53,7 @@ define([
                 if (key === 'starts' || key === 'ends') {
                     value = (function () {
                         var date = new Date(that.model.get(key));
-                        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                        return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
                     }());
                 } else {
                     value = that.model.get(key);
@@ -205,9 +205,9 @@ define([
 
             // prettify dates
             starts = new Date(data.starts);
-            data.starts = starts.toLocaleDateString();
+            data.starts = starts.getDate() + '-' + (starts.getMonth() + 1) + '-' + starts.getFullYear();
             ends = new Date(data.ends);
-            data.ends = ends.toLocaleDateString();
+            data.ends = ends.getDate() + '-' + (ends.getMonth() + 1) + '-' + ends.getFullYear();
 
             return data;
         },

@@ -75,8 +75,8 @@ define([
                 ends = new Date(data.ends);
 
             // prettify dates
-            data.starts = starts.toLocaleDateString();
-            data.ends = ends.toLocaleDateString();
+            data.starts = starts.getDate() + '-' + (starts.getMonth() + 1) + '-' + starts.getFullYear();
+            data.ends = ends.getDate() + '-' + (ends.getMonth() + 1) + '-' + ends.getFullYear();
 
             return data;
         }

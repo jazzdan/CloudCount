@@ -10,8 +10,8 @@ body {
   vertical-align: top;
 }
 
-p {
-  margin-bottom: 1.2em !important;
+.buffer-bottom {
+  margin-bottom: 1.2em;
 }
 
 /* Control Bar */
