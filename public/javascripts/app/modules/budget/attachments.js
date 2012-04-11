@@ -76,9 +76,6 @@ define([
             case 'label':
                 re = new RegExp('^[A-Za-z0-9_\/-]+$');
                 break;
-            case 'description':
-                re = new RegExp('^.+$');
-                break;
             }
 
             valid = re.test(tar.val());
@@ -95,7 +92,7 @@ define([
         },
 
         check_valid: function () {
-            if (this.valid.label && this.valid.description) {
+            if (this.valid.label) {
                 this.parent.show('confirm');
             } else {
                 this.parent.hide('confirm');
