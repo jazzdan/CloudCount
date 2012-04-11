@@ -11,8 +11,8 @@ define([
     "uploader",
 
     // Plugins
-    "use!layoutmanager",
-    "use!uploadify"
+    "use!layoutmanager"
+
 ], function (cc, Backbone, Utils) {
 
     "use strict";

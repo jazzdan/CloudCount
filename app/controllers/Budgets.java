@@ -7,7 +7,7 @@ import java.util.*;
 
 import models.*;
 
-// @With(Secure.class)
+@With(Secure.class)
 
 /**
  * Budgets controller
