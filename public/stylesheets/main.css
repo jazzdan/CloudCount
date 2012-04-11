@@ -10,6 +10,10 @@ body {
   vertical-align: top;
 }
 
+p {
+  margin-bottom: 1.2em !important;
+}
+
 /* Control Bar */
 .controlbar {
   top: 40px;
