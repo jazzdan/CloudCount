@@ -39,7 +39,7 @@ define([
             'date': {
                 // validates yyyy-mm-dd || a large int
                 exp: /^([0-3]?\d)-[01]?\d-\d{4}$|^(\-?\d{8,})$/,
-                msg: ':key is not a valid date (yyyy-mm-dd).'
+                msg: ':key is not a valid date (dd-mm-yyyy).'
             },
             'email': {
                 exp: /^[\w]+@[\w]+\.[\w]{3}$/,
