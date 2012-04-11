@@ -54,6 +54,7 @@ require([
     "modules/utils",
     "modules/budgets",
     "modules/budget/index"
+
 ], function (cc, jQuery, Backbone, LayoutManager, Utils, Budgets, Budget) {
 
     "use strict";
@@ -99,6 +100,8 @@ require([
 
                 // fetch some data
                 app.budgets = new Budgets.Collection();
+
+                app.current_budget = undefined;
 
                 // update budgets
                 app.budgets.fetch().then(function () {
@@ -147,6 +150,8 @@ require([
                     // fetch the budget from the server
                     budget = new Budgets.Model({ '_id': id });
 
+                    app.current_budget = budget;
+
                     // update the budget
                     budget.fetch({
 
@@ -157,7 +162,6 @@ require([
 
                         // on success, update the view
                         success: function (model, resp) {
-                            console.log('got budget');
                             // add the newly retrieved model to the collection
                             app.budgets.add(model);
                             // render the views
@@ -170,6 +174,8 @@ require([
 
                     // fetch the budget from the collection
                     budget = app.budgets.get(id);
+
+                    app.current_budget = budget;
 
                     // update the budget
                     budget.fetch({
