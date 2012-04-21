@@ -46,9 +46,9 @@ define([
                 fields = $('.field', this.$el);
 
             _.each(fields, function (field) {
-                var field = $(field),
-                    key = field.data('attr'),
-                    value = undefined;
+                var $field = $(field),
+                    key = $field.data('attr'),
+                    value;
 
                 if (key === 'starts' || key === 'ends') {
                     value = (function () {
@@ -59,7 +59,7 @@ define([
                     value = that.model.get(key);
                 }
 
-                field.val(value);
+                $field.val(value);
             });
         },
 
@@ -103,8 +103,8 @@ define([
             data = {};
 
             _.each(fields, function (field) {
-                var field = $(field);
-                data[field.data('attr')] = field.val();
+                var $field = $(field);
+                data[$field.data('attr')] = $field.val();
             });
 
             return data;

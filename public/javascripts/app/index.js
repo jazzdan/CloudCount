@@ -78,7 +78,7 @@ require([
 
                 // Create the new layout and set it as current.
                 this.currentLayout = new Backbone.LayoutManager({
-                    template: name,
+                    template: name
                 });
 
                 // return the current layout
@@ -181,7 +181,7 @@ require([
                     budget.fetch({
 
                         error: function (collection, response) {
-                            console.log('FAIL: could not fetch collection:')
+                            console.log('FAIL: could not fetch collection:');
                             console.log(response);
                         },
 

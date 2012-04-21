@@ -67,13 +67,13 @@ define([
                 parsed[key] = date.getTime();
                 this.set(parsed, {silent: true});
             }
-            
+
         },
 
         // model url
         url: function () {
             var id = this.get('_id');
-            return '/budgets/' + ((id) ? id : 'create');
+            return '/budgets/' + (id || 'create');
         }
 
     });
@@ -137,8 +137,8 @@ define([
             data = {};
 
             _.each(fields, function (field) {
-                var field = $(field);
-                data[field.data('attr')] = field.val();
+                var $field = $(field);
+                data[$field.data('attr')] = $field.val();
             });
 
             return data;
@@ -200,7 +200,7 @@ define([
     Budget.Views.Budget = Backbone.LayoutManager.View.extend({
 
         // view template
-        template: 'budget/budget',
+        template: 'budget/budget'
 
     });
 
@@ -223,7 +223,7 @@ define([
     Budget.Views.Notes = Backbone.LayoutManager.View.extend({
 
         // view template
-        template: 'budget/notes',
+        template: 'budget/notes'
 
     });
 
@@ -234,7 +234,7 @@ define([
     Budget.Views.Audit = Backbone.LayoutManager.View.extend({
 
         // view template
-        template: 'budget/audit',
+        template: 'budget/audit'
 
     });
 
@@ -328,7 +328,7 @@ define([
             data.sections = this.sections;
 
             return data;
-        },
+        }
 
     });
 
