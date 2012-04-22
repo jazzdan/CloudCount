@@ -46,7 +46,7 @@ define([
                 msg: ':key is not a valid email.'
             },
             'required': {
-                exp: /[\^\s]+/,
+                exp: /[^\s]+/,
                 msg: ':key is required.'
             },
             'url': {
