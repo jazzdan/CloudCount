@@ -27,7 +27,7 @@ define([
     Attachments.Model = Backbone.Model.extend({
 
         // set the id to a mongo style _id
-        idAttribute: '_id',
+        idAttribute: '_id'
 
     });
 
@@ -152,7 +152,7 @@ define([
 
         upload_url: function () {
             return '/budgets/' + this.budget_id + '/attachments/create';
-        },
+        }
 
     });
 
@@ -194,7 +194,7 @@ define([
 
         download_url: function () {
             return '/attachments/' + this.model.get('_id') + '/show';
-        },
+        }
 
     });
 

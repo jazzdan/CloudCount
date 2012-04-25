@@ -39,7 +39,7 @@ define([
             'date': {
                 // validates yyyy-mm-dd || a large int
                 exp: /^([0-3]?\d)-[01]?\d-\d{4}$|^(\-?\d{8,})$/,
-                msg: ':key is not a valid date (yyyy-mm-dd).'
+                msg: ':key is not a valid date (dd-mm-yyyy).'
             },
             'email': {
                 exp: /^[\w]+@[\w]+\.[\w]{3}$/,
@@ -50,7 +50,7 @@ define([
                 msg: ':key is required.'
             },
             'url': {
-                exp: /^([\w]{2,4}):\/\/([\w]+.[\w]+)(\/[\w]*)*(\?([\w]+=[\w]*)*)?$/,
+                exp: /^([\w]{2,4}):\/\/([\w]+\.[\w]+)(\/[\w]*)*(\?([\w]+=[\w]*)*)?$/,
                 msg: ':key is not a url.'
             }
         },
@@ -64,13 +64,13 @@ define([
 
             // validate all attibutes and get errors
             errors = _.reduce(attrs, function (errors, val, key) {
-                
+
                 // test given key with given value
                 var res = that.test(key, val);
 
-                // if there's an error, store it 
+                // if there's an error, store it
                 if (res) {
-                    errors.push({ 
+                    errors.push({
                         key: key,
                         value: val,
                         errors: res
@@ -196,7 +196,7 @@ define([
         template: "utils/controlbar-refresh",
 
         // wrapper tag
-        tagName: "div",
+        tagName: "div"
 
     });
 
@@ -206,7 +206,7 @@ define([
     Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
 
         // view template
-        template: "utils/controlbar-budget",
+        template: "utils/controlbar-budget"
 
     });
 
@@ -220,7 +220,7 @@ define([
 
         // view events
         events: {
-            'click [data-action]': 'action',
+            'click [data-action]': 'action'
         },
 
         // button actions
@@ -272,7 +272,7 @@ define([
                 action: that.options.action || 'Ok',
                 close: that.options.close || 'Close'
             };
-        },
+        }
 
     });
 

@@ -6,12 +6,13 @@ define([
 
     // modules
     "modules/utils",
+    "modules/budget/budget",
     "modules/budget/details",
     "modules/budget/attachments",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils, Details, Attachments) {
+], function (cc, Backbone, Utils, BudgetSubmodule, Details, Attachments) {
 
     "use strict";
 
@@ -67,13 +68,13 @@ define([
                 parsed[key] = date.getTime();
                 this.set(parsed, {silent: true});
             }
-            
+
         },
 
         // model url
         url: function () {
             var id = this.get('_id');
-            return '/budgets/' + ((id) ? id : 'create');
+            return '/budgets/' + (id || 'create');
         }
 
     });
@@ -137,8 +138,8 @@ define([
             data = {};
 
             _.each(fields, function (field) {
-                var field = $(field);
-                data[field.data('attr')] = field.val();
+                var $field = $(field);
+                data[$field.data('attr')] = $field.val();
             });
 
             return data;
@@ -197,12 +198,7 @@ define([
      * Budget
      *    Budget View
      */
-    Budget.Views.Budget = Backbone.LayoutManager.View.extend({
-
-        // view template
-        template: 'budget/budget',
-
-    });
+    Budget.Views.Budget = BudgetSubmodule.Views.Index;
 
     /**
      * Description
@@ -223,7 +219,7 @@ define([
     Budget.Views.Notes = Backbone.LayoutManager.View.extend({
 
         // view template
-        template: 'budget/notes',
+        template: 'budget/notes'
 
     });
 
@@ -234,7 +230,7 @@ define([
     Budget.Views.Audit = Backbone.LayoutManager.View.extend({
 
         // view template
-        template: 'budget/audit',
+        template: 'budget/audit'
 
     });
 
@@ -328,7 +324,7 @@ define([
             data.sections = this.sections;
 
             return data;
-        },
+        }
 
     });
 
