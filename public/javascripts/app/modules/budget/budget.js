@@ -69,6 +69,20 @@ define([
             '#details': new Budget.Views.Details(),
             '#income': new Budget.Views.Lines({ title: 'income' }),
             '#expenses': new Budget.Views.Lines({ title: 'expenses' })
+        },
+
+        events: {
+            'click .seesaw': 'seesaw'
+        },
+
+        seesaw: function (e) {
+            var target = $(e.target),
+                container = target.closest('.seesaw');
+
+            if (!container.hasClass('up')) {
+                $('.up', this.$el).removeClass('up').removeClass('span8').addClass('span4');
+                container.removeClass('span4').addClass('up').addClass('span8');
+            }
         }
 
     });
