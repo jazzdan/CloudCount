@@ -124,9 +124,19 @@ tr.up td.controls > div,
 
 .seesaw {
   cursor: pointer;
+  width: 300px;
 }
 .seesaw.up {
   cursor: default;
+  width: 620px;
+}
+@media (min-width: 1200px) {
+  .seesaw {
+    width: 370px;
+  }
+  .seesaw.up {
+    width: 770px;
+  }
 }
 
 .box{

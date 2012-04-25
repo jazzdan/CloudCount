@@ -6,12 +6,13 @@ define([
 
     // modules
     "modules/utils",
+    "modules/budget/budget",
     "modules/budget/details",
     "modules/budget/attachments",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils, Details, Attachments) {
+], function (cc, Backbone, Utils, BudgetSubmodule, Details, Attachments) {
 
     "use strict";
 
@@ -197,12 +198,7 @@ define([
      * Budget
      *    Budget View
      */
-    Budget.Views.Budget = Backbone.LayoutManager.View.extend({
-
-        // view template
-        template: 'budget/budget'
-
-    });
+    Budget.Views.Budget = BudgetSubmodule.Views.Index;
 
     /**
      * Description
