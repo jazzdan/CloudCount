@@ -99,6 +99,10 @@ tr:hover:last-child td {
 
 /* Seesaw */
 
+.seesaw tr:hover td {
+  background-color: #fff;
+}
+
 tr:hover td,
 tr.up td,
 .seesaw.up tr:hover td {
