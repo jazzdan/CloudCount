@@ -18,11 +18,13 @@ public class TransactionTest extends UnitTest {
     @Test
     public void testStoreTransaction() {
 	  Budget b = new Budget("derp", "derping around town", 0, 100, "derp");
+      b.save();
 	  User u = new User();
-      Transaction t = new Transaction(b, u, 0, "derp", 0, 0, 1);
-      t.save();
+      u.save();
+    Transaction t = new Transaction(b, u, 0, "derp", 0, 0, 1);
+    t.save();
 
-      t.delete();
+    t.delete();
 	  b.delete();
 	  u.delete();
     }

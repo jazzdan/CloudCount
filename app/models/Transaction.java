@@ -1,3 +1,4 @@
+
 package models;
 
 import play.data.validation.Email;
@@ -36,11 +37,11 @@ public class Transaction extends Model {
   @Required
   public int order;
 
-  public Transaction(Budget budget, User user, int sublineNumber, String name, double subtotal, int subline_id, int order) {
+  public Transaction(Budget budget, User user, int subline_number, String name, double subtotal, int subline_id, int order) {
     // this.id = id;
     this.budget = budget;
     this.user = user;
-    this.subline_number = sublineNumber;
+    this.subline_number = subline_number;
     this.name = name;
     this.subtotal = subtotal;
     this.subline_id = subline_id;
