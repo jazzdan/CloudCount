@@ -55,5 +55,17 @@ public class Users extends Controller {
 	  u.delete();
 	
 	}
+
+	public static void update(long userId, String username, String last_name, String first_name, String email, String password) {
+			User u = User.find("by_id", userId).first();
+
+			u.username = username;
+			u.last_name = last_name;
+			u.first_name = first_name;
+			u.email = email;
+			u.password = password;
+
+			u.save();
+	}
 	 
 }

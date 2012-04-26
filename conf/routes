@@ -37,6 +37,9 @@ DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.
 
 # Users
 GET     /users                                  Users.index
+POST		/users/create														Users.create
+PUT			/users/{userId}													Users.update
+DELETE  /users/{userId}													Users.delete
 
 # Settings
 GET     /settings                               Settings.index
