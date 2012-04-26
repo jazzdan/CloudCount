@@ -25,6 +25,7 @@ define([
         idAttribute: '_id',
 
         rules: {
+            'type': 'required',
             'line_number': 'required',
             'name': 'required',
             'subtotal': 'required'

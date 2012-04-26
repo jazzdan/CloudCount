@@ -27,7 +27,7 @@ define([
         // form template
         template: 'budget/budget/line-form',
 
-        initialize: function () {
+        initialize: function (opts) {
 
             this.base_model = app.models.Line;
 
@@ -37,6 +37,12 @@ define([
 
             this.model.bind('error', this.show_errors);
 
+        },
+
+        serialize: function () {
+            var data = {};
+            data.type = this.options.type;
+            return data;
         }
 
     });
@@ -77,7 +83,10 @@ define([
             modal = this.view('.tmp', new Utils.Views.Modal({
                 title: 'New Line',
                 action: 'Save',
-                content: Line.Views.Form
+                content: Line.Views.Form,
+                content_options: {
+                    type: that.title
+                }
             }));
 
             close_modal = function () {

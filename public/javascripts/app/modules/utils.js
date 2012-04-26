@@ -339,7 +339,7 @@ define([
             var view = manage(this);
 
             // insert the content into the modal
-            this.content = new this.options.content({ parent: this });
+            this.content = new this.options.content(this.options.content_options);
             view.insert(".modal-body", this.content);
 
             // render the modal
