@@ -63,15 +63,21 @@ define([
             }
         },
 
+        initialize: function (attrs) {
+            this.budget = attrs.budget;
+            this.budget_id = this.budget.get('_id');
+        },
+
         serialize: function () {
             var data = this.model.toJSON();
             data.subtotal = Utils.Str.price(data.subtotal);
+            data.budget_id = this.budget_id;
             return data;
         }
 
     });
 
-    Line.Views.Index = Utils.Views.List.extend({
+    Line.Views.List = Utils.Views.List.extend({
 
         template: 'budget/budget/lines',
 
@@ -158,11 +164,13 @@ define([
         // render function
         render: function (layout) {
 
-            var view = layout(this);
+            var that = this,
+                view = layout(this);
 
             this.collection.each(function (line) {
                 view.insert("tbody.lines", new Line.Views.Line({
-                    model: line
+                    model: line,
+                    budget: that.collection.budget
                 }));
             });
 

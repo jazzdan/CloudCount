@@ -86,7 +86,7 @@ define([
     /**
      * Lines
      */
-    Budget.Views.Lines = Line.Views.Index;
+    Budget.Views.Lines = Line.Views.List;
 
     /**
      * Index
