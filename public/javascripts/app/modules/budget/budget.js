@@ -34,28 +34,7 @@ define([
         initialize: function (opts) {
             var that = this;
             this.budget = app.current_budget;
-        },
-
-        url: function () {
-            var id = this.get('_id');
-            return '/budgets/' + this.budget_id + '/lines/' + (id || 'create');
-        }
-
-    });
-
-    app.models.Line = Utils.Models.Validated.extend({
-
-        idAttribute: '_id',
-
-        rules: {
-            'line_number': 'required',
-            'name': 'required',
-            'subtotal': 'required'
-        },
-
-        initialize: function (opts) {
-            var that = this;
-            this.budget = app.current_budget;
+            this.budget_id = this.budget.get('_id');
         },
 
         url: function () {
@@ -71,10 +50,16 @@ define([
 
         initialize: function (models, opts) {
             this.type = opts.type;
+            this.budget = opts.budget;
+            this.budget_id = opts.budget.get('_id');
         },
 
         url: function () {
-            return '/budgets/' + this.budget_id + '/lines/' + (this.type || '');
+            var type = this.type || '';
+            if (type === 'income') {
+                type = 'incomes';
+            }
+            return '/budgets/' + this.budget_id + '/lines/' + type;
         }
 
     });
