@@ -48,8 +48,8 @@ public class Lines extends Controller {
 			renderJSON(l);
 	}
 
-	public static void delete(long id) {
-		Line l = Line.find("by_id", id).first();
+	public static void delete(long lineId) {
+		Line l = Line.find("by_id", lineId).first();
 		l.delete();
 	}
 
