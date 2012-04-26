@@ -68,8 +68,12 @@ define([
 
         model: app.models.Line,
 
+        initialize: function (models, opts) {
+            this.type = opts.type;
+        },
+
         url: function () {
-            return '/budgets/' + this.budget_id + '/lines';
+            return '/budgets/' + this.budget_id + '/lines/' + (this.type || '');
         }
 
     });
@@ -122,11 +126,11 @@ define([
             this.views['#details'] = new Budget.Views.Details();
             this.views['#income'] = new Budget.Views.Lines({
                 title: 'income',
-                collection: that.budget.lines
+                collection: that.budget.income
             });
             this.views['#expenses'] = new Budget.Views.Lines({
                 title: 'expenses',
-                collection: that.budget.lines
+                collection: that.budget.expenses
             });
         },
 

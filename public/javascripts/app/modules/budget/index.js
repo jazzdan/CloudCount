@@ -43,7 +43,8 @@ define([
 
             var that = this;
 
-            this.lines = new app.collections.Lines();
+            this.income = new app.collections.Lines([], { type: 'income' });
+            this.expenses = new app.collections.Lines([], { type: 'expenses' });
 
             this.bind('change:starts', function (model, value, opts) {
                 that.parse_date('starts');
