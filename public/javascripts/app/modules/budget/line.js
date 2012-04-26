@@ -13,7 +13,7 @@ define([
 
 ], function (cc, Backbone, Utils) {
 
-    "use strict";
+    //"use strict";
 
     // Shorthand the app
     var app = cc.app,
@@ -37,6 +37,19 @@ define([
 
             this.model.bind('error', this.show_errors);
 
+        }
+
+    });
+
+    Line.Views.Line = Backbone.LayoutManager.View.extend({
+
+        template: 'budget/budget/line',
+
+        tagName: 'tr',
+
+        serialize: function () {
+            var data = this.model.toJSON();
+            return data;
         }
 
     });
@@ -103,8 +116,31 @@ define([
         },
 
         initialize: function (opts) {
+            var that = this;
+
             this.title = opts.title;
             this.collection = opts.collection;
+
+            this.collection.bind('reset', function () {
+                that.render();
+            });
+
+            this.collection.fetch();
+        },
+
+        // render function
+        render: function (layout) {
+
+            var view = layout(this);
+
+            this.collection.each(function (line) {
+                view.insert("tbody.lines", new Line.Views.Line({
+                    model: line
+                }));
+            });
+
+            // render the view
+            return view.render();
         },
 
         serialize: function () {
