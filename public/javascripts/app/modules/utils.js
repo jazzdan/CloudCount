@@ -563,6 +563,18 @@ define([
          */
         upper: function (str) {
             return str[0].toUpperCase() + str.slice(1);
+        },
+
+        /**
+         * Price
+         *
+         * Format a price
+         *
+         * @param  int    num
+         * @return string
+         */
+        price: function (num) {
+            return num.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
     };

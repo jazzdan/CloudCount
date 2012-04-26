@@ -65,6 +65,7 @@ define([
 
         serialize: function () {
             var data = this.model.toJSON();
+            data.subtotal = Utils.Str.price(data.subtotal);
             return data;
         }
 
