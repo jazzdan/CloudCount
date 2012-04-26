@@ -13,7 +13,7 @@ define([
 
 ], function (cc, Backbone, Utils) {
 
-    //"use strict";
+    "use strict";
 
     // Shorthand the app
     var app = cc.app,
@@ -52,6 +52,16 @@ define([
         template: 'budget/budget/line',
 
         tagName: 'tr',
+
+        events: {
+            'click .delete': 'delete_line'
+        },
+
+        delete_line: function () {
+            if (window.confirm("Are you sure you want to delete this line?")) {
+                this.model.destroy();
+            }
+        },
 
         serialize: function () {
             var data = this.model.toJSON();
@@ -131,6 +141,10 @@ define([
             this.collection = opts.collection;
 
             this.collection.bind('reset', function () {
+                that.render();
+            });
+
+            this.collection.bind('remove', function () {
                 that.render();
             });
 
