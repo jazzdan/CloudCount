@@ -7,7 +7,7 @@ import java.util.*;
 
 import models.*;
 
-@With(Secure.class)
+// @With(Secure.class)
 
 /**
 Lines controller
@@ -51,6 +51,11 @@ public class Lines extends Controller {
 	public static void delete(long id) {
 		Line l = Line.find("by_id", id).first();
 		l.delete();
+	}
+
+	public static void sublines(long lineId) {
+		List<Line> sublines = Line.find("parent_line_id", lineId).asList();
+		renderJSON(sublines);
 	}
 
 }
