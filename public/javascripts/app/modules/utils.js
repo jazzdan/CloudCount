@@ -336,11 +336,12 @@ define([
         // render the modal
         render: function (manage) {
 
-            var view = manage(this);
+            var view = manage(this),
+                content_options = this.options.content_options || {};
 
-            // insert the content into the modal
-            this.options.content_options.modal = this;
-            this.content = new this.options.content(this.options.content_options);
+
+            content_options.modal = this;
+            this.content = new this.options.content(content_options);
             view.insert(".modal-body", this.content);
 
             // render the modal
