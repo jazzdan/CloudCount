@@ -48,6 +48,10 @@ define([
 
         model: app.models.Line,
 
+        comparator: function (line) {
+            return line.get("line_number");
+        },
+
         initialize: function (models, opts) {
             this.type = opts.type;
             this.budget = opts.budget;
