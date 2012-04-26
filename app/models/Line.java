@@ -59,8 +59,8 @@ public class Line extends Model {
     return name;
   }
 
-  public static List<Line> getSublines(long lineId) {
-    return Line.find("parent_line_id", lineId).asList();
+  public static List<Line> getSublines(long lineId, long budgetId) {
+    return Line.find("parent_line_id,budget_id", lineId, budgetId).asList();
   }
 
   public static List<Line> getIncomes(long lineId) {

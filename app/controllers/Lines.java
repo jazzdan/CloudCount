@@ -53,8 +53,8 @@ public class Lines extends Controller {
 		l.delete();
 	}
 
-	public static void sublines(long lineId) {
-		List<Line> sublines = Line.getSublines(lineId);
+	public static void sublines(long lineId, long budgetId) {
+		List<Line> sublines = Line.getSublines(lineId, budgetId);
 		renderJSON(sublines);
 	}
 
