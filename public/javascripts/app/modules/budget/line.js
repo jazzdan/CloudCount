@@ -9,10 +9,7 @@ define([
     "modules/utils",
 
     // uploader script
-    "uploader",
-
-    // Plugins
-    "use!layoutmanager"
+    "uploader"
 
 ], function (cc, Backbone, Utils) {
 

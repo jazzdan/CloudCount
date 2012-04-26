@@ -82,6 +82,9 @@ define([
             // set the model errors
             this.errors = errors;
 
+            console.log('errors:');
+            console.log(errors);
+
             // if there are errors return them
             return (errors.length > 0) ? errors : undefined;
         },
