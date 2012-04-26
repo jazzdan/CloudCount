@@ -40,7 +40,7 @@ public class Transaction extends Model {
     // this.id = id;
     this.budget = budget;
     this.user = user;
-    this.line_number = lineNumber;
+    this.subline_number = sublineNumber;
     this.name = name;
     this.subtotal = subtotal;
     this.subline_id = subline_id;
