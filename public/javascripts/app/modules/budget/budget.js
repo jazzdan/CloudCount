@@ -1,4 +1,5 @@
 define([
+
     "namespace",
 
     // Libs
@@ -6,16 +7,68 @@ define([
 
     // modules
     "modules/utils",
+    "modules/budget/line",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils) {
+
+], function (cc, Backbone, Utils, Line) {
 
     "use strict";
 
     // Shorthand the app
     var app = cc.app,
         Budget = cc.module(); // Create a new module
+
+    app.models.Line = Utils.Models.Validated.extend({
+
+        idAttribute: '_id',
+
+        rules: {
+            'line_number': 'required',
+            'name': 'required',
+            'subtotal': 'required'
+        },
+
+        initialize: function (opts) {
+            var that = this;
+            this.budget = app.current_budget;
+        },
+
+        url: function () {
+            var id = this.get('_id');
+            return '/budgets/' + this.budget_id + '/lines/' + (id || 'create');
+        }
+
+    });
+
+    app.models.Line = Utils.Models.Validated.extend({
+
+        idAttribute: '_id',
+
+        rules: {
+            'line_number': 'required',
+            'name': 'required',
+            'subtotal': 'required'
+        },
+
+        initialize: function (opts) {
+            var that = this;
+            this.budget = app.current_budget;
+        },
+
+        url: function () {
+            var id = this.get('_id');
+            return '/budgets/' + this.budget_id + '/lines/' + (id || 'create');
+        }
+
+    });
+
+    app.collections.Lines = Backbone.Collection.extend({
+
+        model: app.models.Line
+
+    });
 
     /**
      * Details
@@ -41,21 +94,7 @@ define([
     /**
      * Lines
      */
-    Budget.Views.Lines = Backbone.LayoutManager.View.extend({
-
-        template: 'budget/budget/lines',
-
-        initialize: function (opts) {
-            this.title = opts.title;
-        },
-
-        serialize: function () {
-            var data = {};
-            data.title = this.title;
-            return data;
-        }
-
-    });
+    Budget.Views.Lines = Line.Views.Index;
 
     /**
      * Index

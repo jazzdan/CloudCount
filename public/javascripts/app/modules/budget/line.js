@@ -20,42 +20,39 @@ define([
 
     // Shorthand the app
     var app = cc.app,
-        Details = cc.module(); // Create a new module
+        Line = cc.module(); // Create a new module
 
     /**
      * Budget Form
      */
-    Details.Views.Form = Utils.Views.Form.extend({
+    Line.Views.Form = Utils.Views.Form.extend({
 
         // form template
-        template: 'budgets/form',
+        template: 'budget/budget/line-form',
 
-        // initialize form
         initialize: function () {
+
+            this.base_model = app.models.Line;
 
             _.bindAll(this, 'show_errors');
 
-            this.model = app.current_budget;
+            this.model = new this.base_model();
 
             this.model.bind('error', this.show_errors);
-
         }
 
     });
 
-    /**
-     * Index View
-     */
-    Details.Views.Index = Backbone.LayoutManager.View.extend({
+    Line.Views.Index = Backbone.LayoutManager.View.extend({
 
-        // view template
-        template: 'budget/details/index',
+        template: 'budget/budget/lines',
 
         events: {
-            'click .edit': 'edit'
+            'click .new': 'new_line'
         },
 
-        edit: function (e) {
+        // new budget event
+        new_line: function (e) {
 
             // the ol' this-that
             var that = this,
@@ -67,9 +64,9 @@ define([
 
             // render the modal
             modal = this.view('.tmp', new Utils.Views.Modal({
-                title: 'Edit Budget',
+                title: 'New Line',
                 action: 'Save',
-                content: Details.Views.Form
+                content: Line.Views.Form
             }));
 
             close_modal = function () {
@@ -78,9 +75,7 @@ define([
             };
 
             // render the modal
-            modal.render().then(function () {
-                modal.content.hydrate();
-            });
+            modal.render();
 
             // bind modal confirm event
             modal.bind('confirm', function () {
@@ -88,7 +83,7 @@ define([
                 if (modal.content.save()) {
 
                     // refresh collection
-                    that.budget.fetch({
+                    that.collection.fetch({
                         success: function () {
                             close_modal();
                         },
@@ -109,32 +104,13 @@ define([
 
         },
 
-        // initialize
         initialize: function (opts) {
-
-            var that = this;
-
-            // set the budget
-            this.budget = opts.budget;
-
-            this.budget.bind("change", function () {
-                that.render();
-            });
-
+            this.title = opts.title;
         },
 
-        // serialize for rendering
         serialize: function () {
-            var starts,
-                ends,
-                data = this.budget.toJSON();
-
-            // prettify dates
-            starts = new Date(data.starts);
-            data.starts = starts.getDate() + '-' + (starts.getMonth() + 1) + '-' + starts.getFullYear();
-            ends = new Date(data.ends);
-            data.ends = ends.getDate() + '-' + (ends.getMonth() + 1) + '-' + ends.getFullYear();
-
+            var data = {};
+            data.title = this.title;
             return data;
         },
 
@@ -146,6 +122,6 @@ define([
     });
 
     // return the module for AMD
-    return Details;
+    return Line;
 
 });

@@ -161,6 +161,98 @@ define([
     });
 
     /**
+     * Budget Form
+     */
+    Utils.Views.Form = Backbone.LayoutManager.View.extend({
+
+        // initialize form
+        initialize: function () {
+
+            _.bindAll(this, 'show_errors');
+
+            this.model = new this.base_model();
+
+            this.model.bind('error', this.show_errors);
+
+        },
+
+        hydrate: function () {
+            var that = this,
+                fields = $('.field', this.$el);
+
+            _.each(fields, function (field) {
+                var $field = $(field),
+                    key = $field.data('attr'),
+                    value;
+
+                if (key === 'starts' || key === 'ends') {
+                    value = (function () {
+                        var date = new Date(that.model.get(key));
+                        return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+                    }());
+                } else {
+                    value = that.model.get(key);
+                }
+
+                $field.val(value);
+            });
+        },
+
+        // form is valid?
+        isValid: function () {
+            var has_errors;
+
+            this.model.set(this.extract());
+
+            has_errors = this.model.has_errors();
+
+            return !has_errors;
+        },
+
+        // show errors
+        show_errors: function () {
+
+            var that = this;
+
+            that.clear_errors();
+
+            _.each(this.model.errors, function (error) {
+                var field = $('.' + error.key, that.$el);
+                field.addClass('error');
+            });
+
+        },
+
+        // clear field errors
+        clear_errors: function () {
+            $('.error', this.$el).removeClass('error');
+        },
+
+        // extract form data
+        extract: function () {
+            var fields,
+                data,
+                model;
+
+            fields = $('.field', this.$el);
+            data = {};
+
+            _.each(fields, function (field) {
+                var $field = $(field);
+                data[$field.data('attr')] = $field.val();
+            });
+
+            return data;
+
+        },
+
+        save: function () {
+            return (this.isValid()) ? this.model.save() : false;
+        }
+
+    });
+
+    /**
      * List View
      *      has selectable rows
      */

@@ -104,7 +104,7 @@ tr:hover:last-child td {
 }
 
 tr:hover td,
-tr.up td,
+tr.active td,
 .seesaw.up tr:hover td {
   background: #eee;
 }
@@ -134,6 +134,12 @@ tr.up td.controls > div,
   cursor: default;
   width: 620px;
 }
+
+.seesaw .form-horizontal .controls {
+  clear: none;
+  padding: 0;
+}
+
 @media (min-width: 1200px) {
   .seesaw {
     width: 370px;

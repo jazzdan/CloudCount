@@ -67,7 +67,10 @@ define([
         },
 
         // Keep active application instances namespaced under an app object.
-        app: _.extend({}, Backbone.Events)
+        app: _.extend({
+            models: {},
+            collections: {}
+        }, Backbone.Events)
     };
 
 });
