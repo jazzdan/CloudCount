@@ -16,11 +16,9 @@ public class Line extends Model {
   // public int id;
 
   @Required
-  @Reference
-  public Budget budget;
+  public int budgetId;
 
-  @Reference
-  public User user;
+  public String user;
 
   @Required
   public int line_number;
@@ -36,9 +34,9 @@ public class Line extends Model {
   @Required
   public int order;
 
-  public Line(Budget budget, User user, int lineNumber, String name, double subtotal, int parent_line_id, int order) {
+  public Line(int budgetId, String user, int lineNumber, String name, double subtotal, int parent_line_id, int order) {
     // this.id = id;
-    this.budget = budget;
+    this.budgetId = budgetId;
     this.user = user;
     this.line_number = lineNumber;
     this.name = name;
