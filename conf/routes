@@ -15,8 +15,15 @@ DELETE  /budgets/{id}                           Budgets.delete
 
 # Lines
 GET			/budgets/{budgetId}/lines								Lines.index
+PUT			/budgets/{budgetId}/lines/{lineId}			Lines.update
 POST		/budgets/{budgetId}/lines/create				Lines.create
 DELETE  /budgets/{budgetId}/lines/{lineId}			Lines.delete
+
+# Transactions
+GET			/budgets/{budgetId}/lines/{lineId}/Transactions											Transactions.index
+PUT			/budgets/{budgetId}/lines/{lineId}/Transactions/{transactionId}			Transactions.update
+POST		/budgets/{budgetId}/lines/{lineId}/Transactions/create							Transactions.create
+DELETE  /budgets/{budgetId}/lines/{lineId}/Transactions/{transactionId}			Transactions.delete
 
 # Attachments
 GET     /budgets/{budgetId}/attachments                             Attachments.index
