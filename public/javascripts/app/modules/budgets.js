@@ -51,7 +51,7 @@ define([
 
         // events
         events: {
-            'click .delete': 'delete',
+            'click .delete': 'delete_budget',
             'dblclick': 'edit'
         },
 
@@ -60,7 +60,7 @@ define([
         },
 
         // delete budget event
-        delete: function (e) {
+        delete_budget: function (e) {
             e.preventDefault();
             e.stopPropagation();
             if (window.confirm("Are you sure you want to delete this budget?")) {
@@ -70,13 +70,10 @@ define([
 
         // serialize data for rendering
         serialize: function () {
-            var data = this.model.toJSON(),
-                starts = new Date(data.starts),
-                ends = new Date(data.ends);
+            var data = this.model.toJSON();
 
-            // prettify dates
-            data.starts = starts.getDate() + '-' + (starts.getMonth() + 1) + '-' + starts.getFullYear();
-            data.ends = ends.getDate() + '-' + (ends.getMonth() + 1) + '-' + ends.getFullYear();
+            data.starts = Utils.Date.for_humans(data.starts);
+            data.ends = Utils.Date.for_humans(data.ends);
 
             return data;
         }
@@ -93,7 +90,6 @@ define([
         // view template
         template: 'budgets/list',
 
-        // events hash (explicitly delcare it so we don't forget the inherited events
         events: {
             // inherited events:
             'click tbody tr': 'select',

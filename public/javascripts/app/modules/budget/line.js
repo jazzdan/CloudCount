@@ -171,7 +171,7 @@ define([
 
         serialize: function () {
             var data = {};
-            data.title = this.title;
+            data.title = Utils.Str.upper(this.title);
             return data;
         },
 

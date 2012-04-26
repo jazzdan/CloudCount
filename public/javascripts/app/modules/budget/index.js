@@ -133,7 +133,7 @@ define([
             _.each(sections, function (sec) {
                 res.push({
                     name: sec,
-                    proper: sec.charAt(0).toUpperCase() + sec.slice(1)
+                    proper: Utils.Str.upper(sec)
                 });
             });
 
@@ -210,7 +210,7 @@ define([
                 name = tar.data('section'),
                 section_class = '.' + name,
                 section = $(section_class),
-                proper_name = name.charAt(0).toUpperCase() + name.slice(1);
+                proper_name = Utils.Str.upper(name);
 
             // target isnt already active, activate it
             if (!section.hasClass('active')) {
@@ -245,7 +245,7 @@ define([
             var that = this,
                 tab = opts.tab || 'budget',
                 section = $(tab),
-                view = opts.tab.charAt(0).toUpperCase() + opts.tab.slice(1);
+                view = Utils.Str.upper(opts.tab);
 
             // set the current section
             this.section = tab;

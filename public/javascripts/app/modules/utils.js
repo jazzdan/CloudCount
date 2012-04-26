@@ -577,6 +577,24 @@ define([
     Utils.Date = {
 
         /**
+         * Formats
+         *
+         * A collection of functions for formatting dates
+         *
+         * @var object
+         */
+        formats: {
+
+            full: function (date) {
+                return date.toLocaleDateString() + ' -- ' + date.toLocaleTimeString();
+            },
+
+            dmy: function (date) {
+                return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+            }
+        },
+
+        /**
          * For Humans
          *
          * Format a timestamp in human readable form
@@ -584,9 +602,9 @@ define([
          * @param  int    timestamp
          * @return string
          */
-        for_humans: function (timestamp) {
+        for_humans: function (timestamp, format) {
             var date = new Date(timestamp);
-            return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+            return this.formats[format || 'dmy'](date);
         }
 
     };

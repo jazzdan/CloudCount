@@ -17,9 +17,8 @@ define([
 
     "use strict";
 
-    // Shorthand the app
     var app = cc.app,
-        Attachments = cc.module(); // Create a new module
+        Attachments = cc.module();
 
     /**
      * Attachment Model
@@ -188,10 +187,9 @@ define([
         },
 
         serialize: function () {
-            var data = this.model.toJSON(),
-                date = new Date(data._modified);
+            var data = this.model.toJSON();
 
-            data.updated = date.toLocaleDateString() + ' (' + date.toLocaleTimeString() + ')';
+            data.updated = Utils.Date.for_humans(data._modified, 'full');
             data.download = this.download_url();
 
             return data;

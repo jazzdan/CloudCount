@@ -73,13 +73,10 @@ define([
         template: 'budget/budget/details',
 
         serialize: function () {
-            var data = app.current_budget.toJSON(),
-                starts = new Date(data.starts),
-                ends = new Date(data.ends);
+            var data = app.current_budget.toJSON();
 
-            // prettify dates
-            data.starts = starts.getDate() + '-' + (starts.getMonth() + 1) + '-' + starts.getFullYear();
-            data.ends = ends.getDate() + '-' + (ends.getMonth() + 1) + '-' + ends.getFullYear();
+            data.starts = Utils.Date.for_humans(data.starts);
+            data.ends = Utils.Date.for_humans(data.ends);
 
             return data;
         }
