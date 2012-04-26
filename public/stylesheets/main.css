@@ -176,6 +176,13 @@ td.controls > div {
 .seesaw h2 {
   color: #999;
 }
+
+.seesaw .btn {
+  color: #333;
+}
+.seesaw .btn-primary {
+  color: #fff;
+}
 .up,
 .up h2 {
   color: #333;
