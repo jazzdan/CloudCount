@@ -33,16 +33,10 @@ public class Users extends Controller {
 	*
 	*/
 	
-	
-<<<<<<< HEAD
-	public static void create (String username, String last_name, String first_name, String email, boolean admin) {
-	
-	  User user= new User(username, last_name, first_name, email, admin); 
-=======
+
 	public static void create(String username, String last_name, String first_name, String email, String password, boolean admin) {
 
 	  User user = new User(username, last_name, first_name, email, password, admin);
->>>>>>> 53a6f4f5d41398e9d8acf86622ff7ec48ff0468f
 	  user.save();
 	}
 
