@@ -15,10 +15,10 @@ import com.google.code.morphia.annotations.Id;
 @Entity
 public class Line extends Model {
 
-  @Id long id;
-  public long getNumId() {
-    return id;
-  }
+  // @Id long id;
+  // public long getNumId() {
+    // return id;
+  // }
 
   @Required
   public long budgetId;
