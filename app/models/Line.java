@@ -64,11 +64,11 @@ public class Line extends Model {
   }
 
   public static List<Line> getIncomes(long lineId) {
-    return Line.find("type", "income").asList();
+    return Line.find("type", "incomes").asList();
   }
 
   public static List<Line> getExpenses(long lineId) {
-    return Line.find("type", "expense").asList();
+    return Line.find("type", "expenses").asList();
   }
 
 }
