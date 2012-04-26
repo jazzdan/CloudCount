@@ -42,10 +42,11 @@ public class Budgets extends Controller {
       System.out.println("starts: " + body.starts);
       System.out.println("ends: " + body.ends);
 
+      User user = User.find("byEmail", Security.connected()).first();
       body.save();
+      long budgetId = (Long)body.getId();
+      body.auditCreate(user.getNumId(), budgetId);
       renderJSON(body);
-      //render(something) //we're probably going to want to render some
-      //form here.
     }
 
     /**
@@ -58,6 +59,8 @@ public class Budgets extends Controller {
       System.out.println(body.getId());
 
       Budget b = Budget.find("by_id", body.getId()).first();
+      User user = User.find("byEmail", Security.connected()).first();
+      long budgetId = (Long)body.getId();
       b.title = body.title;
       b.description = body.description;
       b.starts = body.starts;
@@ -65,6 +68,7 @@ public class Budgets extends Controller {
       b.rolls = body.rolls;
 
       b.save();
+      body.auditUpdate(user.getNumId(), budgetId);
       renderJSON(b);
     }
 
@@ -73,8 +77,11 @@ public class Budgets extends Controller {
      */
     public static void delete(long id) {
         Budget budget = Budget.find("by_id", id).first();
-        //TODO: Remove associated attachments and lines.
+        User user = User.find("byEmail", Security.connected()).first();
+        long userId = user.getNumId();
         budget.delete();
+
+        budget.auditDelete(userId, id);
     }
 
 }

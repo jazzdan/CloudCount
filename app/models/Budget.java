@@ -8,9 +8,12 @@ import play.modules.morphia.Model.AutoTimestamp;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Indexed;
 
+import models.Audit;
+
 /**
  * The budget class
  */
+
 @AutoTimestamp
 @Entity
 public class Budget extends Model {
@@ -51,6 +54,22 @@ public class Budget extends Model {
 
   public String toString() {
     return title;
+  }
+
+  public void auditCreate(long userId, long budgetId) {
+    System.out.println("Ding from" + budgetId + "!");
+    Audit a = new Audit(userId, budgetId, "Budget", "create");
+    a.save();    
+  }
+
+  public void auditUpdate(long userId, long budgetId) {
+    Audit a = new Audit(userId, budgetId, "Budget", "update");
+    a.save();
+  }
+
+  public void auditDelete(long userId, long budgetId) {
+    Audit a = new Audit(userId, budgetId, "Budget", "update");
+    a.save();
   }
 
 }
