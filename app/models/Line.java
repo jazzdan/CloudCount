@@ -1,5 +1,7 @@
 package models;
 
+import java.util.*;
+
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.modules.morphia.Model;
@@ -7,16 +9,19 @@ import play.modules.morphia.Model.AutoTimestamp;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Reference;
+import com.google.code.morphia.annotations.Id;
 
 @AutoTimestamp
 @Entity
 public class Line extends Model {
 
-  // @Required
-  // public int id;
+  @Id long id;
+  public long getNumId() {
+    return id;
+  }
 
   @Required
-  public int budgetId;
+  public long budgetId;
 
   public String user;
 
@@ -29,12 +34,12 @@ public class Line extends Model {
   @Required
   public double subtotal;
 
-  public int parent_line_id;
+  public long parent_line_id;
 
   @Required
   public int order;
 
-  public Line(int budgetId, String user, int lineNumber, String name, double subtotal, int parent_line_id, int order) {
+  public Line(long budgetId, String user, int lineNumber, String name, double subtotal, long parent_line_id, int order) {
     // this.id = id;
     this.budgetId = budgetId;
     this.user = user;
@@ -48,6 +53,10 @@ public class Line extends Model {
 
   public String toString() {
     return name;
+  }
+
+  public List<Line> getSublines(long lineId) {
+    return Line.find("parent_line_id", lineId).asList();
   }
 
 }
