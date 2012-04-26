@@ -36,6 +36,7 @@ define([
             this.model = new this.base_model();
 
             this.model.bind('error', this.show_errors);
+
         }
 
     });
@@ -103,6 +104,7 @@ define([
 
         initialize: function (opts) {
             this.title = opts.title;
+            this.collection = opts.collection;
         },
 
         serialize: function () {

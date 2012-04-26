@@ -250,7 +250,8 @@ define([
                 sections: that.sections
             });
             this.views['.section.' + tab] = new Budget.Views[view]({
-                budget_id: that.model.get('_id')
+                budget_id: that.model.get('_id'),
+                budget: that.model
             });
 
         },

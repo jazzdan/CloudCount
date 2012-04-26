@@ -66,7 +66,11 @@ define([
 
     app.collections.Lines = Backbone.Collection.extend({
 
-        model: app.models.Line
+        model: app.models.Line,
+
+        url: function () {
+            return '/budgets/' + this.budget_id + '/lines';
+        }
 
     });
 
@@ -104,14 +108,26 @@ define([
         // view template
         template: 'budget/budget/index',
 
-        views: {
-            '#details': new Budget.Views.Details(),
-            '#income': new Budget.Views.Lines({ title: 'income' }),
-            '#expenses': new Budget.Views.Lines({ title: 'expenses' })
-        },
-
         events: {
             'click .seesaw': 'seesaw'
+        },
+
+        views: {},
+
+        initialize: function (opts) {
+            var that = this;
+            this.budget = opts.budget;
+            this.budget_id = opts.budget_id;
+
+            this.views['#details'] = new Budget.Views.Details();
+            this.views['#income'] = new Budget.Views.Lines({
+                title: 'income',
+                collection: that.budget.lines
+            });
+            this.views['#expenses'] = new Budget.Views.Lines({
+                title: 'expenses',
+                collection: that.budget.lines
+            });
         },
 
         seesaw: function (e) {
