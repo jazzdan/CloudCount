@@ -13,6 +13,11 @@ PUT     /budgets/{id}                           Budgets.update
 POST    /budgets/create                         Budgets.create
 DELETE  /budgets/{id}                           Budgets.delete
 
+# Lines
+GET			/budgets/{budgetId}/lines								Lines.index
+POST		/budgets/{budgetId}/lines/create				Lines.create
+DELETE  /budgets/{budgetId}/lines/{lineId}			Lines.delete
+
 # Attachments
 GET     /budgets/{budgetId}/attachments                             Attachments.index
 GET     /budgets/{budgetId}/attachments/form                        Attachments.form
