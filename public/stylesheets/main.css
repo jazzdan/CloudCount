@@ -97,9 +97,24 @@ tr:hover:last-child td {
   border-bottom: 1px solid #ddd;
 }
 
+td.controls > div{
+  width: auto;
+  min-width: 125px;
+  text-align: right;
+}
+td.controls > div {
+  visibility: hidden;
+}
+
 /* Seesaw */
 
 .seesaw tr:hover td {
+  background-color: #fff;
+}
+.seesaw:not(.up) tr td {
+  border-bottom: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
   background-color: #fff;
 }
 
@@ -111,7 +126,8 @@ tr.active td,
 
 tr:hover td.controls > div,
 tr.up td.controls > div,
-.seesaw.up tr:hover td.controls > div {
+.seesaw.up tr:hover td.controls > div,
+.seesaw.up tr.selected td.controls > div {
   visibility: visible;
 }
 .seesaw.up .controls{
@@ -159,16 +175,6 @@ tr.up td.controls > div,
   border-radius: 4px;
   background: #fff;
   box-shadow: 2px 2px 7px rgba(0,0,0,.35);
-}
-
-
-td.controls > div{
-  width: auto;
-  min-width: 125px;
-  text-align: right;
-}
-td.controls > div {
-  visibility: hidden;
 }
 
 .seesaw,

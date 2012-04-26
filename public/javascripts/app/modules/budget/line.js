@@ -70,11 +70,14 @@ define([
 
     });
 
-    Line.Views.Index = Backbone.LayoutManager.View.extend({
+    Line.Views.Index = Utils.Views.List.extend({
 
         template: 'budget/budget/lines',
 
         events: {
+            // inherited events:
+            'click tbody tr': 'select',
+            // class events
             'click .new': 'new_line'
         },
 
