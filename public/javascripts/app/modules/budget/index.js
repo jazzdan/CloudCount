@@ -44,7 +44,7 @@ define([
             var that = this;
 
             this.income = new app.collections.Lines([], {
-                type: 'income',
+                type: 'incomes',
                 budget: that
             });
             this.expenses = new app.collections.Lines([], {

@@ -56,9 +56,6 @@ define([
 
         url: function () {
             var type = this.type || '';
-            if (type === 'income') {
-                type = 'incomes';
-            }
             return '/budgets/' + this.budget_id + '/lines/' + type;
         }
 
@@ -111,7 +108,7 @@ define([
 
             this.views['#details'] = new Budget.Views.Details();
             this.views['#income'] = new Budget.Views.Lines({
-                title: 'income',
+                title: 'incomes',
                 collection: that.budget.income
             });
             this.views['#expenses'] = new Budget.Views.Lines({
