@@ -10,11 +10,20 @@ define([
 
     "use strict";
 
-        // Shorthand the app
     var app = cc.app,
-        // Create a new module
+
+        /**
+         * Utils
+         *
+         * Module for useful things: Str, Form, Modal, etc.
+         */
         Utils = cc.module();
 
+    /**
+     * Models
+     *
+     * Reusable models abstractions
+     */
     Utils.Models = {};
 
     /**
@@ -23,18 +32,42 @@ define([
      */
     Utils.Models.Validated = Backbone.Model.extend({
 
-        // validation errors
+        /**
+         * Errors
+         *
+         * Any errors from the last validation
+         *
+         * @var object|undefined
+         */
         errors: undefined,
 
-        // model has errors?
+        /**
+         * Has Errors?
+         *
+         * Returns true if model has more than 0 errors
+         *
+         * @return bool
+         */
         has_errors: function () {
             return this.errors.length > 0;
         },
 
-        // validation rules
+        /**
+         * Rules
+         *
+         * Validation rules for the model
+         *
+         * @var object
+         */
         rules: {},
 
-        // validations
+        /**
+         * Validations
+         *
+         * Avaliable validation rules
+         *
+         * @var object
+         */
         validations: {
             'date': {
                 // validates yyyy-mm-dd || a large int
@@ -55,20 +88,23 @@ define([
             }
         },
 
-        // validate model
+        /**
+         * Validate
+         *
+         * Validates attributes based on rules hash
+         *
+         * @param  object          attrs
+         * @return array|undefined
+         */
         validate: function (attrs) {
 
-            // variables
             var that = this,
                 errors = [];
 
-            // validate all attibutes and get errors
             errors = _.reduce(attrs, function (errors, val, key) {
 
-                // test given key with given value
                 var res = that.test(key, val);
 
-                // if there's an error, store it
                 if (res) {
                     errors.push({
                         key: key,
@@ -79,58 +115,57 @@ define([
                 return errors;
             }, []);
 
-            // set the model errors
             this.errors = errors;
 
-            console.log('errors:');
-            console.log(errors);
-
-            // if there are errors return them
             return (errors.length > 0) ? errors : undefined;
         },
 
-        // tests a key:value pair
+        /**
+         * Test
+         *
+         * Tests a key, value validation pair
+         *
+         * @param  string          key
+         * @param  string          val
+         * @return array|undefined
+         */
         test: function (key, val) {
 
-            // variable
             var that = this,
                 rules,
                 test_rule,
                 error;
 
-            // test a rule
+            /**
+             * Test Rule
+             *
+             * Runs validation test
+             *
+             * @param  string           rule
+             * @return string|undefined
+             */
             test_rule = function (rule) {
                 var v = that.validations[rule];
 
                 if (!v) {
-
-                    // if the rule is undefined throw an exception
                     throw 'Validation rule "' + rule + '" is not defined.';
-
                 } else if (!v.exp.test(val)) {
-
-                    // format and return the error
                     return that.format_message(v.msg, key);
-
                 }
             };
 
-            // get the rules specified for this key
             rules = this.rules[key];
 
             if (typeof rules === 'string') {
 
-                // if theres only one rule just execute it
                 error = test_rule(rules);
 
-                // if theres an error wrap it in an array
                 if (error) {
                     error = [error];
                 }
 
             } else if (rules instanceof Array) {
 
-                // get array of errors
                 error = _.reduce(rules, function (memo, rule) {
                     var error = test_rule(rule);
                     if (error) {
@@ -139,7 +174,6 @@ define([
                     return memo;
                 }, []);
 
-                // if its empty return undefined
                 if (error.length === 0) {
                     error = undefined;
                 }
@@ -150,11 +184,17 @@ define([
 
         },
 
-        // format an error message
+        /**
+         * Format Message
+         *
+         * Formats the error message
+         *
+         * @param  string msg
+         * @param  string key
+         * @return string
+         */
         format_message: function (msg, key) {
-
-            // uppercase the key
-            var field = key[0].toUpperCase() + key.slice(1);
+            var field = Utils.Str.upper(key);
 
             // format and return the message
             return msg.replace(':key', field);
@@ -164,11 +204,19 @@ define([
     });
 
     /**
-     * Budget Form
+     * Form
+     *
+     * Reusable form class
+     *
+     * @author Colby Rabideau
      */
     Utils.Views.Form = Backbone.LayoutManager.View.extend({
 
-        // initialize form
+        /**
+         * Initialize
+         *
+         * @return undefined
+         */
         initialize: function () {
 
             _.bindAll(this, 'show_errors');
@@ -179,6 +227,13 @@ define([
 
         },
 
+        /**
+         * Hydrate
+         *
+         * Fills the form fields based on the model
+         *
+         * @return undefined
+         */
         hydrate: function () {
             var that = this,
                 fields = $('.field', this.$el);
@@ -189,10 +244,7 @@ define([
                     value;
 
                 if (key === 'starts' || key === 'ends') {
-                    value = (function () {
-                        var date = new Date(that.model.get(key));
-                        return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-                    }());
+                    value = Utils.Date.for_humans(that.model.get(key));
                 } else {
                     value = that.model.get(key);
                 }
@@ -201,7 +253,13 @@ define([
             });
         },
 
-        // form is valid?
+        /**
+         * Is Valid?
+         *
+         * Validates the form
+         *
+         * @return bool
+         */
         isValid: function () {
             var has_errors;
 
@@ -212,7 +270,13 @@ define([
             return !has_errors;
         },
 
-        // show errors
+        /**
+         * Show Errors
+         *
+         * Displays errors in the form
+         *
+         * @return undefined
+         */
         show_errors: function () {
 
             var that = this;
@@ -226,12 +290,24 @@ define([
 
         },
 
-        // clear field errors
+        /**
+         * Clear Errors
+         *
+         * Clears errors class from all form elements
+         *
+         * @return undefined
+         */
         clear_errors: function () {
             $('.error', this.$el).removeClass('error');
         },
 
-        // extract form data
+        /**
+         * Extract
+         *
+         * Pulls user input out of the form
+         *
+         * @return array
+         */
         extract: function () {
             var fields,
                 data,
@@ -249,6 +325,13 @@ define([
 
         },
 
+        /**
+         * Save
+         *
+         * Saves the model if all data validates
+         *
+         * @return bool
+         */
         save: function () {
             return (this.isValid()) ? this.model.save() : false;
         }
@@ -257,24 +340,36 @@ define([
 
     /**
      * List View
-     *      has selectable rows
+     *
+     * List with selectable rows
      */
     Utils.Views.List = Backbone.LayoutManager.View.extend({
 
-        // events hash
+        /**
+         * Events
+         *
+         * View events hash
+         *
+         * @var object
+         */
         events: {
             'click tbody tr': 'select'
         },
 
-        // select event
+        /**
+         * Select
+         *
+         * Selects a row if it isn't already, unselects it if it is
+         *
+         * @param  event     e
+         * @return undefined
+         */
         select: function (e) {
-            // find the row from the event target
             var el = $(e.target).closest('tr');
 
-            // if its already selected, unselect it
             if (el.hasClass('selected')) {
                 el.removeClass('selected');
-            } else { // otherwise, clear any selections and select it
+            } else {
                 $('.selected', this.$el).removeClass('selected');
                 el.addClass('selected');
             }
@@ -283,87 +378,151 @@ define([
     });
 
     /**
-     * Refresh Control Bar
+     * Refresh Bar
+     *
+     * View for the refresh bar
      */
     Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * path to the view template
+         *
+         * @var string
+         */
         template: "utils/controlbar-refresh",
 
-        // wrapper tag
+        /**
+         * Tag Name
+         *
+         * tag that should wrap the view
+         *
+         * @var string
+         */
         tagName: "div"
 
     });
 
     /**
-     * Budget Control Bar
+     * Budget Bar
+     *
+     * View for the budget control bar
      */
     Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
 
-        // view template
+        /**
+         * Tag Name
+         *
+         * tag that should wrap the view
+         *
+         * @var string
+         */
         template: "utils/controlbar-budget"
 
     });
 
     /**
-     * Modal Dialog
+     * Modal
+     *
+     * Reusable modal dialog wrapper
      */
     Utils.Views.Modal = Backbone.LayoutManager.View.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * path to the view template
+         *
+         * @var string
+         */
         template: 'utils/modal',
 
-        // view events
+        /**
+         * Events
+         *
+         * View events hash
+         *
+         * @var object
+         */
         events: {
             'click [data-action]': 'action'
         },
 
-        // button actions
+        /**
+         * Action
+         *
+         * Fires modal control actions
+         *
+         * @param  event e
+         * @return undefined
+         */
         action: function (e) {
 
-            // halt the event
             e.preventDefault();
             e.stopPropagation();
 
-            // get the action
             var action = $(e.target).data('action');
 
-            // fire an action event
             this.trigger(action);
 
         },
 
-        // render the modal
+        /**
+         * Render
+         *
+         * Renders the modal and then its content
+         *
+         * @param  function manage
+         * @return object
+         */
         render: function (manage) {
 
             var view = manage(this),
                 content_options = this.options.content_options || {};
 
-
             content_options.modal = this;
             this.content = new this.options.content(content_options);
             view.insert(".modal-body", this.content);
 
-            // render the modal
             return view.render();
 
         },
 
+        /**
+         * Show
+         *
+         * Show something
+         *
+         * @param  string type
+         * @return undefined
+         */
         show: function (type) {
             $('#' + type).show();
         },
 
+        /**
+         * Hide
+         *
+         * Hide something
+         *
+         * @param  string type
+         * @return undefined
+         */
         hide: function (type) {
             $('#' + type).hide();
         },
 
-        // serialize function
+        /**
+         * Serialize
+         *
+         * Serializes the model for rendering and the like
+         *
+         * @return object
+         */
         serialize: function () {
-
-            // this/that
             var that = this;
 
-            // return serialized object
             return {
                 title: that.options.title || 'Modal',
                 action: that.options.action || 'Ok',
@@ -373,7 +532,66 @@ define([
 
     });
 
-    // Required, return the module for AMD compliance
+    /**
+     * Str
+     *
+     * A collection of helpful string funcitons
+     *
+     * @author Colby Rabideau
+     */
+    Utils.Str = {
+
+        /**
+         * Title
+         *
+         * Uppercase the first letter of each word
+         *
+         * @param  string str
+         * @return string
+         */
+        title: function (str) {
+            return str;
+        },
+
+        /**
+         * Upper
+         *
+         * Uppercase the first letter of a string
+         *
+         * @param  string str
+         * @return string
+         */
+        upper: function (str) {
+            return str[0].toUpperCase() + str.slice(1);
+        }
+
+    };
+
+    /**
+     * Date
+     *
+     * A collection of helpful date funcitons
+     *
+     * @author Colby Rabideau
+     */
+    Utils.Date = {
+
+        /**
+         * For Humans
+         *
+         * Format a timestamp in human readable form
+         *
+         * @param  int    timestamp
+         * @return string
+         */
+        for_humans: function (timestamp) {
+            var date = new Date(timestamp);
+            return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+        }
+
+    };
+
+    // return the module for AMD compliance
     return Utils;
 
 });
