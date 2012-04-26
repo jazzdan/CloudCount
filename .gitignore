@@ -24,3 +24,7 @@ tmp-repo
 # JackRabbit
 repository.xml
 repository
+
+# Sublime Text 2
+*.sublime-project
+*.sublime-workspace
