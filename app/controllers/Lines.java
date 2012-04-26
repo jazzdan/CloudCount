@@ -24,10 +24,10 @@ public class Lines extends Controller {
 		renderJSON(line);
 	}
 
-	public static void create(Line body) {
+	public static void create(long budgetId, Line body) {
 		// find the user
-    User user = User.find("byEmail", Security.connected()).first();
-
+    	User user = User.find("byEmail", Security.connected()).first();
+    	body.budgetId = budgetId;
 		body.save();
 		renderJSON(body);
 	}
