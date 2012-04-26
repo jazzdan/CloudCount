@@ -48,23 +48,23 @@ public class Lines extends Controller {
 			renderJSON(l);
 	}
 
-	public static void delete(long lineId) {
-		Line l = Line.find("by_id", lineId).first();
+	public static void delete(long id) {
+		Line l = Line.find("by_id", id).first();
 		l.delete();
 	}
 
-	public static void sublines(long lineId, long budgetId) {
-		List<Line> sublines = Line.getSublines(lineId, budgetId);
+	public static void sublines(long lineId) {
+		List<Line> sublines = Line.getSublines(lineId);
 		renderJSON(sublines);
 	}
 
-	public static void expenses(long lineId) {
-		List<Line> expenses = Line.getExpenses(lineId);
+	public static void expenses(long budgetId) {
+		List<Line> expenses = Line.getExpenses(budgetId);
 		renderJSON(expenses);
 	}
 
-	public static void incomes(long lineId) {
-		List<Line> incomes = Line.getIncomes(lineId);
+	public static void incomes(long budgetId) {
+		List<Line> incomes = Line.getIncomes(budgetId);
 		renderJSON(incomes);
 	}
 
