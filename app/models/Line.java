@@ -63,4 +63,12 @@ public class Line extends Model {
     return Line.find("parent_line_id", lineId).asList();
   }
 
+  public static List<Line> getIncomes(long lineId) {
+    return Line.find("type", "income").asList();
+  }
+
+  public static List<Line> getExpenses(long lineId) {
+    return Line.find("type", "expense").asList();
+  }
+
 }
