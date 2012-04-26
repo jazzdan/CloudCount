@@ -104,7 +104,12 @@ define([
             var that = this,
                 position = 0;
 
-            this.parent = opts.parent;
+                console.log(opts);
+
+            this.parent = opts.modal;
+
+            this.budget = opts.budget;
+            this.budget_id = this.budget.get('_id');
 
             this.valid = {
                 'label': false,
@@ -231,13 +236,14 @@ define([
             modal = this.view('.tmp', new Utils.Views.Modal({
                 title: 'Upload Attachment',
                 action: 'Next',
-                content: Attachments.Views.Form
+                content: Attachments.Views.Form,
+                content_options: {
+                    budget: that.budget
+                }
             }));
 
             // render the modal
             modal.render();
-
-            modal.content.budget_id = this.collection.budget_id;
 
             modal.bind('close', function () {
                 delete that.views['.tmp'];
@@ -272,9 +278,12 @@ define([
 
             _.bindAll(this, 'render', 'upload');
 
+            this.budget = options.budget;
+            this.budget_id = this.budget.get('_id');
+
             this.filter_by = options.filter_by || '';
 
-            this.collection = new Attachments.Collection([], { budget_id: that.options.budget_id });
+            this.collection = new Attachments.Collection([], { budget_id: that.budget_id });
 
             this.collection.bind('reset', function (col) {
                 that.render();
