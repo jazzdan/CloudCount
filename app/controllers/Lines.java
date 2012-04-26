@@ -54,7 +54,8 @@ public class Lines extends Controller {
 	}
 
 	public static void sublines(long lineId) {
-		List<Line> sublines = Line.find("parent_line_id", lineId).asList();
+		Line line = Line.find("by_id", lineId).first();
+		List<Line> sublines = line.getSublines(lineId);
 		renderJSON(sublines);
 	}
 

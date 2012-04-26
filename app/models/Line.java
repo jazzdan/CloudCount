@@ -37,9 +37,12 @@ public class Line extends Model {
   public long parent_line_id;
 
   @Required
+  public String type;
+
+  @Required
   public int order;
 
-  public Line(long budgetId, String user, int lineNumber, String name, double subtotal, long parent_line_id, int order) {
+  public Line(long budgetId, String user, int lineNumber, String name, double subtotal, long parent_line_id, String type, int order) {
     // this.id = id;
     this.budgetId = budgetId;
     this.user = user;
@@ -47,6 +50,7 @@ public class Line extends Model {
     this.name = name;
     this.subtotal = subtotal;
     this.parent_line_id = parent_line_id;
+    this.type = type;
     this.order = order;
   }
 
@@ -55,7 +59,7 @@ public class Line extends Model {
     return name;
   }
 
-  public List<Line> getSublines(long lineId) {
+  public static List<Line> getSublines(long lineId) {
     return Line.find("parent_line_id", lineId).asList();
   }
 
