@@ -79,6 +79,29 @@ define([
                 that.parse_date('ends');
             });
 
+            this.income.bind('reset', function () {
+                console.log('budget caught income "reset"');
+                that.trigger('change');
+            });
+            this.income.bind('remove', function () {
+                that.trigger('change');
+            });
+
+            this.expenses.bind('reset', function () {
+                console.log('budget caught expenses "reset"');
+                that.trigger('change');
+            });
+            this.expenses.bind('remove', function () {
+                that.trigger('change');
+            });
+
+            this.refresh();
+
+        },
+
+        refresh: function () {
+            this.income.fetch();
+            this.expenses.fetch();
         },
 
         /**

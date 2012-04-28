@@ -118,6 +118,9 @@ define([
             this.type = opts.type;
             this.budget = opts.budget;
             this.budget_id = opts.budget.get('_id');
+            this.bind('all', function (name) {
+                console.log('lines collection fired "' + name + '"');
+            });
         },
 
         /**
@@ -163,9 +166,18 @@ define([
          */
         template: 'dashboard/budget/details',
 
-        calculate_budget: function () {
-            console.log(app.current_budget.income);
-            return 100;
+        /**
+         * Initialize
+         *
+         * setup the view
+         *
+         * @param  object opts
+         * @return undefined
+         */
+        initialize: function (opts) {
+            var that = this;
+
+            this.budget = opts.budget;
         },
 
         /**
@@ -181,9 +193,9 @@ define([
             data.starts = Utils.Date.for_humans(data.starts);
             data.ends = Utils.Date.for_humans(data.ends);
 
-            data.budget = Utils.Str.price(app.current_budget.budget());
-            data.actual = Utils.Str.price(app.current_budget.actual());
-            data.excess = Utils.Str.price(app.current_budget.excess());
+            data.budget = Utils.Str.price(this.budget.budget());
+            data.actual = Utils.Str.price(this.budget.actual());
+            data.excess = Utils.Str.price(this.budget.excess());
 
             return data;
         }
@@ -264,7 +276,9 @@ define([
             this.budget = opts.budget;
             this.budget_id = opts.budget_id;
 
-            this.views['#details'] = new Budget.Views.Details();
+            this.views['#details'] = new Budget.Views.Details({
+                budget: that.budget
+            });
 
             this.views['#income'] = new Budget.Views.Lines({
                 title: 'incomes',

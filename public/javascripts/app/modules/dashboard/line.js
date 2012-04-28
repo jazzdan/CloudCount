@@ -254,16 +254,6 @@ define([
 
             this.title = opts.title;
             this.collection = opts.collection;
-
-            this.collection.bind('reset', function () {
-                that.render();
-            });
-
-            this.collection.bind('remove', function () {
-                that.render();
-            });
-
-            this.collection.fetch();
         },
 
         /**
