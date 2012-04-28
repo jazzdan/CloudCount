@@ -178,9 +178,16 @@ define([
             return view.render();
         },
 
+        calculate_budget: function () {
+            return this.collection.reduce(function (total, line) {
+                return total + parseInt(line.get('subtotal'), 10);
+            }, 0);
+        },
+
         serialize: function () {
             var data = {};
             data.title = Utils.Str.upper(this.title);
+            data.budget = Utils.Str.price(this.calculate_budget());
             return data;
         },
 
