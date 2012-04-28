@@ -21,30 +21,73 @@ define([
         Attachments = cc.module();
 
     /**
-     * Attachment Model
+     * Model
+     *
+     * Attachments model
      */
     Attachments.Model = Backbone.Model.extend({
 
-        // set the id to a mongo style _id
+        /**
+         * Id Attribute
+         *
+         * use a mongo-style _id
+         *
+         * @var string
+         */
         idAttribute: '_id'
 
     });
 
     /**
-     * Attachments Collection
+     * Collection
+     *
+     * Attachments collection
      */
     Attachments.Collection = Backbone.Collection.extend({
 
+        /**
+         * Model
+         *
+         * the model to be collected
+         *
+         * @var Model
+         */
         model: Attachments.Model,
 
+        /**
+         * Comparator
+         *
+         * defines the order of the collection
+         * sorted by date modified
+         *
+         * @param  model  a
+         * @param  model  b
+         * @return number
+         */
         comparator: function (a, b) {
             return b.get('_modified') - a.get('_modified');
         },
 
-        initialize: function (models, options) {
-            this.budget_id = options.budget_id;
+        /**
+         * Initialize
+         *
+         * setup the collection
+         *
+         * @param  array     models
+         * @param  object    opts
+         * @return undefined
+         */
+        initialize: function (models, opts) {
+            this.budget_id = opts.budget_id;
         },
 
+        /**
+         * URL
+         *
+         * Collection's associated URL
+         *
+         * @return string
+         */
         url: function () {
             return '/budgets/' + this.budget_id + '/attachments';
         }
@@ -52,19 +95,42 @@ define([
     });
 
     /**
-     * New Attachment Form
-     *    form and logic for uploading attachments
+     * Form
+     *
+     * Form for uploading a new attachment
      */
     Attachments.Views.Form = Backbone.LayoutManager.View.extend({
 
+        /**
+         * Template
+         *
+         * relative path to the view template
+         *
+         * @var string
+         */
         template: 'budget/attachments/form',
 
+        /**
+         * Events
+         *
+         * defines event listeners and handlers
+         *
+         * @var object
+         */
         events: {
             'keyup .info .field': 'validate',
             'focus .info .field': 'validate',
             'blur  .info .field': 'validate'
         },
 
+        /**
+         * Validate
+         *
+         * checks if the form contains valid data
+         *
+         * @param  event     e
+         * @return undefined
+         */
         validate: function (e) {
             var re,
                 valid,
@@ -90,6 +156,13 @@ define([
             this.check_valid();
         },
 
+        /**
+         * Check Valid
+         *
+         * I'm not exactly sure... :(
+         *
+         * @return undefined
+         */
         check_valid: function () {
             if (this.valid.label) {
                 this.parent.show('confirm');
@@ -98,12 +171,18 @@ define([
             }
         },
 
+        /**
+         * Initialize
+         *
+         * setup the view
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
 
             var that = this,
                 position = 0;
-
-                console.log(opts);
 
             this.parent = opts.modal;
 
@@ -124,6 +203,13 @@ define([
             });
         },
 
+        /**
+         * Next
+         *
+         * progress the the next step in the upload
+         *
+         * @return undefined
+         */
         next: function () {
             this.uploader();
             $('.info').hide();
@@ -135,6 +221,13 @@ define([
             this.parent.hide('confirm');
         },
 
+        /**
+         * Uploader
+         *
+         * instantiates the file uploader
+         *
+         * @return undefined
+         */
         uploader: function () {
             var that = this;
 
@@ -154,6 +247,13 @@ define([
             });
         },
 
+        /**
+         * Upload URL
+         *
+         * files are uploaded to this location
+         *
+         * @return string
+         */
         upload_url: function () {
             return '/budgets/' + this.budget_id + '/attachments/create';
         }
@@ -161,19 +261,50 @@ define([
     });
 
     /**
-     * Attachment Row
+     * Row
+     *
+     * inidividual attachment in the list
      */
     Attachments.Views.Row = Backbone.LayoutManager.View.extend({
 
+        /**
+         * Template
+         *
+         * relative path to the view template
+         *
+         * @var string
+         */
         template: 'budget/attachments/row',
 
+        /**
+         * Tag Name
+         *
+         * defines the view's wrapper tag
+         *
+         * @var string
+         */
         tagName: 'tr',
 
+        /**
+         * Events
+         *
+         * defines event listeners and handlers
+         *
+         * @var object
+         */
         events: {
             'click .delete': 'delete_att',
             'dblclick': 'download'
         },
 
+        /**
+         * Delete Att
+         *
+         * delete an attachment
+         *
+         * @param  event     e
+         * @return undefined
+         */
         delete_att: function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -182,10 +313,24 @@ define([
             }
         },
 
+        /**
+         * Download
+         *
+         * Downloads an attachment in a new tab/window
+         *
+         * @return undefined
+         */
         download: function () {
             window.open(this.download_url());
         },
 
+        /**
+         * Serialize
+         *
+         * package data for rendering
+         *
+         * @return object
+         */
         serialize: function () {
             var data = this.model.toJSON();
 
@@ -195,6 +340,13 @@ define([
             return data;
         },
 
+        /**
+         * Download URL
+         *
+         * url for downloading the attachment
+         *
+         * @return undefined
+         */
         download_url: function () {
             return '/attachments/' + this.model.get('_id') + '/show';
         }
@@ -202,17 +354,28 @@ define([
     });
 
     /**
-     * Attachments
-     *    List of downloadable attachments
-     * 
-     * @extends Utils:List
+     * Index
+     *
+     * List of attachments
      */
     Attachments.Views.Index = Utils.Views.List.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * relative path to view template
+         *
+         * @var string
+         */
         template: 'budget/attachments/index',
 
-        // view events
+        /**
+         * Events
+         *
+         * defines event listeners and handlers
+         *
+         * @var object
+         */
         events: {
             // inherited events:
             'click tbody tr': 'select',
@@ -221,16 +384,21 @@ define([
             'change .filter-by': 'filter'
         },
 
-        // upload event
+        /**
+         * Upload
+         *
+         * flow for uploading a new attachment
+         *
+         * @param  event     e
+         * @return undefined
+         */
         upload: function (e) {
             var modal,
                 that = this;
 
-            // halt default link actions
             e.preventDefault();
             e.stopPropagation();
 
-            // render the modal
             modal = this.view('.tmp', new Utils.Views.Modal({
                 title: 'Upload Attachment',
                 action: 'Next',
@@ -240,7 +408,6 @@ define([
                 }
             }));
 
-            // render the modal
             modal.render();
 
             modal.bind('close', function () {
@@ -251,35 +418,48 @@ define([
 
         },
 
-        // filter event
+        /**
+         * Filter
+         *
+         * only display attachments with the selected label
+         *
+         * @param  event     e
+         * @return undefined
+         */
         filter: function (e) {
             var label = $(e.target).val();
 
             e.preventDefault();
 
-            // if the filter isn't empty, filter
             if (label !== '') {
                 this.filter_by = label;
             } else {
                 this.filter_by = '';
             }
 
-            // render the view
             this.render();
 
             $('.filter-by', this.$el).val(label);
 
         },
 
-        initialize: function (options) {
+        /**
+         * Initialize
+         *
+         * setup the view
+         *
+         * @param  object    opts
+         * @return undefined
+         */
+        initialize: function (opts) {
             var that = this;
 
             _.bindAll(this, 'render', 'upload');
 
-            this.budget = options.budget;
+            this.budget = opts.budget;
             this.budget_id = this.budget.get('_id');
 
-            this.filter_by = options.filter_by || '';
+            this.filter_by = opts.filter_by || '';
 
             this.collection = new Attachments.Collection([], { budget_id: that.budget_id });
 
@@ -294,13 +474,19 @@ define([
             this.collection.fetch();
         },
 
-        // render function
+        /**
+         * Render
+         *
+         * builds & displays the view
+         *
+         * @param  layoutManager layout
+         * @return view
+         */
         render: function (layout) {
             var that = this,
                 view = layout(this),
                 collection;
 
-            // if a filter is set, filter the collection
             if (this.filter_by !== '') {
                 collection = this.collection.reduce(function (memo, model) {
                     var label = model.get('label'),
@@ -315,41 +501,57 @@ define([
             }
 
             if (collection.length > 0) {
-                // render the budgets
+
                 _.each((collection.models || collection), function (attachment) {
+
                     view.insert("tbody.attachments", new Attachments.Views.Row({
                         model: attachment
                     }));
+
                 });
             }
 
-            // render the view
             return view.render();
         },
 
-        // serialize for rendering
-        serialize: function () {
-            var data = {};
-
-            // filtered by...
-            data.filter_by = this.filter_by;
-
-            // get labels for filtering
-            data.labels = this.collection.reduce(function (memo, model) {
+        /**
+         * Labels
+         *
+         * Get labels in the collection
+         *
+         * @return array
+         */
+        labels: function () {
+            return this.collection.reduce(function (memo, model) {
                 var label = model.get('label');
-
-                // if the label isn't there, store it
                 if (_.indexOf(memo, label) < 0) {
                     memo.push(label);
                 }
-
                 return memo;
             }, []);
+        },
 
+        /**
+         * Serialize
+         *
+         * package data for rendering
+         *
+         * @return object
+         */
+        serialize: function () {
+            var data = {};
+            data.filter_by = this.filter_by;
+            data.labels = this.labels();
             return data;
         },
 
-        /* Cleanup */
+        /**
+         * On Cleanup
+         *
+         * cleanup events when the view is removed
+         *
+         * @return undefined
+         */
         onCleanup: function () {
             this.collection.unbind('reset', this.render);
             this.collection.unbind('remove', this.render);
@@ -357,7 +559,7 @@ define([
 
     });
 
-    // Required, return the module for AMD compliance
+    // return the module for AMD compliance
     return Attachments;
 
 });

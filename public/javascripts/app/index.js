@@ -1,5 +1,13 @@
 // Set the require.js configuration for your application.
 require.config({
+
+    /**
+     * Paths
+     *
+     * paths specified for the modul loader
+     *
+     * @var object
+     */
     paths: {
         // JavaScript folders
         libs: "../libs",
@@ -18,6 +26,13 @@ require.config({
         bootstrap: "../plugins/bootstrap"
     },
 
+    /**
+     * Use
+     *
+     * depenency management with Use plugin
+     *
+     * @var object
+     */
     use: {
         backbone: {
             deps: ["use!underscore", "jquery"],
@@ -64,16 +79,27 @@ require([
     // point should be definitions.
     jQuery(function ($) {
 
-        // Shorthand the application namespace
         var Router,
             app = cc.app,
             main_render = function (el) {
                 $("#main").html(el);
             };
 
-        // Defining the application router, you can attach sub routers here.
+        /**
+         * Router
+         *
+         * handles all client-side navigation
+         */
         Router = Backbone.Router.extend({
-            // Super-simple layout swapping and reusing
+
+            /**
+             * Use Layout
+             *
+             * simple layout swapping/caching
+             *
+             * @param  string name
+             * @return layout
+             */
             useLayout: function (name) {
 
                 // Create the new layout and set it as current.
@@ -83,51 +109,74 @@ require([
 
                 // return the current layout
                 return this.currentLayout;
-
             },
 
-            // routes definition
+            /**
+             * Routes
+             *
+             * defines valid application routes
+             *
+             * @var object
+             */
             routes: {
                 "": "index",
                 "budget/:id": "budget",
                 "budget/:id/:tab": "budget"
             },
 
-            // ROUTE: index
+            /**
+             * Index
+             *
+             * route to app's index
+             *
+             * @return undefined
+             */
             index: function () {
 
                 var main = this.useLayout("main");
 
-                // fetch some data
                 app.budgets = new Budgets.Collection();
 
                 app.current_budget = undefined;
 
-                // update budgets
                 app.budgets.fetch().then(function () {
-                    // Set all the views
+
                     main.setViews({
                         // ".controlbar": new Utils.Views.RefreshBar(),
                         ".canvas": new Budgets.Views.Index({ collection: app.budgets })
                     });
 
-                    // Render to the page
                     main.render(main_render);
                 });
 
             },
 
-            // ROUTE: budget
+            /**
+             * Budget
+             *
+             * route to a budget
+             *
+             * @param  number    id
+             * @param  string    t
+             * @return undefined
+             */
             budget: function (id, t) {
 
-                // vars
                 var budget,
                     set_render,
                     tab = t || 'budget',
                     main = this.useLayout("main");
 
+                /**
+                 * Set Render
+                 *
+                 * render the view
+                 *
+                 * @param  model     budget
+                 * @return undefined
+                 */
                 set_render = function (budget) {
-                    // Set all the views
+
                     main.setViews({
                         // '.controlbar': new Utils.Views.BudgetBar(),
                         ".canvas": new Budget.Views.Index({
@@ -136,35 +185,46 @@ require([
                         })
                     });
 
-                    // Render to the page
                     main.render(main_render);
                 };
 
-                // fetch the collection if it isn't there
                 if (app.budgets === undefined) {
                     app.budgets = new Budgets.Collection();
                 }
 
                 if (app.budgets.length === 0) {
 
-                    // fetch the budget from the server
                     budget = new Budgets.Model({ '_id': id });
 
                     app.current_budget = budget;
 
-                    // update the budget
                     budget.fetch({
 
+                        /**
+                         * Error
+                         *
+                         * performed on unsuccessful fetch
+                         *
+                         * @param  model     model
+                         * @param  object    response
+                         * @return undefined
+                         */
                         error: function (model, response) {
                             console.log('FAIL: count not get budget: ');
                             console.log(response);
                         },
 
-                        // on success, update the view
+                        /**
+                         * Success
+                         *
+                         * performed on successful fetch
+                         *
+                         * @param  object    response
+                         * @param  model     model
+                         * @return undefined
+                         */
                         success: function (model, resp) {
-                            // add the newly retrieved model to the collection
                             app.budgets.add(model);
-                            // render the views
                             set_render(model);
                         }
 
@@ -172,22 +232,36 @@ require([
 
                 } else {
 
-                    // fetch the budget from the collection
                     budget = app.budgets.get(id);
 
                     app.current_budget = budget;
 
-                    // update the budget
                     budget.fetch({
 
+                        /**
+                         * Error
+                         *
+                         * performed on unsuccessful fetch
+                         *
+                         * @param  model     model
+                         * @param  object    response
+                         * @return undefined
+                         */
                         error: function (collection, response) {
                             console.log('FAIL: could not fetch collection:');
                             console.log(response);
                         },
 
-                        // on success, update the view
+                        /**
+                         * Success
+                         *
+                         * performed on successful fetch
+                         *
+                         * @param  object    response
+                         * @param  model     model
+                         * @return undefined
+                         */
                         success: function (model) {
-                            // render the views
                             set_render(model);
                         }
 

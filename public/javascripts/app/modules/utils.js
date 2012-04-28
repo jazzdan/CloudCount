@@ -28,7 +28,8 @@ define([
 
     /**
      * Validated Model
-     *      models with easy to define validation
+     *
+     * models with easy to define validation
      */
     Utils.Models.Validated = Backbone.Model.extend({
 
@@ -207,8 +208,6 @@ define([
      * Form
      *
      * Reusable form class
-     *
-     * @author Colby Rabideau
      */
     Utils.Views.Form = Backbone.LayoutManager.View.extend({
 
@@ -536,8 +535,6 @@ define([
      * Str
      *
      * A collection of helpful string funcitons
-     *
-     * @author Colby Rabideau
      */
     Utils.Str = {
 
@@ -583,8 +580,6 @@ define([
      * Date
      *
      * A collection of helpful date funcitons
-     *
-     * @author Colby Rabideau
      */
     Utils.Date = {
 

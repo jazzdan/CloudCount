@@ -15,18 +15,33 @@ define([
 
     "use strict";
 
-    // Shorthand the app
     var app = cc.app,
-        Line = cc.module(); // Create a new module
+        Line = cc.module();
 
     /**
-     * Budget Form
+     * Form
+     *
+     * Form modal for creating new lines
      */
     Line.Views.Form = Utils.Views.Form.extend({
 
-        // form template
+        /**
+         * Template
+         *
+         * Relative path to view template 
+         *
+         * @var string
+         */
         template: 'budget/budget/line-form',
 
+        /**
+         * Initialize
+         *
+         * View constructor
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
 
             this.base_model = app.models.Line;
@@ -39,6 +54,13 @@ define([
 
         },
 
+        /**
+         * Serialize
+         *
+         * Package the view's data for rendering
+         *
+         * @return object
+         */
         serialize: function () {
             var data = {};
             data.type = this.options.type;
@@ -47,27 +69,75 @@ define([
 
     });
 
+    /**
+     * Line
+     *
+     * Individual line
+     */
     Line.Views.Line = Backbone.LayoutManager.View.extend({
 
+        /**
+         * Template
+         *
+         * Relative path to view template
+         *
+         * @var string
+         */
         template: 'budget/budget/line',
 
+        /**
+         * Tag Name
+         *
+         * Override the default wrapper tag
+         *
+         * @var string
+         */
         tagName: 'tr',
 
+        /**
+         * Events
+         *
+         * Defines event listeners & actions
+         *
+         * @var object
+         */
         events: {
             'click .delete': 'delete_line'
         },
 
+        /**
+         * Delete Line
+         *
+         * Deletes the line from the DB & the View
+         *
+         * @return undefined
+         */
         delete_line: function () {
             if (window.confirm("Are you sure you want to delete this line?")) {
                 this.model.destroy();
             }
         },
 
-        initialize: function (attrs) {
-            this.budget = attrs.budget;
+        /**
+         * Initialize
+         *
+         * Initializes the view
+         *
+         * @param  object    opts
+         * @return undefined
+         */
+        initialize: function (opts) {
+            this.budget = opts.budget;
             this.budget_id = this.budget.get('_id');
         },
 
+        /**
+         * Serialize
+         *
+         * Packages data for rendering
+         *
+         * @return object
+         */
         serialize: function () {
             var data = this.model.toJSON();
             data.subtotal = Utils.Str.price(data.subtotal);
@@ -77,10 +147,29 @@ define([
 
     });
 
+    /**
+     * List
+     *
+     * List of Lines
+     */
     Line.Views.List = Utils.Views.List.extend({
 
+        /**
+         * Template
+         *
+         * Relative path to the view template
+         *
+         * @var string
+         */
         template: 'budget/budget/lines',
 
+        /**
+         * Events
+         *
+         * Defines events and handlers
+         *
+         * @return undefined
+         */
         events: {
             // inherited events:
             'click tbody tr': 'select',
@@ -88,7 +177,14 @@ define([
             'click .new': 'new_line'
         },
 
-        // new budget event
+        /**
+         * New Line
+         *
+         * Flow for creating a new line
+         *
+         * @param  event     e
+         * @return undefined
+         */
         new_line: function (e) {
 
             // the ol' this-that
@@ -144,6 +240,14 @@ define([
 
         },
 
+        /**
+         * Initialize
+         *
+         * Initialize the view
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
             var that = this;
 
@@ -161,7 +265,14 @@ define([
             this.collection.fetch();
         },
 
-        // render function
+        /**
+         * Render
+         *
+         * Constructs and displays the view
+         *
+         * @param  layoutManager layout
+         * @return view
+         */
         render: function (layout) {
 
             var that = this,
@@ -178,12 +289,26 @@ define([
             return view.render();
         },
 
+        /**
+         * Calculate Budget
+         *
+         * Aggregates the subtotals of a lines
+         *
+         * @return number
+         */
         calculate_budget: function () {
             return this.collection.reduce(function (total, line) {
                 return total + parseInt(line.get('subtotal'), 10);
             }, 0);
         },
 
+        /**
+         * Serialize
+         *
+         * Packages data for rendering
+         *
+         * @return object
+         */
         serialize: function () {
             var data = {};
             data.title = Utils.Str.upper(this.title);
@@ -191,6 +316,14 @@ define([
             return data;
         },
 
+        /**
+         * Delete View
+         *
+         * Delete a nested view
+         *
+         * @param  string    key
+         * @return undefined
+         */
         delete_view: function (key) {
             this.views[key].remove();
             delete this.views[key];
@@ -198,7 +331,7 @@ define([
 
     });
 
-    // return the module for AMD
+    // return the module for AMD compliance
     return Line;
 
 });

@@ -16,20 +16,32 @@ define([
 
     "use strict";
 
-    // Shorthand the app
     var app = cc.app,
         Budget = cc.module(); // Create a new module
 
     /**
      * Model
-     *    The Budget Model
+     *
+     * Budget model
      */
     Budget.Model = Utils.Models.Validated.extend({
 
-        // set the id to a mongo style _id
+        /**
+         * Id Attribute
+         *
+         * use mongo-style _id
+         *
+         * @var string
+         */
         idAttribute: '_id',
 
-        // validation rules
+        /**
+         * Rules
+         *
+         * model validation rules
+         *
+         * @var object
+         */
         rules: {
             'title': 'required',
             'description': 'required',
@@ -38,8 +50,15 @@ define([
             'ends': ['required', 'date']
         },
 
-        // initialize the model
-        initialize: function () {
+        /**
+         * Initialize
+         *
+         * setup the model
+         *
+         * @param  object    opts
+         * @return undefined
+         */
+        initialize: function (opts) {
 
             var that = this;
 
@@ -62,7 +81,13 @@ define([
 
         },
 
-        // parses date from 
+        /**
+         * Parse Date
+         *
+         * handles date conversions
+         *
+         * @return undefined
+         */
         parse_date: function (key) {
             var value = this.get(key),
                 s,
@@ -72,15 +97,20 @@ define([
             if (typeof value === 'string') {
                 s = value.split('-');
                 // note to self... months are 0 -> 11 :(
-                date = new Date(s[2], parseInt(s[1]) - 1, s[0]);
+                date = new Date(s[2], parseInt(s[1], 10) - 1, s[0]);
                 parsed = {};
                 parsed[key] = date.getTime();
                 this.set(parsed, {silent: true});
             }
-
         },
 
-        // model url
+        /**
+         * URL
+         *
+         * model's associated URL
+         *
+         * @return string
+         */
         url: function () {
             var id = this.get('_id');
             return '/budgets/' + (id || 'create');
@@ -89,121 +119,187 @@ define([
     });
 
     /**
-     * Budget Form
+     * Form
+     *
+     * form for creating new budgets
      */
     Budget.Views.Form = Utils.Views.Form.extend({
 
-        // form template
+        /**
+         * Template
+         *
+         * relative path to the view template
+         *
+         * @var string
+         */
         template: 'budgets/form',
 
+        /**
+         * Base Model
+         *
+         * the model-type the form creates
+         *
+         * @var Model
+         */
         base_model: Budget.Model
 
     });
 
     /**
      * Nav
-     *    Pill style navigation for switching tabs
+     *
+     * Navigation within budget sections
      */
     Budget.Views.Nav = Backbone.LayoutManager.View.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * relative path to view template
+         *
+         * @var string
+         */
         template: 'budget/nav',
 
-        // initialize
+        /**
+         * Initialize
+         *
+         * setup the view
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
-            // set the sections and current section
             this.section = opts.section || 'budget';
             this.sections = this.parse_sections(opts.sections);
         },
 
-        // serialize for rendering
+        /**
+         * Serialize
+         *
+         * package the data for rendering
+         *
+         * @return object
+         */
         serialize: function () {
             var data = {};
-
             data.section = this.section;
             data.sections = this.sections;
-
             return data;
         },
 
-        /* Helper functions */
+        /**
+         * Parse Sections
+         *
+         * formats section names
+         *
+         * @return undefined
+         */
         parse_sections: function (sections) {
-            var res = [];
-
-            _.each(sections, function (sec) {
-                res.push({
-                    name: sec,
-                    proper: Utils.Str.upper(sec)
-                });
+            return _.map(sections, function (section) {
+                return {
+                    name: section,
+                    proper: Utils.Str.upper(section)
+                };
             });
-
-            return res;
         }
 
     });
 
     /**
      * Budget
-     *    Budget View
+     *
+     * Budget view
      */
     Budget.Views.Budget = BudgetSubmodule.Views.Index;
 
     /**
-     * Description
-     *    List of recent changes to the budget
+     * Details
+     *
+     * budget details
      */
     Budget.Views.Details = Details.Views.Index;
 
     /**
-     * Attachments (alias)
-     *    List of downloadable attachments
+     * Attachments
+     *
+     * budget attachments
      */
     Budget.Views.Attachments = Attachments.Views.Index;
 
     /**
      * Notes
-     *    List of user notes
+     *
+     * budget notes
      */
     Budget.Views.Notes = Backbone.LayoutManager.View.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * relative path to view template
+         *
+         * @var string
+         */
         template: 'budget/notes'
 
     });
 
     /**
      * Audits
-     *    List of recent changes to the budget
+     *
+     * budget's audit trail
      */
     Budget.Views.Audit = Backbone.LayoutManager.View.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * relative path to view template
+         *
+         * @var string
+         */
         template: 'budget/audit'
 
     });
 
     /**
-     * Container
-     *    encompasses Audits, Nots, Attachments, Description & Budget
+     * Index
+     *
+     * shell view for budget dashboard
      */
     Budget.Views.Index = Backbone.LayoutManager.View.extend({
 
-        // view template
+        /**
+         * Template
+         *
+         * relative path to template
+         *
+         * @var string
+         */
         template: 'budget/index',
 
-        // view events
+        /**
+         * Events
+         *
+         * defines event listeners and handlers
+         *
+         * @var object
+         */
         events: {
             'click .section-nav': 'section_nav'
         },
 
-        // navigation event
+        /**
+         * Section Nav
+         *
+         * logix for section navigation
+         *
+         * @param  event     e
+         * @return undefined
+         */
         section_nav: function (e) {
 
-            // STOP the event!
-            e.preventDefault();
-            e.stopPropagation();
-
-            // some variables
             var view,
                 that = this,
                 tar = $(e.target),
@@ -212,10 +308,11 @@ define([
                 section = $(section_class),
                 proper_name = Utils.Str.upper(name);
 
-            // target isnt already active, activate it
+            e.preventDefault();
+            e.stopPropagation();
+
             if (!section.hasClass('active')) {
 
-                // if the section view isnt already rendered, render it
                 if (!this.views['.section.' + section_class]) {
                     view = this.view('.section.' + section_class, new Budget.Views[proper_name]({
                         budget_id: that.model.get('_id'),
@@ -223,23 +320,31 @@ define([
                     })).render();
                 }
 
-                // hide the old one
                 $('.active').removeClass('active');
 
-                //show the new one
                 section.addClass('active');
 
-                // update the label
                 $('.section-label').html(proper_name);
-
             }
-
         },
 
-        // sections
+        /**
+         * Sections
+         *
+         * list of sections
+         *
+         * @var array
+         */
         sections: [ 'budget', 'details', 'attachments', 'notes', 'audit' ],
 
-        // initialize
+        /**
+         * Initialize
+         *
+         * setup the view
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
 
             var that = this,
@@ -247,15 +352,15 @@ define([
                 section = $(tab),
                 view = Utils.Str.upper(opts.tab);
 
-            // set the current section
             this.section = tab;
 
-            // set our nested views
             this.views = {};
+
             this.views['.nav'] = new Budget.Views.Nav({
                 section: that.section,
                 sections: that.sections
             });
+
             this.views['.section.' + tab] = new Budget.Views[view]({
                 budget_id: that.model.get('_id'),
                 budget: that.model
@@ -263,7 +368,13 @@ define([
 
         },
 
-        // serialize for rendering
+        /**
+         * Serialize
+         *
+         * package data for rendering
+         *
+         * @return object
+         */
         serialize: function () {
             var that = this,
                 data = this.model.toJSON();
@@ -278,21 +389,17 @@ define([
     });
 
     /**
-     * Handlebars Helper
+     * Active
+     *
+     * handlebars helper for rendering the active section
+     *
+     * @return string
      */
-
-    // helper for determining if a section is active
     Handlebars.registerHelper('active', function (section, active) {
-        var res = '';
-
-        if (section === active) {
-            res = 'active';
-        }
-
-        return res;
+        return (section === active) ? 'active' : '';
     });
 
-    // Required, return the module for AMD compliance
+    // return the module for AMD compliance
     return Budget;
 
 });

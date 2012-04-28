@@ -10,11 +10,14 @@ define([
 
     "use strict";
 
-    // Customize the LayoutManager
     Backbone.LayoutManager.configure({
 
         /**
-         * template & layout paths
+         * Paths
+         *
+         * set base template paths
+         *
+         * @var object
          */
         paths: {
             layout: "http://" + document.location.host + "/public/javascripts/app/templates/layouts/",
@@ -22,15 +25,18 @@ define([
         },
 
         /**
-         * Fetch (for retrieving templates)
+         * Fetch 
+         *
+         * retrieves templates
+         *
+         * @param  string   path
+         * @return function
          */
         fetch: function (path) {
 
-            // setup and async method
             var done = this.async(),
                 JST = window.JST = window.JST || {};
 
-            // automatically append .hbs extension
             path = path + ".hbs";
 
             // Should be an instant synchronous way of getting the template, if it
@@ -39,21 +45,22 @@ define([
                 return done(JST[path]);
             }
 
-            // Fetch it asynchronously if not available from JST
             $.get(path, function (contents) {
-
-                // compile the returned template with Handlebars
                 var tmpl = Handlebars.compile(contents);
-
-                // store the template for future use
                 JST[path] = tmpl;
-
-                // callback the async method
                 done(tmpl);
             });
         },
 
-        // render the template
+        /**
+         * Render
+         *
+         * renders a template
+         *
+         * @param  function template
+         * @param  object   context
+         * @return string
+         */
         render: function (template, context) {
             return template(context);
         }
