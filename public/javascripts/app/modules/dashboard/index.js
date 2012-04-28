@@ -99,7 +99,10 @@ define([
 
         },
 
-        refresh: function () {
+        refresh: function (opts) {
+            if (opts) {
+                this.fetch(opts);
+            }
             this.income.fetch();
             this.expenses.fetch();
         },

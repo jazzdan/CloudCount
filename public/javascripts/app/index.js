@@ -198,7 +198,7 @@ require([
 
                     app.current_budget = budget;
 
-                    budget.fetch({
+                    budget.refresh({
 
                         /**
                          * Error
@@ -236,7 +236,7 @@ require([
 
                     app.current_budget = budget;
 
-                    budget.fetch({
+                    budget.refresh({
 
                         /**
                          * Error
