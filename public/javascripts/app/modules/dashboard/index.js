@@ -6,25 +6,25 @@ define([
 
     // modules
     "modules/utils",
-    "modules/budget/budget",
-    "modules/budget/details",
-    "modules/budget/attachments",
+    "modules/dashboard/budget",
+    "modules/dashboard/details",
+    "modules/dashboard/attachments",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils, BudgetSubmodule, Details, Attachments) {
+], function (cc, Backbone, Utils, Budget, Details, Attachments) {
 
     "use strict";
 
     var app = cc.app,
-        Budget = cc.module(); // Create a new module
+        Dashboard = cc.module(); // Create a new module
 
     /**
      * Model
      *
-     * Budget model
+     * Dashboard model
      */
-    Budget.Model = Utils.Models.Validated.extend({
+    Dashboard.Model = Utils.Models.Validated.extend({
 
         /**
          * Id Attribute
@@ -123,7 +123,7 @@ define([
      *
      * form for creating new budgets
      */
-    Budget.Views.Form = Utils.Views.Form.extend({
+    Dashboard.Views.Form = Utils.Views.Form.extend({
 
         /**
          * Template
@@ -141,7 +141,7 @@ define([
          *
          * @var Model
          */
-        base_model: Budget.Model
+        base_model: Dashboard.Model
 
     });
 
@@ -150,7 +150,7 @@ define([
      *
      * Navigation within budget sections
      */
-    Budget.Views.Nav = Backbone.LayoutManager.View.extend({
+    Dashboard.Views.Nav = Backbone.LayoutManager.View.extend({
 
         /**
          * Template
@@ -159,7 +159,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/nav',
+        template: 'dashboard/nav',
 
         /**
          * Initialize
@@ -209,30 +209,30 @@ define([
     /**
      * Budget
      *
-     * Budget view
+     * Dashboard view
      */
-    Budget.Views.Budget = BudgetSubmodule.Views.Index;
+    Dashboard.Views.Budget = Budget.Views.Index;
 
     /**
      * Details
      *
      * budget details
      */
-    Budget.Views.Details = Details.Views.Index;
+    Dashboard.Views.Details = Details.Views.Index;
 
     /**
      * Attachments
      *
      * budget attachments
      */
-    Budget.Views.Attachments = Attachments.Views.Index;
+    Dashboard.Views.Attachments = Attachments.Views.Index;
 
     /**
      * Notes
      *
      * budget notes
      */
-    Budget.Views.Notes = Backbone.LayoutManager.View.extend({
+    Dashboard.Views.Notes = Backbone.LayoutManager.View.extend({
 
         /**
          * Template
@@ -241,7 +241,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/notes'
+        template: 'dashboard/notes'
 
     });
 
@@ -250,7 +250,7 @@ define([
      *
      * budget's audit trail
      */
-    Budget.Views.Audit = Backbone.LayoutManager.View.extend({
+    Dashboard.Views.Audit = Backbone.LayoutManager.View.extend({
 
         /**
          * Template
@@ -259,7 +259,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/audit'
+        template: 'dashboard/audit'
 
     });
 
@@ -268,7 +268,7 @@ define([
      *
      * shell view for budget dashboard
      */
-    Budget.Views.Index = Backbone.LayoutManager.View.extend({
+    Dashboard.Views.Index = Backbone.LayoutManager.View.extend({
 
         /**
          * Template
@@ -277,7 +277,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/index',
+        template: 'dashboard/index',
 
         /**
          * Events
@@ -314,7 +314,7 @@ define([
             if (!section.hasClass('active')) {
 
                 if (!this.views['.section.' + section_class]) {
-                    view = this.view('.section.' + section_class, new Budget.Views[proper_name]({
+                    view = this.view('.section.' + section_class, new Dashboard.Views[proper_name]({
                         budget_id: that.model.get('_id'),
                         budget: that.model
                     })).render();
@@ -356,12 +356,12 @@ define([
 
             this.views = {};
 
-            this.views['.nav'] = new Budget.Views.Nav({
+            this.views['.nav'] = new Dashboard.Views.Nav({
                 section: that.section,
                 sections: that.sections
             });
 
-            this.views['.section.' + tab] = new Budget.Views[view]({
+            this.views['.section.' + tab] = new Dashboard.Views[view]({
                 budget_id: that.model.get('_id'),
                 budget: that.model
             });
@@ -400,6 +400,6 @@ define([
     });
 
     // return the module for AMD compliance
-    return Budget;
+    return Dashboard;
 
 });

@@ -68,7 +68,7 @@ require([
     // Modules
     "modules/utils",
     "modules/budgets",
-    "modules/budget/index"
+    "modules/dashboard/index"
 
 ], function (cc, jQuery, Backbone, LayoutManager, Utils, Budgets, Budget) {
 

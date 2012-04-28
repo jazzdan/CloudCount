@@ -7,7 +7,7 @@ define([
 
     // modules
     "modules/utils",
-    "modules/budget/line",
+    "modules/dashboard/line",
 
     // Plugins
     "use!layoutmanager"
@@ -148,7 +148,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/budget/details',
+        template: 'dashboard/budget/details',
 
         /**
          * Serialize
@@ -189,7 +189,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/budget/index',
+        template: 'dashboard/budget/index',
 
         /**
          * Views

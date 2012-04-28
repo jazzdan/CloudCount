@@ -71,7 +71,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/details/index',
+        template: 'dashboard/details/index',
 
         /**
          * Events

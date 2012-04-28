@@ -5,7 +5,7 @@ define([
     "use!backbone",
 
     // Modules
-    "modules/budget/index",
+    "modules/dashboard/index",
     "modules/utils",
 
     // Plugins

@@ -108,7 +108,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/attachments/form',
+        template: 'dashboard/attachments/form',
 
         /**
          * Events
@@ -274,7 +274,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/attachments/row',
+        template: 'dashboard/attachments/row',
 
         /**
          * Tag Name
@@ -367,7 +367,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/attachments/index',
+        template: 'dashboard/attachments/index',
 
         /**
          * Events

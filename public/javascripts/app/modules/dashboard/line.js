@@ -32,7 +32,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/budget/line-form',
+        template: 'dashboard/budget/line-form',
 
         /**
          * Initialize
@@ -83,7 +83,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/budget/line',
+        template: 'dashboard/budget/line',
 
         /**
          * Tag Name
@@ -161,7 +161,7 @@ define([
          *
          * @var string
          */
-        template: 'budget/budget/lines',
+        template: 'dashboard/budget/lines',
 
         /**
          * Events
