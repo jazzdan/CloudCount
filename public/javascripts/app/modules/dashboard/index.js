@@ -112,7 +112,7 @@ define([
          * @return number
          */
         budget: function () {
-            return this.income.total() - this.expenses.total();
+            return this.income.total() + this.expenses.total();
         },
 
         /**
@@ -134,7 +134,7 @@ define([
          * @return number
          */
         excess: function () {
-            return this.income.total() + this.expenses.total();
+            return this.income.total() - this.expenses.total();
         },
 
         /**
