@@ -172,6 +172,7 @@ define([
         initialize: function (opts) {
             this.section = opts.section || 'budget';
             this.sections = this.parse_sections(opts.sections);
+            this.budget = opts.budget;
         },
 
         /**
@@ -185,6 +186,7 @@ define([
             var data = {};
             data.section = this.section;
             data.sections = this.sections;
+            data.budget_id = this.budget.get('_id');
             return data;
         },
 
@@ -358,12 +360,17 @@ define([
 
             this.views['.nav'] = new Dashboard.Views.Nav({
                 section: that.section,
-                sections: that.sections
+                sections: that.sections,
+                budget: that.model
             });
 
             this.views['.section.' + tab] = new Dashboard.Views[view]({
                 budget_id: that.model.get('_id'),
                 budget: that.model
+            });
+
+            this.model.bind('change', function () {
+                that.render();
             });
 
         },

@@ -2,7 +2,7 @@
   <ul class="nav nav-pills pull-right">
     {{#each sections}}
     <li class="{{name}} {{active name ../section}}">
-      <a class="section-nav" href="#" data-section="{{name}}">{{proper}}</a>
+      <a href="/budget/{{../budget_id}}/{{name}}">{{proper}}</a>
     </li>
     {{/each}}
   </ul>
