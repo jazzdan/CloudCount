@@ -179,6 +179,29 @@ define([
         },
 
         /**
+         * Select
+         *
+         * Selects a row if it isn't already, unselects it if it is
+         *
+         * @param  event     e
+         * @return undefined
+         */
+        select: function (e) {
+            var el = $(e.target).closest('tr');
+
+            if (!this.$el.closest('.seesaw').hasClass('up')) {
+                return;
+            }
+
+            if (el.hasClass('selected')) {
+                el.removeClass('selected');
+            } else {
+                $('.selected', this.$el).removeClass('selected');
+                el.addClass('selected');
+            }
+        },
+
+        /**
          * New Line
          *
          * Flow for creating a new line
