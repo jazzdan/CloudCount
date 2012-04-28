@@ -82,6 +82,39 @@ define([
         },
 
         /**
+         * Budget
+         *
+         * calculates the budget from the budget's lines
+         *
+         * @return number
+         */
+        budget: function () {
+            return this.income.total() - this.expenses.total();
+        },
+
+        /**
+         * Actual
+         *
+         * calculates the actual value to date
+         *
+         * @return number
+         */
+        actual: function () {
+            return 0;
+        },
+
+        /**
+         * Excess
+         *
+         * calculates the budget's excess of income'
+         *
+         * @return number
+         */
+        excess: function () {
+            return this.income.total() + this.expenses.total();
+        },
+
+        /**
          * Parse Date
          *
          * handles date conversions

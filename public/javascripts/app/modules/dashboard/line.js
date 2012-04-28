@@ -140,7 +140,8 @@ define([
          */
         serialize: function () {
             var data = this.model.toJSON();
-            data.subtotal = Utils.Str.price(data.subtotal);
+            data.budget = Utils.Str.price(data.subtotal);
+            data.actual = Utils.Str.price(0);
             data.budget_id = this.budget_id;
             return data;
         }
@@ -298,7 +299,7 @@ define([
          */
         calculate_budget: function () {
             return this.collection.reduce(function (total, line) {
-                return total + parseInt(line.get('subtotal'), 10);
+                return total + parseFloat(line.get('subtotal'), 10);
             }, 0);
         },
 
@@ -313,6 +314,7 @@ define([
             var data = {};
             data.title = Utils.Str.upper(this.title);
             data.budget = Utils.Str.price(this.calculate_budget());
+            data.actual = Utils.Str.price(0);
             return data;
         },
 

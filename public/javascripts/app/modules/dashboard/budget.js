@@ -121,6 +121,19 @@ define([
         },
 
         /**
+         * Total
+         *
+         * Get the total of all lines in the collection
+         *
+         * @return number
+         */
+        total: function () {
+            return this.reduce(function (total, line) {
+                return parseFloat(line.get('subtotal')) + total;
+            }, 0);
+        },
+
+        /**
          * URL
          *
          * The collection's associated URL
@@ -150,6 +163,11 @@ define([
          */
         template: 'dashboard/budget/details',
 
+        calculate_budget: function () {
+            console.log(app.current_budget.income);
+            return 100;
+        },
+
         /**
          * Serialize
          *
@@ -162,6 +180,10 @@ define([
 
             data.starts = Utils.Date.for_humans(data.starts);
             data.ends = Utils.Date.for_humans(data.ends);
+
+            data.budget = Utils.Str.price(app.current_budget.budget());
+            data.actual = Utils.Str.price(app.current_budget.actual());
+            data.excess = Utils.Str.price(app.current_budget.excess());
 
             return data;
         }
