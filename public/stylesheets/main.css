@@ -6,6 +6,16 @@ body {
   padding-bottom: 40px;
 }
 
+/* colors */
+.good,
+.up .good {
+  color: green;
+}
+.bad,
+.up .bad {
+  color: red;
+}
+
 /* tables */
 .table td{
   vertical-align: middle;

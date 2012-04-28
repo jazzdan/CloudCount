@@ -124,16 +124,39 @@ define([
         },
 
         /**
-         * Total
+         * Status
+         *
+         * returns "bad" if total is < actual, else returns "good"
+         *
+         * @return string
+         */
+        status: function () {
+            var status = this.actual() < this.budget_total();
+            return status ? 'good' : 'bad';
+        },
+
+        /**
+         * Budget
          *
          * Get the total of all lines in the collection
          *
          * @return number
          */
-        total: function () {
+        budget_total: function () {
             return this.reduce(function (total, line) {
                 return parseFloat(line.get('subtotal')) + total;
             }, 0);
+        },
+
+        /**
+         * Actual
+         *
+         * Get the total of actuals in the collection
+         *
+         * @return number
+         */
+        actual: function () {
+            return 0;
         },
 
         /**
@@ -188,14 +211,18 @@ define([
          * @return object
          */
         serialize: function () {
-            var data = app.current_budget.toJSON();
+            var that = this,
+                data = app.current_budget.toJSON();
 
             data.starts = Utils.Date.for_humans(data.starts);
             data.ends = Utils.Date.for_humans(data.ends);
 
-            data.budget = Utils.Str.price(this.budget.budget());
+            data.budget = Utils.Str.price(this.budget.budget_total());
             data.actual = Utils.Str.price(this.budget.actual());
-            data.excess = Utils.Str.price(this.budget.excess());
+            data.excess = {
+                amount: Utils.Str.price(that.budget.excess()),
+                status: that.budget.status()
+            };
 
             return data;
         }

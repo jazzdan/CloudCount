@@ -108,14 +108,26 @@ define([
         },
 
         /**
-         * Budget
+         * Status
+         *
+         * returns "bad" if excess is < 0, else returns "good"
+         *
+         * @return string
+         */
+        status: function () {
+            var excess = this.excess();
+            return excess < 0 ? 'bad' : 'good';
+        },
+
+        /**
+         * Budget Total
          *
          * calculates the budget from the budget's lines
          *
          * @return number
          */
-        budget: function () {
-            return this.income.total() + this.expenses.total();
+        budget_total: function () {
+            return this.income.budget_total() + this.expenses.budget_total();
         },
 
         /**
@@ -137,7 +149,7 @@ define([
          * @return number
          */
         excess: function () {
-            return this.income.total() - this.expenses.total();
+            return this.income.budget_total() - this.expenses.budget_total();
         },
 
         /**

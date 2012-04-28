@@ -281,19 +281,6 @@ define([
         },
 
         /**
-         * Calculate Budget
-         *
-         * Aggregates the subtotals of a lines
-         *
-         * @return number
-         */
-        calculate_budget: function () {
-            return this.collection.reduce(function (total, line) {
-                return total + parseFloat(line.get('subtotal'), 10);
-            }, 0);
-        },
-
-        /**
          * Serialize
          *
          * Packages data for rendering
@@ -302,9 +289,10 @@ define([
          */
         serialize: function () {
             var data = {};
+            data.status = this.collection.status();
             data.title = Utils.Str.upper(this.title);
-            data.budget = Utils.Str.price(this.calculate_budget());
-            data.actual = Utils.Str.price(0);
+            data.budget = Utils.Str.price(this.collection.budget_total());
+            data.actual = Utils.Str.price(this.collection.actual());
             return data;
         },
 
