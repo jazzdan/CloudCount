@@ -461,17 +461,34 @@ define([
 
             this.filter_by = opts.filter_by || '';
 
-            this.collection = new Attachments.Collection([], { budget_id: that.budget_id });
+            if (!opts.budget.attachments) {
+                opts.budget.attachments = new Attachments.Collection([], {
+                    budget_id: that.budget_id
+                });
+                this.collection = opts.budget.attachments;
+                opts.budget.attachments.fetch({
 
-            this.collection.bind('reset', function (col) {
-                that.render();
-            });
+                    success: function () {
+                        that.collection.bind('reset', function (col) {
+                            that.render();
+                        });
 
-            this.collection.bind('remove', function (col) {
-                that.render();
-            });
+                        that.collection.bind('remove', function (col) {
+                            that.render();
+                        });
+                    }
 
-            this.collection.fetch();
+                });
+            } else {
+                this.collection = opts.budget.attachments;
+                that.collection.bind('reset', function (col) {
+                    that.render();
+                });
+
+                that.collection.bind('remove', function (col) {
+                    that.render();
+                });
+            }
         },
 
         /**
