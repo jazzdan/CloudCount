@@ -68,9 +68,10 @@ require([
     // Modules
     "modules/utils",
     "modules/budgets",
-    "modules/dashboard/index"
+    "modules/dashboard/index",
+    "modules/line/index"
 
-], function (cc, jQuery, Backbone, LayoutManager, Utils, Budgets, Budget) {
+], function (cc, jQuery, Backbone, LayoutManager, Utils, Budgets, Budget, Line) {
 
     "use strict";
 
@@ -121,7 +122,8 @@ require([
             routes: {
                 "": "index",
                 "budget/:id": "budget",
-                "budget/:id/:tab": "budget"
+                "budget/:id/:tab": "budget",
+                "budget/:budget_id/line/:line_id/:type": "line"
             },
 
             /**
@@ -200,29 +202,11 @@ require([
 
                     budget.refresh({
 
-                        /**
-                         * Error
-                         *
-                         * performed on unsuccessful fetch
-                         *
-                         * @param  model     model
-                         * @param  object    response
-                         * @return undefined
-                         */
                         error: function (model, response) {
                             console.log('FAIL: count not get budget: ');
                             console.log(response);
                         },
 
-                        /**
-                         * Success
-                         *
-                         * performed on successful fetch
-                         *
-                         * @param  object    response
-                         * @param  model     model
-                         * @return undefined
-                         */
                         success: function (model, resp) {
                             app.budgets.add(model);
                             set_render(model);
@@ -238,29 +222,11 @@ require([
 
                     budget.refresh({
 
-                        /**
-                         * Error
-                         *
-                         * performed on unsuccessful fetch
-                         *
-                         * @param  model     model
-                         * @param  object    response
-                         * @return undefined
-                         */
                         error: function (collection, response) {
                             console.log('FAIL: could not fetch collection:');
                             console.log(response);
                         },
 
-                        /**
-                         * Success
-                         *
-                         * performed on successful fetch
-                         *
-                         * @param  object    response
-                         * @param  model     model
-                         * @return undefined
-                         */
                         success: function (model) {
                             set_render(model);
                         }
@@ -269,6 +235,45 @@ require([
 
                 }
 
+            },
+
+            line: function (budget_id, line_id, type) {
+
+                var set_render,
+                    budget,
+                    main = this.useLayout("main");
+
+                set_render = function (budget) {
+
+                    main.setViews({
+                        // '.controlbar': new Utils.Views.BudgetBar(),
+                        ".canvas": new Line.Views.Index()
+                    });
+
+                    main.render(main_render);
+                };
+
+                if (!app.current_budget) {
+                    budget = new Budgets.Model({ '_id': budget_id });
+                    app.current_budget = budget;
+                } else {
+                    budget = app.current_budget;
+                }
+
+                budget.refresh({
+
+                    error: function (model, response) {
+                        console.log('FAIL: count not get budget: ');
+                        console.log(response);
+                    },
+
+                    success: function (model, resp) {
+                        //app.budgets.add(model);
+                        set_render(model);
+                        console.log(model);
+                    }
+
+                });
             }
 
         });
