@@ -32,6 +32,22 @@ define([
 
     });
 
+    Data.Models.Subline = Data.Models.Base.extend();
+
+    Data.Collections.Subline = Backbone.Collection.extend({
+
+        initialize: function (opts) {
+            this.budget = opts.budget;
+            this.line = opts.line;
+        },
+
+        url: function () {
+            var type = this.type || '';
+            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/transactions';
+        }
+
+    });
+
     /**
      * Line
      *
@@ -63,8 +79,14 @@ define([
          */
         initialize: function (opts) {
             var that = this;
+
             this.budget = app.current_budget;
             this.budget_id = this.budget.get('_id');
+
+            this.sublines = new Data.Collections.Subline({
+                budget: that.budget,
+                line: that
+            });
         },
 
         /**

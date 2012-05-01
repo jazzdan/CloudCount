@@ -6,13 +6,11 @@ define([
 
     // modules
     "modules/utils",
-    "modules/dashboard/budget",
-    "modules/dashboard/details",
-    "modules/dashboard/attachments",
+    "modules/line/sublines",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils, Budget, Details, Attachments) {
+], function (cc, Backbone, Utils, Sublines) {
 
     "use strict";
 
@@ -44,6 +42,8 @@ define([
          */
         events: {},
 
+        views: {},
+
         /**
          * Initialize
          *
@@ -58,14 +58,33 @@ define([
 
             this.model = opts.model;
 
-            console.log(this.model);
-
-            this.views = {};
+            console.log(Sublines);
 
             this.model.bind('change', function () {
                 that.render();
             });
 
+            this.update_transactions();
+
+        },
+
+        /**
+         * Update Transactions
+         *
+         * asychronously fetches transactions and refreshes the view
+         *
+         * @return undefined
+         */
+        update_transactions: function () {
+            var that = this;
+            that.model.sublines.fetch({
+                success: function () {
+                    this.views['.sublines'] = new Sublines.Views.List({
+                        collection: that.model.sublines
+                    });
+                    this.render();
+                }
+            });
         },
 
         /**
