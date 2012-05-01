@@ -153,8 +153,13 @@ define([
          * @return string
          */
         status: function () {
-            var status = this.actual() < this.budget_total();
-            return status ? 'good' : 'bad';
+            var string = '',
+                actual = this.actual(),
+                budget = this.budget_total();
+            if (actual !== budget) {
+                string = (actual < budget) ? 'good' : 'bad';
+            }
+            return string;
         },
 
         /**

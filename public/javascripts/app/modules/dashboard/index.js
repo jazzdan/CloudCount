@@ -115,8 +115,12 @@ define([
          * @return string
          */
         status: function () {
-            var excess = this.excess();
-            return excess < 0 ? 'bad' : 'good';
+            var string = '',
+                excess = this.excess();
+            if (excess !== 0) {
+                string = excess < 0 ? 'bad' : 'good';
+            }
+            return string;
         },
 
         /**
