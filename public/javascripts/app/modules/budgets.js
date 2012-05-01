@@ -7,10 +7,11 @@ define([
     // Modules
     "modules/dashboard/index",
     "modules/utils",
+    "modules/data",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Budget, Utils) {
+], function (cc, Backbone, Budget, Utils, Data) {
 
     "use strict";
 
@@ -22,36 +23,9 @@ define([
      *
      * Budget model
      */
-    Budgets.Model = Budget.Model;
+    Budgets.Model = Data.Models.Budget;
 
-    /**
-     * Collection
-     *
-     * Budget collection
-     */
-    Budgets.Collection = Backbone.Collection.extend({
-
-        /**
-         * Model
-         *
-         * model the collection contains
-         *
-         * @var Model
-         */
-        model: Budgets.Model,
-
-        /**
-         * URL
-         *
-         * Collection's associated URL
-         *
-         * @return string
-         */
-        url: function () {
-            return '/budgets';
-        }
-
-    });
+    Budgets.Collection = Data.Collections.Budget;
 
     /**
      * Row

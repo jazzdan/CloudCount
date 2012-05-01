@@ -6,6 +6,7 @@ define([
 
     // modules
     "modules/utils",
+    "modules/data",
 
     // uploader script
     "uploader",
@@ -13,86 +14,12 @@ define([
     // Plugins
     "use!layoutmanager"
 
-], function (cc, Backbone, Utils) {
+], function (cc, Backbone, Utils, Data) {
 
     "use strict";
 
     var app = cc.app,
         Attachments = cc.module();
-
-    /**
-     * Model
-     *
-     * Attachments model
-     */
-    Attachments.Model = Backbone.Model.extend({
-
-        /**
-         * Id Attribute
-         *
-         * use a mongo-style _id
-         *
-         * @var string
-         */
-        idAttribute: '_id'
-
-    });
-
-    /**
-     * Collection
-     *
-     * Attachments collection
-     */
-    Attachments.Collection = Backbone.Collection.extend({
-
-        /**
-         * Model
-         *
-         * the model to be collected
-         *
-         * @var Model
-         */
-        model: Attachments.Model,
-
-        /**
-         * Comparator
-         *
-         * defines the order of the collection
-         * sorted by date modified
-         *
-         * @param  model  a
-         * @param  model  b
-         * @return number
-         */
-        comparator: function (a, b) {
-            return b.get('_modified') - a.get('_modified');
-        },
-
-        /**
-         * Initialize
-         *
-         * setup the collection
-         *
-         * @param  array     models
-         * @param  object    opts
-         * @return undefined
-         */
-        initialize: function (models, opts) {
-            this.budget_id = opts.budget_id;
-        },
-
-        /**
-         * URL
-         *
-         * Collection's associated URL
-         *
-         * @return string
-         */
-        url: function () {
-            return '/budgets/' + this.budget_id + '/attachments';
-        }
-
-    });
 
     /**
      * Form
@@ -462,7 +389,7 @@ define([
             this.filter_by = opts.filter_by || '';
 
             if (!opts.budget.attachments) {
-                opts.budget.attachments = new Attachments.Collection([], {
+                opts.budget.attachments = new Data.Collections.Attachment([], {
                     budget_id: that.budget_id
                 });
                 this.collection = opts.budget.attachments;

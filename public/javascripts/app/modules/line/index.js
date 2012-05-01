@@ -19,7 +19,6 @@ define([
     var app = cc.app,
         Line = cc.module(); // Create a new module
 
-
     /**
      * Index
      *
