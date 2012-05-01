@@ -109,11 +109,16 @@ define([
         serialize: function () {
             var that = this,
                 data = this.model.toJSON();
+
             data.proper_type = Utils.Str.upper(data.type);
             data.next_id = this.next().get('_id');
             data.previous_id = this.previous().get('_id');
             data.budget_id = this.model.budget_id;
             data.budget_name = this.model.budget.get('title');
+
+            data.budget_total = Utils.Str.price(this.model.budget_total());
+            data.actual = Utils.Str.price(this.model.actual());
+
             return data;
         }
 

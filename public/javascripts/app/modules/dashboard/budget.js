@@ -64,6 +64,28 @@ define([
         },
 
         /**
+         * Budget Total
+         *
+         * returns the budgeted amount for the line
+         *
+         * @return number
+         */
+        budget_total: function () {
+            return parseFloat(this.get('subtotal'));
+        },
+
+        /**
+         * Actual
+         *
+         * returns actual spending to date based on sublines
+         *
+         * @return number
+         */
+        actual: function () {
+            return 0;
+        },
+
+        /**
          * URL
          *
          * The model's url
