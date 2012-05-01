@@ -102,7 +102,19 @@ define([
          * @var object
          */
         events: {
-            'click .delete': 'delete_line'
+            'click .delete': 'delete_line',
+            'dblclick': 'view_line'
+        },
+
+        /**
+         * Edit
+         *
+         * opens the edit budget view
+         *
+         * @return undefined
+         */
+        view_line: function () {
+            $('.view_line', this.$el).click();
         },
 
         /**
