@@ -109,6 +109,7 @@ define([
         serialize: function () {
             var that = this,
                 data = this.model.toJSON();
+            data.proper_type = Utils.Str.upper(data.type);
             data.next_id = this.next().get('_id');
             data.previous_id = this.previous().get('_id');
             data.budget_id = this.model.budget_id;
