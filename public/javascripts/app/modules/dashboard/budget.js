@@ -309,7 +309,7 @@ define([
 
             this.views['#income'] = new Budget.Views.Lines({
                 title: 'incomes',
-                collection: that.budget.income
+                collection: that.budget.incomes
             });
 
             this.views['#expenses'] = new Budget.Views.Lines({

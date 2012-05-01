@@ -57,13 +57,15 @@ define([
 
             var that = this;
 
-            //this.model = opts.model;
+            this.model = opts.model;
+
+            console.log(this.model);
 
             this.views = {};
 
-            //this.model.bind('change', function () {
-            //    that.render();
-            //});
+            this.model.bind('change', function () {
+                that.render();
+            });
 
         },
 
@@ -76,7 +78,9 @@ define([
          */
         serialize: function () {
             var that = this,
-                data = {};//this.model.toJSON();
+                data = this.model.toJSON();
+            data.budget_id = this.model.budget_id;
+            data.budget_name = this.model.budget.get('title');
             return data;
         }
 

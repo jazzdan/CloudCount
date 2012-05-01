@@ -247,7 +247,9 @@ require([
 
                     main.setViews({
                         // '.controlbar': new Utils.Views.BudgetBar(),
-                        ".canvas": new Line.Views.Index()
+                        ".canvas": new Line.Views.Index({
+                            model: budget[type].get(line_id)
+                        })
                     });
 
                     main.render(main_render);
@@ -270,7 +272,6 @@ require([
                     success: function (model, resp) {
                         //app.budgets.add(model);
                         set_render(model);
-                        console.log(model);
                     }
 
                 });

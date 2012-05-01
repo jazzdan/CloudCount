@@ -62,7 +62,7 @@ define([
 
             var that = this;
 
-            this.income = new app.collections.Lines([], {
+            this.incomes = new app.collections.Lines([], {
                 type: 'incomes',
                 budget: that
             });
@@ -79,11 +79,11 @@ define([
                 that.parse_date('ends');
             });
 
-            this.income.bind('reset', function () {
+            this.incomes.bind('reset', function () {
                 console.log('budget caught income "reset"');
                 that.trigger('change');
             });
-            this.income.bind('remove', function () {
+            this.incomes.bind('remove', function () {
                 that.trigger('change');
             });
 
@@ -103,7 +103,7 @@ define([
             if (opts) {
                 this.fetch(opts);
             }
-            this.income.fetch();
+            this.incomes.fetch();
             this.expenses.fetch();
         },
 
@@ -127,7 +127,7 @@ define([
          * @return number
          */
         budget_total: function () {
-            return this.income.budget_total() + this.expenses.budget_total();
+            return this.incomes.budget_total() + this.expenses.budget_total();
         },
 
         /**
@@ -149,7 +149,7 @@ define([
          * @return number
          */
         excess: function () {
-            return this.income.budget_total() - this.expenses.budget_total();
+            return this.incomes.budget_total() - this.expenses.budget_total();
         },
 
         /**
