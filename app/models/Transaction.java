@@ -37,6 +37,17 @@ public class Transaction extends Model {
   @Required
   public int order;
 
+  /**
+   * Transaction object constructor
+   *
+   * @param budget The budget this transaction belongs to
+   * @param user The user that created the budget
+   * @param subline_number The subline that this transaction belongs to
+   * @param name The name of the transaction
+   * @param subtotal The total of the transaction.
+   * @param order Arbitrary order integer for sorting purposes.
+   */
+
   public Transaction(Budget budget, User user, int subline_number, String name, double subtotal, int subline_id, int order) {
     // this.id = id;
     this.budget = budget;

@@ -39,6 +39,12 @@ public class Attachments extends Controller {
     renderJSON(attachments);
   }
 
+  /**
+   * Renders an HTML form that when submitted updates a certain budget.
+   *
+   * @param budgetId The id of the budget to be updated
+   */
+
   public static void form(long budgetId) {
     render(budgetId);
   }

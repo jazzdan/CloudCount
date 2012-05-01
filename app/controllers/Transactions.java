@@ -9,21 +9,43 @@ import models.*;
 
 // @With(Secure.class)
 
-/*
+/**
 Transactions controller
 */
+
 public class Transactions extends Controller {
 
-	public static void index(long transactionId) {
-		List<Transaction> transactions = Transaction.find("transactionId", transactionId).asList();
+    /**
+     * Takes a line id and returns all the transactions associated with
+     * that line.
+     *
+     * @param lineID The id of the line that we want all the
+     * transactions from.
+     */
+	public static void index(long lineId) {
+		List<Transaction> transactions = Transaction.find("lineId", lineId).asList();
 		renderJSON(transactions);
 	}
 
+    /**
+     * Takes a transaction ID and returns the JSON representation of
+     * the specified object.
+     *
+     * @param id The ID of the object we want to be returned in JSON
+     * format.
+     */
 	public static void transaction(long id) {
 		Transaction t = Transaction.find("by_id", id).first();
 		renderJSON(t);
 	}
 
+    /**
+     * Takes a JSON representation of a transaction and stores it in the
+     * database.
+     *
+     * @param body The JSON representation of the transaction to be
+     * stored in the database.
+     */
 	public static void create(Transaction body) {
 		User user = User.find("byEmail", Security.connected()).first();
 
@@ -31,6 +53,13 @@ public class Transactions extends Controller {
 		body.save();
 	}
 
+    /**
+     * Takes a JSON representation of a transaction and updates the
+     * specificied transaction record with the new attributes
+     *
+     * @param body The JSON representation of the transaction to be
+     * updated.
+     */
 	public static void update(Transaction body) {
 		Transaction t = Transaction.find("by_id", body.getId()).first();
 		Budget b = Budget.find("by_id", body).first();
@@ -47,7 +76,12 @@ public class Transactions extends Controller {
 		t.save();
 		renderJSON(t);
 	}
-
+    
+    /**
+     * Deletes the object in the database specified by the supplied id
+     *
+     * @param id The id of the transaction object to be deleted.
+     */
 	public static void delete(long id){
 		Transaction t = Transaction.find("by_id", id).first();
 		t.delete();

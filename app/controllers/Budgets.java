@@ -33,6 +33,9 @@ public class Budgets extends Controller {
 
     /**
      * Create Budget
+     *
+     * @param body The JSON params that correspond to the Budget that is
+     * to be created.
      */
 
     public static void create(Budget body) {
@@ -51,6 +54,9 @@ public class Budgets extends Controller {
 
     /**
      * Update an existing budget.
+     *
+     * @param body The JSON params that correspond to the Budget that is
+     * to be updated.
      */
 
     public static void update(Budget body) {
@@ -74,7 +80,10 @@ public class Budgets extends Controller {
 
     /**
      * Delete Budget
+     *
+     * @param id The id of the budget that is to be deleted.
      */
+
     public static void delete(long id) {
         Budget budget = Budget.find("by_id", id).first();
         User user = User.find("byEmail", Security.connected()).first();

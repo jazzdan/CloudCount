@@ -8,6 +8,11 @@ import java.util.*;
 import java.lang.reflect.*; 
 import java.lang.annotation.*; 
 
+/**
+ * This plugin finds any parameters to a function named body and
+ * automatically serializes to JSON.
+ */
+
 public class BinderPlugin extends PlayPlugin
 { 
     public Object bind(String name, Class clazz, Type type, Annotation[] annotations, Map<String, String[]> params)
