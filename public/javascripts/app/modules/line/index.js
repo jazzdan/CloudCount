@@ -70,6 +70,36 @@ define([
         },
 
         /**
+         * Next
+         *
+         * returns the next line in the parent collection
+         *
+         * @return Line
+         */
+        next: function () {
+            var index = this.model.collection.indexOf(this.model) + 1;
+            if (this.model.collection.length <= index) {
+                index = 0;
+            }
+            return this.model.collection.at(index);
+        },
+
+        /**
+         * Previous
+         *
+         * returns the previous line in the parent collection
+         *
+         * @return Line
+         */
+        previous: function () {
+            var index = this.model.collection.indexOf(this.model) - 1;
+            if (index < 0) {
+                index = this.model.collection.length - 1;
+            }
+            return this.model.collection.at(index);
+        },
+
+        /**
          * Serialize
          *
          * package data for rendering
@@ -79,6 +109,8 @@ define([
         serialize: function () {
             var that = this,
                 data = this.model.toJSON();
+            data.next_id = this.next().get('_id');
+            data.previous_id = this.previous().get('_id');
             data.budget_id = this.model.budget_id;
             data.budget_name = this.model.budget.get('title');
             return data;

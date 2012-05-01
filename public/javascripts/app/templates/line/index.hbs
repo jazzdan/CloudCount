@@ -1,8 +1,20 @@
 <div class="head span12">
 
-    <h1>
+    <h1 class="pull-left">
         <a href="/budget/{{budget_id}}">{{budget_name}}</a>
         <small>Line {{line_number}}</small>
     </h1>
+
+    <div class="pull-right">
+        <ul class="pager pull-right">
+            <li>
+                <a title="Previous Line" href="/budget/{{budget_id}}/line/{{previous_id}}/{{type}}">&larr;</a>
+            </li>
+            <li></li>
+            <li>
+                <a title="Next Line" href="/budget/{{budget_id}}/line/{{next_id}}/{{type}}">&rarr;</a>
+            </li>
+        </ul>
+    </div>
 
 </div>
