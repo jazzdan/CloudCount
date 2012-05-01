@@ -79,9 +79,11 @@ define([
             var that = this;
             that.model.sublines.fetch({
                 success: function () {
-                    that.setView('.sublines', new Sublines.Views.List({
-                        collection: that.model.sublines
-                    }));
+                    that.setViews({
+                        '.sublines': new Sublines.Views.List({
+                            collection: that.model.sublines
+                        })
+                    });
                     that.render();
                 }
             });
