@@ -23,10 +23,10 @@ POST		/budgets/{budgetId}/lines/create							Lines.create
 DELETE  /budgets/{budgetId}/lines/{lineId}						Lines.delete
 
 # Transactions
-GET			/budgets/{budgetId}/lines/{lineId}/Transactions											Transactions.index
-PUT			/budgets/{budgetId}/lines/{lineId}/Transactions/{transactionId}			Transactions.update
-POST		/budgets/{budgetId}/lines/{lineId}/Transactions/create							Transactions.create
-DELETE  /budgets/{budgetId}/lines/{lineId}/Transactions/{transactionId}			Transactions.delete
+GET			/budgets/{budgetId}/lines/{lineId}/transactions											Transactions.index
+PUT			/budgets/{budgetId}/lines/{lineId}/transactions/{transactionId}			Transactions.update
+POST		/budgets/{budgetId}/lines/{lineId}/transactions/create							Transactions.create
+DELETE  /budgets/{budgetId}/lines/{lineId}/transactions/{transactionId}			Transactions.delete
 
 # Attachments
 GET     /budgets/{budgetId}/attachments                             Attachments.index

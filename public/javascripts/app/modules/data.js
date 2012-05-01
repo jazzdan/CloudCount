@@ -43,7 +43,7 @@ define([
 
         url: function () {
             var type = this.type || '';
-            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/transactions';
+            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines';
         }
 
     });
