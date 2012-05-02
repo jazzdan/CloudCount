@@ -20,7 +20,51 @@ define([
 
     Sublines.Views.Transactions = Backbone.LayoutManager.View.extend({
 
+        /**
+         * Template
+         *
+         * relative path to template
+         *
+         * @var string
+         */
         template: 'line/transactions'
+
+    });
+
+    Sublines.Views.Row = Backbone.View.extend({
+
+        /**
+         * Template
+         *
+         * relative path to template
+         *
+         * @var string
+         */
+        template: 'line/row',
+
+        /**
+         * Initialize
+         *
+         * constructor
+         *
+         * @param  object    opts
+         * @return undefined
+         */
+        initialize: function (opts) {
+            this.model = opts.model;
+        },
+
+        /**
+         * Serialize
+         *
+         * package the data for rendering
+         *
+         * @return object
+         */
+        serialize: function () {
+            var data = this.model.toJSON();
+            return data;
+        }
 
     });
 
@@ -31,10 +75,45 @@ define([
      */
     Sublines.Views.List = Utils.Views.List.extend({
 
+        /**
+         * Template
+         *
+         * relative path to template
+         *
+         * @var string
+         */
         template: 'line/subline',
 
+        /**
+         * Initialize
+         *
+         * constructor
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
             this.model = opts.model;
+        },
+
+        /**
+         * Render
+         *
+         * builds the view for display
+         *
+         * @param  function layout
+         * @return object
+         */
+        render: function (layout) {
+            var view = layout(this);
+
+            this.collection.each(function (subline) {
+                view.insert("tbody.sublines", new Sublines.Views.Row({
+                    model: subline
+                }));
+            });
+
+            return view.render();
         }
 
     });
