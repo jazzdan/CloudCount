@@ -332,6 +332,7 @@ define([
          * @return bool
          */
         save: function () {
+            console.log(this.model);
             return (this.isValid()) ? this.model.save() : false;
         }
 

@@ -76,7 +76,6 @@ define([
          * @var object
          */
         rules: {
-            'type': 'required',
             'line_number': 'required',
             'name': 'required',
             'subtotal': 'required',
