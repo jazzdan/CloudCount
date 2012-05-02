@@ -140,6 +140,9 @@ define([
         template: 'line/subline',
 
         events: {
+            // inherited
+            'click tbody tr': 'select',
+            // new
             'click .new': 'new_subline'
         },
 
