@@ -88,6 +88,7 @@ define([
                 success: function () {
                     that.setViews({
                         '.sublines': new Sublines.Views.List({
+                            line: that.model,
                             collection: that.model.sublines
                         })
                     });
