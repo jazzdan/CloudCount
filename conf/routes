@@ -37,6 +37,10 @@ DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.
 
 # Notes
 GET    /budgets/{budgetId}/notes                                    Notes.index
+GET    /budgets/{budgetId}/notes/{noteId}                           Notes.note
+PUT    /budgets/{budgetId}/notes/{noteId}                           Note.update
+POST   /budgets/{budgetId}/notes/create                             Note.create
+DELETE /budgets/{budgetId}/notes/{noteId}                           Note.delete
 
 # Audits
 GET /budgets/{budgetId}/audits                                      Audits.index

@@ -15,7 +15,6 @@ public class Audits extends Controller {
 
   public static void index(long budgetId) {
     List<Audit> audits = Audit.find("audited_id", budgetId).asList();
-    // List<Audit> audits = Audit.findAll();
     renderJSON(audits);
   }
 }
