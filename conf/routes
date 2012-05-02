@@ -14,26 +14,33 @@ POST    /budgets/create                         Budgets.create
 DELETE  /budgets/{id}                           Budgets.delete
 
 # Lines
-GET			/budgets/{budgetId}/lines											Lines.index
-GET			/budgets/{budgetId}/lines/incomes							Lines.incomes
-GET			/budgets/{budgetId}/lines/expenses						Lines.expenses
-GET			/budgets/{budgetId}/lines/{lineId}/sublines		Lines.sublines
-PUT			/budgets/{budgetId}/lines/{lineId}						Lines.update
-POST		/budgets/{budgetId}/lines/create							Lines.create
-DELETE  /budgets/{budgetId}/lines/{lineId}						Lines.delete
+GET			/budgets/{budgetId}/lines								    Lines.index
+GET			/budgets/{budgetId}/lines/incomes						    Lines.incomes
+GET			/budgets/{budgetId}/lines/expenses						    Lines.expenses
+GET			/budgets/{budgetId}/lines/{lineId}/sublines		            Lines.sublines
+PUT			/budgets/{budgetId}/lines/{lineId}						    Lines.update
+POST		/budgets/{budgetId}/lines/create						    Lines.create
+DELETE      /budgets/{budgetId}/lines/{lineId}						    Lines.delete
+
+# Sublines
+GET         /budgets/{budgetId}/lines/{lineId}/sublines                 Lines.sublines
+PUT         /budgets/{budgetId}/lines/{parentLineId}/sublines/{lineId}  Lines.update
+POST        /budgets/{budgetId}/lines/{lineId}/sublines/create          Lines.create
+DELETE      /budgets/{budgetId}/lines/{parentLineId}/sublines/{lineId}  Lines.delete
+
 
 # Transactions
-GET			/budgets/{budgetId}/lines/{lineId}/transactions											Transactions.index
-PUT			/budgets/{budgetId}/lines/{lineId}/transactions/{transactionId}			Transactions.update
-POST		/budgets/{budgetId}/lines/{lineId}/transactions/create							Transactions.create
-DELETE  /budgets/{budgetId}/lines/{lineId}/transactions/{transactionId}			Transactions.delete
+GET		/budgets/{budgetId}/lines/{lineId}/transactions				    Transactions.index
+PUT		/budgets/{budgetId}/lines/{lineId}/transactions/{transactionId}	Transactions.update
+POST	/budgets/{budgetId}/lines/{lineId}/transactions/create			Transactions.create
+DELETE  /budgets/{budgetId}/lines/{lineId}/transactions/{transactionId}	Transactions.delete
 
 # Attachments
-GET     /budgets/{budgetId}/attachments                             Attachments.index
-GET     /budgets/{budgetId}/attachments/form                        Attachments.form
-GET     /attachments/{attachmentId}/show                            Attachments.show
-POST    /budgets/{budgetId}/attachments/create                      Attachments.create
-DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.delete
+GET     /budgets/{budgetId}/attachments                                 Attachments.index
+GET     /budgets/{budgetId}/attachments/form                            Attachments.form
+GET     /attachments/{attachmentId}/show                                Attachments.show
+POST    /budgets/{budgetId}/attachments/create                          Attachments.create
+DELETE  /budgets/{budgetId}/attachments/{attachmentId}                  Attachments.delete
 
 # Notes
 GET    /budgets/{budgetId}/notes                                    Notes.index
@@ -47,10 +54,10 @@ GET /budgets/{budgetId}/audits                                      Audits.index
 
 # Users
 GET     /users                                  Users.index
-GET			/users/create														Users.form
-POST		/users/create														Users.create
-PUT			/users/{userId}													Users.update
-DELETE  /users/{userId}													Users.delete
+GET		/users/create							Users.form
+POST	/users/create							Users.create
+PUT		/users/{userId}							Users.update
+DELETE  /users/{userId}							Users.delete
 
 # Settings
 GET     /settings                               Settings.index
@@ -65,7 +72,7 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # JS APP catch all
-GET     /{<[\w/]+>js_route}/?                  Application.index
+GET     /{<[\w/]+>js_route}/?                   Application.index
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

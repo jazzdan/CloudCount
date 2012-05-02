@@ -7,11 +7,12 @@ define([
 
     // modules
     "modules/utils",
+    "modules/data",
 
     // Plugins
     "use!layoutmanager"
 
-], function (cc, Backbone, Utils) {
+], function (cc, Backbone, Utils, Data) {
 
     "use strict";
 
@@ -31,7 +32,50 @@ define([
 
     });
 
-    Sublines.Views.Form = Utils.Views.Form.extend();
+    Sublines.Views.Form = Utils.Views.Form.extend({
+
+        /**
+         * Template
+         *
+         * Relative path to view template 
+         *
+         * @var string
+         */
+        template: 'line/subline-form',
+
+        /**
+         * Initialize
+         *
+         * View constructor
+         *
+         * @param  object    opts
+         * @return undefined
+         */
+        initialize: function (opts) {
+
+            this.base_model = Data.Models.Subline;
+
+            _.bindAll(this, 'show_errors');
+
+            this.model = new this.base_model({ line: opts.line });
+
+            this.model.bind('error', this.show_errors);
+
+        },
+
+        /**
+         * Serialize
+         *
+         * Package the view's data for rendering
+         *
+         * @return object
+         */
+        serialize: function () {
+            var data = {};
+            return data;
+        }
+
+    });
 
     Sublines.Views.Row = Backbone.View.extend({
 
@@ -86,6 +130,76 @@ define([
          */
         template: 'line/subline',
 
+        events: {
+            'click .new': 'new_subline'
+        },
+
+        /**
+         * New Subline
+         *
+         * flow for creating a new subline
+         *
+         * @param  event     e
+         * @return undefined
+         */
+        new_subline: function (e) {
+
+            var that = this,
+                modal,
+                close_modal;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            modal = this.view('.tmp', new Utils.Views.Modal({
+                title: 'New Subline',
+                action: 'Save',
+                content: Sublines.Views.Form,
+                content_options: {
+                    line: that.line
+                }
+            }));
+
+            /**
+             * Close Modal
+             *
+             * removes modal from the view
+             *
+             * @return undefined
+             */
+            close_modal = function () {
+                that.delete_view('.tmp');
+                modal.unbind();
+            };
+
+            modal.render();
+
+            modal.bind('confirm', function () {
+
+                console.log('confirming');
+
+                if (modal.content.save()) {
+
+                    that.collection.fetch({
+                        success: function () {
+                            close_modal();
+                        },
+                        error: function (collection, response) {
+                            console.log('FAIL: could not fetch collection');
+                            console.log(response);
+                        }
+                    });
+
+                }
+
+            });
+
+            modal.bind('close', function () {
+                close_modal();
+            });
+
+        },
+
         /**
          * Initialize
          *
@@ -95,7 +209,8 @@ define([
          * @return undefined
          */
         initialize: function (opts) {
-            this.model = opts.model;
+            this.collection = opts.collection;
+            this.line = opts.line;
         },
 
         /**
@@ -116,6 +231,19 @@ define([
             });
 
             return view.render();
+        },
+
+        /**
+         * Delete View
+         *
+         * destroys a nested view
+         *
+         * @param  string    key
+         * @return undefined
+         */
+        delete_view: function (key) {
+            this.views[key].remove();
+            delete this.views[key];
         }
 
     });

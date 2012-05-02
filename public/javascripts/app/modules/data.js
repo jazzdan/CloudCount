@@ -32,9 +32,41 @@ define([
 
     });
 
-    Data.Models.Subline = Data.Models.Base.extend();
+    Data.Models.Transaction = Data.Models.Base.extend({
 
-    Data.Collections.Subline = Backbone.Collection.extend({
+        /**
+         * URL
+         *
+         * The model's url
+         *
+         * @return string
+         */
+        url: function () {
+            var id = this.get('_id');
+            return '/budgets/' + this.budget_id + '/lines/' + this.subline.get('_id') + '/transactions/' + (id || 'create');
+        }
+
+    });
+
+    Data.Collections.Transaction = Backbone.Collection.extend({
+
+        model: Data.Models.Transaction,
+
+        /**
+         * URL
+         *
+         * corresponding API URL
+         *
+         * @return string
+         */
+        url: function () {
+            var type = this.type || '';
+            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines/' + this.get('_id') + '/transactions';
+        }
+
+    });
+
+    Data.Models.Subline = Data.Models.Base.extend({
 
         /**
          * Rules
@@ -51,6 +83,31 @@ define([
             'parent_line_id': 'required'
         },
 
+        initialize: function (opts) {
+            var that = this;
+            this.line = opts.line;
+            this.budget = this.line.budget;
+            this.set({
+                parent_line_id: that.line.get('_id')
+            });
+        },
+
+        /**
+         * URL
+         *
+         * corresponding API URL
+         *
+         * @return string
+         */
+        url: function () {
+            var id = this.get('_id');
+            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines/' + (id || 'create');
+        }
+
+    });
+
+    Data.Collections.Subline = Backbone.Collection.extend({
+
         /**
          * Initialize
          *
@@ -60,6 +117,8 @@ define([
          * @return undefined
          */
         initialize: function (opts) {
+            var that = this;
+
             this.budget = opts.budget;
             this.line = opts.line;
         },
