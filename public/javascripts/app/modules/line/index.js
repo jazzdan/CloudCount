@@ -92,8 +92,6 @@ define([
                             collection: that.model.sublines
                         })
                     });
-                    console.log(that.model);
-                    that.render();
                 }
             });
         },

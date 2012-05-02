@@ -79,6 +79,8 @@ define([
 
     Sublines.Views.Row = Backbone.View.extend({
 
+        tagName: 'tr',
+
         /**
          * Template
          *
@@ -97,6 +99,7 @@ define([
          * @return undefined
          */
         initialize: function (opts) {
+            this.line = opts.line;
             this.model = opts.model;
         },
 
@@ -109,6 +112,12 @@ define([
          */
         serialize: function () {
             var data = this.model.toJSON();
+
+            data.parent_number = this.line.get('line_number');
+            console.log('subline');
+            data.number = data.line_number.toString();
+            data.subtotal = Utils.Str.price(data.subtotal);
+
             return data;
         }
 
@@ -131,6 +140,9 @@ define([
         template: 'line/subline',
 
         events: {
+            // inherited
+            'click tbody tr': 'select',
+            // new
             'click .new': 'new_subline'
         },
 
@@ -222,11 +234,13 @@ define([
          * @return object
          */
         render: function (layout) {
-            var view = layout(this);
+            var that = this,
+                view = layout(this);
 
             this.collection.each(function (subline) {
                 view.insert("tbody.sublines", new Sublines.Views.Row({
-                    model: subline
+                    model: subline,
+                    line: that.line
                 }));
             });
 
