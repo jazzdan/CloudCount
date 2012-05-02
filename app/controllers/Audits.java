@@ -13,9 +13,9 @@ import models.Audit;
 // @With(Secure.class)
 public class Audits extends Controller {
 
-  public static void index() {
-    // List<Audit> audits = Audit.find("by_budgetId", budgetId).asList();
-    List<Audit> audits = Audit.findAll();
+  public static void index(long budgetId) {
+    List<Audit> audits = Audit.find("audited_id", budgetId).asList();
+    // List<Audit> audits = Audit.findAll();
     renderJSON(audits);
   }
 }

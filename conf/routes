@@ -35,6 +35,9 @@ GET     /attachments/{attachmentId}/show                            Attachments.
 POST    /budgets/{budgetId}/attachments/create                      Attachments.create
 DELETE  /budgets/{budgetId}/attachments/{attachmentId}              Attachments.delete
 
+# Notes
+GET    /budgets/{budgetId}/notes                                    Notes.index
+
 # Audits
 GET /budgets/{budgetId}/audits                                      Audits.index
 
