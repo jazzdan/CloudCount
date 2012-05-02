@@ -60,8 +60,14 @@ define([
          * @return undefined
          */
         initialize: function (opts) {
+            var that = this;
+
             this.budget = opts.budget;
             this.line = opts.line;
+
+            this.set({
+                parent_line_id: that.line.get('_id')
+            });
         },
 
         /**
