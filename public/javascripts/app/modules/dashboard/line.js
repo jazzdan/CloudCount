@@ -7,11 +7,12 @@ define([
 
     // modules
     "modules/utils",
+    "modules/data",
 
     // uploader script
     "uploader"
 
-], function (cc, Backbone, Utils) {
+], function (cc, Backbone, Utils, Data) {
 
     "use strict";
 
@@ -44,7 +45,7 @@ define([
          */
         initialize: function (opts) {
 
-            this.base_model = app.models.Line;
+            this.base_model = Data.Models.Line;
 
             _.bindAll(this, 'show_errors');
 

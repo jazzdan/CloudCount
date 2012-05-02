@@ -6,13 +6,14 @@ define([
 
     // modules
     "modules/utils",
+    "modules/data",
     "modules/dashboard/budget",
     "modules/dashboard/details",
     "modules/dashboard/attachments",
 
     // Plugins
     "use!layoutmanager"
-], function (cc, Backbone, Utils, Budget, Details, Attachments) {
+], function (cc, Backbone, Utils, Data, Budget, Details, Attachments) {
 
     "use strict";
 
@@ -42,7 +43,7 @@ define([
          *
          * @var Model
          */
-        base_model: Dashboard.Model
+        base_model: Data.Models.Budget
 
     });
 
