@@ -36,11 +36,41 @@ define([
 
     Data.Collections.Subline = Backbone.Collection.extend({
 
+        /**
+         * Rules
+         *
+         * validation directives
+         *
+         * @var object
+         */
+        rules: {
+            'type': 'required',
+            'line_number': 'required',
+            'name': 'required',
+            'subtotal': 'required',
+            'parent_line_id': 'required'
+        },
+
+        /**
+         * Initialize
+         *
+         * constructor
+         *
+         * @param  object    opts
+         * @return undefined
+         */
         initialize: function (opts) {
             this.budget = opts.budget;
             this.line = opts.line;
         },
 
+        /**
+         * URL
+         *
+         * corresponding API URL
+         *
+         * @return string
+         */
         url: function () {
             var type = this.type || '';
             return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines';

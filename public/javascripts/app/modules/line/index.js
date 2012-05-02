@@ -42,6 +42,13 @@ define([
          */
         events: {},
 
+        /**
+         * Views
+         *
+         * defines event listeners and handlers
+         *
+         * @var object
+         */
         views: {},
 
         /**

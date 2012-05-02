@@ -31,6 +31,8 @@ define([
 
     });
 
+    Sublines.Views.Form = Utils.Views.Form.extend();
+
     Sublines.Views.Row = Backbone.View.extend({
 
         /**
