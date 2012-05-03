@@ -19,6 +19,16 @@ define([
     var app = cc.app,
         Sublines = cc.module();
 
+    Sublines.Views.TransactionForm = Utils.Views.Form.extend({
+
+        base_model: Data.Models.Transaction,
+
+        template: 'line/transaction-form',
+
+
+
+    });
+
     Sublines.Views.Transactions = Utils.Views.Base.extend({
 
         /**
@@ -30,15 +40,91 @@ define([
          */
         template: 'line/transactions',
 
+        events: {
+            'click .new': 'new_transaction'
+        },
+
+        /**
+         * New transaction
+         *
+         * flow for creating a new subline
+         *
+         * @param  event     e
+         * @return undefined
+         */
+        new_transaction: function (e) {
+
+            var that = this,
+                modal,
+                close_modal;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            modal = this.view('.tmp', new Utils.Views.Modal({
+                title: 'New Transaction',
+                action: 'Save',
+                content: Sublines.Views.TransactionForm,
+                content_options: {
+                    budget: that.budget,
+                    line: that.line,
+                    subline: that.subline,
+                    collection: that.collection
+                }
+            }));
+
+            /**
+             * Close Modal
+             *
+             * removes modal from the view
+             *
+             * @return undefined
+             */
+            close_modal = function () {
+                that.delete_view('.tmp');
+                modal.unbind();
+            };
+
+            modal.render();
+
+            modal.bind('confirm', function () {
+
+                console.log('confirming');
+
+                if (modal.content.save()) {
+
+                    that.collection.refresh({
+                        success: function () {
+                            close_modal();
+                        },
+                        error: function (collection, response) {
+                            console.log('FAIL: could not fetch collection');
+                            console.log(response);
+                        }
+                    });
+
+                }
+
+            });
+
+            modal.bind('close', function () {
+                close_modal();
+            });
+
+        },
+
         initialize: function (opts) {
             console.log('transacting');
             console.log(opts);
-            this.model = opts.subline;
+            this.collection = opts.subline.transactions;
+            this.subline = opts.subline;
+            this.line = this.subline.line;
+            this.budget = this.subline.budget;
         },
 
         serialize: function () {
-            var data = this.model.toJSON();
-            data.number = this.model.line.get('line_number') + '.' + data.line_number;
+            var data = {};
+            data.number = this.line.get('line_number') + '.' + this.subline.get('line_number');
             return data;
         }
 
@@ -244,7 +330,7 @@ define([
 
                 if (modal.content.save()) {
 
-                    that.collection.fetch({
+                    that.collection.refresh({
                         success: function () {
                             close_modal();
                         },
@@ -289,13 +375,16 @@ define([
             var that = this,
                 view = layout(this);
 
-            this.collection.each(function (subline) {
-                view.insert("tbody.sublines", new Sublines.Views.Row({
-                    model: subline,
-                    line: that.line,
-                    budget: that.budget
-                }));
-            });
+            if (!this.collection.locked) {
+
+                this.collection.each(function (subline) {
+                    view.insert("tbody.sublines", new Sublines.Views.Row({
+                        model: subline,
+                        line: that.line,
+                        budget: that.budget
+                    }));
+                });
+            }
 
             return view.render();
         }

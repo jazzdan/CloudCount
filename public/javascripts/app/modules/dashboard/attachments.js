@@ -388,34 +388,10 @@ define([
 
             this.filter_by = opts.filter_by || '';
 
-            if (!opts.budget.attachments) {
-                opts.budget.attachments = new Data.Collections.Attachment([], {
-                    budget_id: that.budget_id
-                });
-                this.collection = opts.budget.attachments;
-                opts.budget.attachments.fetch({
-
-                    success: function () {
-                        that.collection.bind('reset', function (col) {
-                            that.render();
-                        });
-
-                        that.collection.bind('remove', function (col) {
-                            that.render();
-                        });
-                    }
-
-                });
-            } else {
-                this.collection = opts.budget.attachments;
-                that.collection.bind('reset', function (col) {
-                    that.render();
-                });
-
-                that.collection.bind('remove', function (col) {
-                    that.render();
-                });
-            }
+            this.collection = new Data.Collections.Attachment([], {
+                budget_id: that.budget_id
+            });
+            this.collection.refresh();
         },
 
         /**
@@ -430,6 +406,10 @@ define([
             var that = this,
                 view = layout(this),
                 collection;
+
+            if (this.collection.locked) {
+                return view.render();
+            }
 
             if (this.filter_by !== '') {
                 collection = this.collection.reduce(function (memo, model) {

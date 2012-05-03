@@ -212,17 +212,7 @@ define([
 
             var that = this;
 
-            this.collection.bind('remove', function () {
-                that.render();
-            });
-
-            this.collection.bind('add', function () {
-                that.render();
-            });
-
-            this.collection.bind('reset', function () {
-                that.render();
-            });
+            this.listen(this.collection);
         },
 
         /**
@@ -237,11 +227,13 @@ define([
 
             var view = layout(this);
 
-            this.collection.each(function (budget) {
-                view.insert("tbody.budgets", new Budgets.Views.Row({
-                    model: budget
-                }));
-            });
+            if (!this.collection.locked) {
+                this.collection.each(function (budget) {
+                    view.insert("tbody.budgets", new Budgets.Views.Row({
+                        model: budget
+                    }));
+                });
+            }
 
             return view.render(this.collection);
         }

@@ -206,6 +206,22 @@ define([
 
     Utils.Views.Base = Backbone.LayoutManager.View.extend({
 
+        listen: function (thing) {
+            var that = this;
+
+            thing.bind('remove', function () {
+                that.render();
+            });
+
+            thing.bind('add', function () {
+                that.render();
+            });
+
+            thing.bind('reset', function () {
+                that.render();
+            });
+        },
+
         /**
          * Delete View
          *
@@ -233,11 +249,11 @@ define([
          *
          * @return undefined
          */
-        initialize: function () {
+        initialize: function (opts) {
 
             _.bindAll(this, 'show_errors');
 
-            this.model = new this.base_model();
+            this.model = new this.base_model({}, opts);
 
             this.model.bind('error', this.show_errors);
 
@@ -254,10 +270,6 @@ define([
             var that = this,
                 fields = $('.field', this.$el);
 
-            console.log('hydrating');
-            console.log(that.model);
-            console.log(fields);
-
             _.each(fields, function (field) {
                 var $field = $(field),
                     key = $field.data('attr'),
@@ -268,8 +280,6 @@ define([
                 } else {
                     value = that.model.get(key);
                 }
-
-                console.log(value);
 
                 $field.val(value);
             });
@@ -355,7 +365,6 @@ define([
          * @return bool
          */
         save: function () {
-            console.log(this.model);
             return (this.isValid()) ? this.model.save() : false;
         }
 

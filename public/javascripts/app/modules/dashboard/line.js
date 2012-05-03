@@ -305,14 +305,15 @@ define([
             var that = this,
                 view = layout(this);
 
-            this.collection.each(function (line) {
-                view.insert("tbody.lines", new Line.Views.Line({
-                    model: line,
-                    budget: that.collection.budget
-                }));
-            });
+            if (!this.collection.locked) {
+                this.collection.each(function (line) {
+                    view.insert("tbody.lines", new Line.Views.Line({
+                        model: line,
+                        budget: that.collection.budget
+                    }));
+                });
+            }
 
-            // render the view
             return view.render();
         },
 

@@ -82,7 +82,7 @@ define([
          */
         update_transactions: function () {
             var that = this;
-            that.model.sublines.fetch({
+            that.model.sublines.refresh({
                 success: function () {
                     that.setViews({
                         '.sublines': new Sublines.Views.List({

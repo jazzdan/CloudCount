@@ -56,15 +56,16 @@ define([
 
         refresh: function (opts) {
             var that = this;
+            this.lock();
             this.fetch({
                 success: function (collection, response) {
-                    if (opts.success) {
+                    if (opts && opts.success) {
                         opts.success(collection, response);
                     }
                     that.unlock();
                 },
                 error: function (collection, response) {
-                    if (opts.error) {
+                    if (opts && opts.error) {
                         opts.error(collection, response);
                     }
                     that.unlock();
@@ -87,6 +88,23 @@ define([
 
     Data.Models.Transaction = Data.Models.Base.extend({
 
+        rules: {
+            'name': 'required',
+            'subtotal': 'required'
+        },
+
+        initialize: function (attrs, opts) {
+            if (this.collection) {
+                this.subline = this.collection.subline;
+                this.line = this.collection.line;
+                this.budget = this.collection.budget;
+            } else {
+                this.subline = opts.subline;
+                this.line = opts.line;
+                this.budget = opts.budget;
+            }
+        },
+
         /**
          * URL
          *
@@ -106,9 +124,20 @@ define([
         model: Data.Models.Transaction,
 
         initialize: function (models, opts) {
+            var that = this;
             this.budget = opts.budget;
             this.line = opts.line;
             this.subline = opts.subline;
+            _.each(models, function (tran) {
+                tran.budget = that.budget;
+                tran.line = that.line;
+                tran.subline = that.subline;
+            });
+            this.bind('add', function (tran) {
+                tran.budget = that.budget;
+                tran.line = that.line;
+                tran.subline = that.subline;
+            })
         },
 
         /**
