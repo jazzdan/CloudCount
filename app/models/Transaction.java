@@ -17,8 +17,7 @@ public class Transaction extends Model {
   // public int id;
 
   @Required
-  @Reference
-  public Budget budget;
+  public int budget_id;
 
   @Reference
   public User user;

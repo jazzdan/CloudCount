@@ -49,7 +49,7 @@ public class Transactions extends Controller {
 	public static void create(int lineId, Transaction body) {
 		User user = User.find("byEmail", Security.connected()).first();
 
-          body.subline_id = lineId;
+        body.subline_id = lineId;
 		body.user = user;
 		body.save();
 	}
@@ -67,7 +67,7 @@ public class Transactions extends Controller {
 		User user = User.find("byEmail", Security.connected()).first();
 
 		t.user = user;
-		//t.budget = something TODO: Fix this
+        t.budget_id = body.budget_id
 		t.subline_number = body.subline_number;
 		t.name = body.name;
 		t.subtotal = body.subtotal;
