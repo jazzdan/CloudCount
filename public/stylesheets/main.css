@@ -115,6 +115,9 @@ td.controls > div{
 td.controls > div {
   visibility: hidden;
 }
+tr.selected .controls > div {
+  visibility: visible;
+}
 
 /* Seesaw */
 

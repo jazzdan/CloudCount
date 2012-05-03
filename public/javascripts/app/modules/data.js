@@ -84,8 +84,17 @@ define([
 
         initialize: function (opts) {
             var that = this;
-            this.line = opts.line;
-            this.budget = this.line.budget;
+
+            this.line = this.collection.line;
+            this.budget = this.collection.budget;
+
+            if (!this.line) {
+                console.log('SHIT! uninitialized parent opts:');
+                console.log(opts);
+                console.log(this);
+                console.log(this.collection);
+            }
+
             this.set({
                 parent_line_id: that.line.get('_id')
             });
@@ -107,6 +116,8 @@ define([
 
     Data.Collections.Subline = Backbone.Collection.extend({
 
+        model: Data.Models.Subline,
+
         /**
          * Initialize
          *
@@ -115,11 +126,16 @@ define([
          * @param  object    opts
          * @return undefined
          */
-        initialize: function (opts) {
+        initialize: function (models, opts) {
             var that = this;
 
-            this.budget = opts.budget;
-            this.line = opts.line;
+            this.budget = models.budget;
+            this.line = models.line;
+
+            _.each(models, function (model) {
+                model.budget = that.budget;
+                model.line = that.line;
+            });
         },
 
         /**
@@ -254,9 +270,6 @@ define([
             this.type = opts.type;
             this.budget = opts.budget;
             this.budget_id = opts.budget.get('_id');
-            this.bind('all', function (name) {
-                console.log('lines collection fired "' + name + '"');
-            });
         },
 
         /**
@@ -438,7 +451,6 @@ define([
             });
 
             this.incomes.bind('reset', function () {
-                console.log('budget caught income "reset"');
                 that.trigger('change');
             });
             this.incomes.bind('remove', function () {
@@ -446,7 +458,6 @@ define([
             });
 
             this.expenses.bind('reset', function () {
-                console.log('budget caught expenses "reset"');
                 that.trigger('change');
             });
             this.expenses.bind('remove', function () {

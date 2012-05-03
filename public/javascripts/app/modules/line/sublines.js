@@ -14,7 +14,7 @@ define([
 
 ], function (cc, Backbone, Utils, Data) {
 
-    "use strict";
+    //"use strict";
 
     var app = cc.app,
         Sublines = cc.module();
@@ -90,6 +90,19 @@ define([
          */
         template: 'line/row',
 
+        events: {
+            'click .delete': 'delete_subline'
+        },
+
+        delete_subline: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.confirm("Are you sure you want to delete this line?")) {
+                this.model.destroy();
+            }
+            __m = this.model;
+        },
+
         /**
          * Initialize
          *
@@ -99,6 +112,7 @@ define([
          * @return undefined
          */
         initialize: function (opts) {
+            _.bindAll(this, 'delete_subline');
             this.line = opts.line;
             this.model = opts.model;
         },
@@ -240,7 +254,8 @@ define([
             this.collection.each(function (subline) {
                 view.insert("tbody.sublines", new Sublines.Views.Row({
                     model: subline,
-                    line: that.line
+                    line: that.line,
+                    budget: that.budget
                 }));
             });
 

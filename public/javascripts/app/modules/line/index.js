@@ -65,8 +65,6 @@ define([
 
             this.model = opts.model;
 
-            console.log(Sublines);
-
             this.model.bind('change', function () {
                 that.render();
             });
