@@ -14,7 +14,7 @@ define([
 
 ], function (cc, Backbone, Utils, Data) {
 
-    //"use strict";
+    "use strict";
 
     var app = cc.app,
         Sublines = cc.module();
@@ -128,7 +128,6 @@ define([
             var data = this.model.toJSON();
 
             data.parent_number = this.line.get('line_number');
-            console.log('subline');
             data.number = data.line_number.toString();
             data.subtotal = Utils.Str.price(data.subtotal);
 

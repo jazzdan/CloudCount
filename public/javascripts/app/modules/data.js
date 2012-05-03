@@ -28,7 +28,31 @@ define([
          *
          * @var string
          */
-        idAttribute: '_id'
+        idAttribute: '_id',
+
+        monitor: function (related) {
+            var that = this;
+            related.bind('reset', function () {
+                that.trigger('change');
+            });
+            related.bind('remove', function () {
+                that.trigger('change');
+            });
+        }
+
+    });
+
+    Data.Collections.Base = Utils.Models.Validated.extend({
+
+        monitor: function (related) {
+            var that = this;
+            related.bind('reset', function () {
+                that.trigger('change');
+            });
+            related.bind('remove', function () {
+                that.trigger('change');
+            });
+        }
 
     });
 
@@ -85,8 +109,13 @@ define([
         initialize: function (opts) {
             var that = this;
 
-            this.line = this.collection.line;
-            this.budget = this.collection.budget;
+            if (this.collection) {
+                this.line = this.collection.line;
+                this.budget = this.collection.budget;
+            } else {
+                this.line = opts.line;
+                this.budget = this.line.budget;
+            }
 
             if (!this.line) {
                 console.log('SHIT! uninitialized parent opts:');
@@ -191,6 +220,8 @@ define([
                 budget: that.budget,
                 line: that
             });
+
+            this.monitor(this.sublines);
         },
 
         /**
@@ -450,19 +481,8 @@ define([
                 that.parse_date('ends');
             });
 
-            this.incomes.bind('reset', function () {
-                that.trigger('change');
-            });
-            this.incomes.bind('remove', function () {
-                that.trigger('change');
-            });
-
-            this.expenses.bind('reset', function () {
-                that.trigger('change');
-            });
-            this.expenses.bind('remove', function () {
-                that.trigger('change');
-            });
+            this.monitor(this.incomes);
+            this.monitor(this.expenses);
 
             this.refresh();
 
