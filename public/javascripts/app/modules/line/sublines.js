@@ -28,7 +28,19 @@ define([
          *
          * @var string
          */
-        template: 'line/transactions'
+        template: 'line/transactions',
+
+        initialize: function (opts) {
+            console.log('transacting');
+            console.log(opts);
+            this.model = opts.subline;
+        },
+
+        serialize: function () {
+            var data = this.model.toJSON();
+            data.number = this.model.line.get('line_number') + '.' + data.line_number;
+            return data;
+        }
 
     });
 
@@ -156,6 +168,34 @@ define([
             'click tbody tr': 'select',
             // new
             'click .new': 'new_subline'
+        },
+
+        /**
+         * Select
+         *
+         * Selects a row if it isn't already, unselects it if it is
+         *
+         * @param  event     e
+         * @return undefined
+         */
+        select: function (e) {
+            var that = this,
+                el = $(e.target).closest('tr'),
+                id = $('.edit', el).attr('rel');
+
+            if (this.views['.transactions']) {
+                this.delete_view('.transactions');
+            }
+
+            if (el.hasClass('selected')) {
+                el.removeClass('selected');
+            } else {
+                $('.selected', this.$el).removeClass('selected');
+                el.addClass('selected');
+                this.view('.transactions', new Sublines.Views.Transactions({
+                    subline: that.collection.get(id)
+                })).render();
+            }
         },
 
         /**
