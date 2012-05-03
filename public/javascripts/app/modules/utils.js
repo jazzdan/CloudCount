@@ -204,12 +204,29 @@ define([
 
     });
 
+    Utils.Views.Base = Backbone.LayoutManager.View.extend({
+
+        /**
+         * Delete View
+         *
+         * destroys a nested view
+         *
+         * @param  string    key
+         * @return undefined
+         */
+        delete_view: function (key) {
+            this.views[key].remove();
+            delete this.views[key];
+        }
+
+    });
+
     /**
      * Form
      *
      * Reusable form class
      */
-    Utils.Views.Form = Backbone.LayoutManager.View.extend({
+    Utils.Views.Form = Utils.Views.Base.extend({
 
         /**
          * Initialize
@@ -237,6 +254,10 @@ define([
             var that = this,
                 fields = $('.field', this.$el);
 
+            console.log('hydrating');
+            console.log(that.model);
+            console.log(fields);
+
             _.each(fields, function (field) {
                 var $field = $(field),
                     key = $field.data('attr'),
@@ -247,6 +268,8 @@ define([
                 } else {
                     value = that.model.get(key);
                 }
+
+                console.log(value);
 
                 $field.val(value);
             });
@@ -343,7 +366,7 @@ define([
      *
      * List with selectable rows
      */
-    Utils.Views.List = Backbone.LayoutManager.View.extend({
+    Utils.Views.List = Utils.Views.Base.extend({
 
         /**
          * Events
@@ -382,7 +405,7 @@ define([
      *
      * View for the refresh bar
      */
-    Utils.Views.RefreshBar = Backbone.LayoutManager.View.extend({
+    Utils.Views.RefreshBar = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -409,7 +432,7 @@ define([
      *
      * View for the budget control bar
      */
-    Utils.Views.BudgetBar = Utils.Views.RefreshBar.extend({
+    Utils.Views.BudgetBar = Utils.Views.Base.extend({
 
         /**
          * Tag Name
@@ -427,7 +450,7 @@ define([
      *
      * Reusable modal dialog wrapper
      */
-    Utils.Views.Modal = Backbone.LayoutManager.View.extend({
+    Utils.Views.Modal = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -530,6 +553,58 @@ define([
             };
         }
 
+    }, {
+        make: function (opts) {
+            var that = opts.view,
+                modal,
+                close_modal,
+                container_class = opts.container || '.tmp';
+
+            opts.e.preventDefault();
+            opts.e.stopPropagation();
+
+            modal = that.view(container_class, new Utils.Views.Modal(opts.modal));
+
+            /**
+             * Close Modal
+             *
+             * removes modal from the view
+             *
+             * @return undefined
+             */
+            close_modal = function () {
+                that.delete_view(container_class);
+                modal.unbind();
+            };
+
+            modal.render().then(function () {
+                if (opts.edit) {
+                    modal.content.hydrate();
+                }
+            });
+
+            modal.bind('confirm', function () {
+
+                if (modal.content.save()) {
+
+                    that.collection.fetch({
+                        success: function () {
+                            close_modal();
+                        },
+                        error: function (collection, response) {
+                            console.log('FAIL: could not fetch collection');
+                            console.log(response);
+                        }
+                    });
+
+                }
+
+            });
+
+            modal.bind('close', function () {
+                close_modal();
+            });
+        }
     });
 
     /**
