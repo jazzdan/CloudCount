@@ -24,9 +24,7 @@ define([
         base_model: Data.Models.Transaction,
 
 
-        template: 'line/transaction-form',
-
-
+        template: 'line/transaction-form'
 
     });
 
@@ -140,6 +138,7 @@ define([
             this.subline = opts.subline;
             this.line = this.subline.line;
             this.budget = this.subline.budget;
+            this.listen(this.collection);
         },
 
         /**
@@ -403,8 +402,13 @@ define([
          * @return undefined
          */
         initialize: function (opts) {
+            var that = this;
             this.collection = opts.collection;
             this.line = opts.line;
+            this.listen(this.collection);
+            this.collection.each(function (subline) {
+                that.listen(subline);
+            });
         },
 
         /**

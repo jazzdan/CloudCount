@@ -38,6 +38,36 @@ define([
             related.bind('remove', function () {
                 that.trigger('change');
             });
+        },
+
+        locked: false,
+
+        lock: function () {
+            this.locked = true;
+        },
+
+        unlock: function () {
+            this.locked = false;
+        },
+
+        refresh: function (opts) {
+            var that = this;
+            this.lock();
+            this.fetch({
+                success: function (collection, response) {
+                    if (opts && opts.success) {
+                        opts.success(collection, response);
+                    }
+                    that.unlock();
+                },
+                error: function (collection, response) {
+                    if (opts && opts.error) {
+                        opts.error(collection, response);
+                    }
+                    that.unlock();
+                }
+            });
+
         }
 
     });
@@ -194,9 +224,9 @@ define([
                 subline: that
             });
 
-            this.transactions.refresh();
-
             this.monitor(this.transactions);
+
+            this.transactions.refresh();
 
             this.set({
                 parent_line_id: that.line.get('_id')
@@ -546,6 +576,10 @@ define([
                 type: 'expenses',
                 budget: that
             });
+            this.attachments = new Data.Collections.Attachment([], {
+                budget: that,
+                budget_id: that.get('_id')
+            });
 
             this.bind('change:starts', function (model, value, opts) {
                 that.parse_date('starts');
@@ -557,17 +591,32 @@ define([
 
             this.monitor(this.incomes);
             this.monitor(this.expenses);
+            this.monitor(this.attachments);
 
             this.refresh();
 
         },
 
         refresh: function (opts) {
-            if (opts) {
-                this.fetch(opts);
-            }
+            var that = this;
+            this.lock();
             this.incomes.fetch();
             this.expenses.fetch();
+            this.attachments.fetch();
+            this.fetch({
+                success: function (collection, response) {
+                    if (opts && opts.success) {
+                        opts.success(collection, response);
+                    }
+                    that.unlock();
+                },
+                error: function (collection, response) {
+                    if (opts && opts.error) {
+                        opts.error(collection, response);
+                    }
+                    that.unlock();
+                }
+            });
         },
 
         /**

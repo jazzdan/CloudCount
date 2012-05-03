@@ -338,7 +338,7 @@ define([
             modal.render();
 
             modal.bind('close', function () {
-                delete that.views['.tmp'];
+                that.delete_view('.tmp');
                 modal.unbind();
                 that.collection.fetch();
             });
@@ -388,10 +388,8 @@ define([
 
             this.filter_by = opts.filter_by || '';
 
-            this.collection = new Data.Collections.Attachment([], {
-                budget_id: that.budget_id
-            });
-            this.collection.refresh();
+            this.collection = opts.budget.attachments;
+            this.listen(this.collection);
         },
 
         /**
