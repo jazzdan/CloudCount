@@ -47,9 +47,9 @@ public class Transaction extends Model {
    * @param order Arbitrary order integer for sorting purposes.
    */
 
-  public Transaction(Budget budget, User user, int subline_number, String name, double subtotal, int subline_id, int order) {
+  public Transaction(int budget_id, User user, int subline_number, String name, double subtotal, int subline_id, int order) {
     // this.id = id;
-    this.budget = budget;
+    this.budget_id = budget_id;
     this.user = user;
     this.subline_number = subline_number;
     this.name = name;

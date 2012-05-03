@@ -67,7 +67,7 @@ public class Transactions extends Controller {
 		User user = User.find("byEmail", Security.connected()).first();
 
 		t.user = user;
-        t.budget_id = body.budget_id
+        t.budget_id = body.budget_id;
 		t.subline_number = body.subline_number;
 		t.name = body.name;
 		t.subtotal = body.subtotal;
