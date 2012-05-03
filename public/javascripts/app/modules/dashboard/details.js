@@ -62,7 +62,7 @@ define([
      *
      * Base view for budget details
      */
-    Details.Views.Index = Backbone.LayoutManager.View.extend({
+    Details.Views.Index = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -179,19 +179,6 @@ define([
             data.starts = Utils.Date.for_humans(data.starts);
             data.ends = Utils.Date.for_humans(data.ends);
             return data;
-        },
-
-        /**
-         * Delete View
-         *
-         * destroys a nested view
-         *
-         * @param  string    key
-         * @return undefined
-         */
-        delete_view: function (key) {
-            this.views[key].remove();
-            delete this.views[key];
         }
 
     });

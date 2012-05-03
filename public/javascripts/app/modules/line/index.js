@@ -22,7 +22,7 @@ define([
      *
      * shell view for budget dashboard
      */
-    Line.Views.Index = Backbone.LayoutManager.View.extend({
+    Line.Views.Index = Utils.Views.Base.extend({
 
         /**
          * Template

@@ -32,7 +32,7 @@ define([
      *
      * Inidividual budget in the list
      */
-    Budgets.Views.Row = Backbone.LayoutManager.View.extend({
+    Budgets.Views.Row = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -244,19 +244,6 @@ define([
             });
 
             return view.render(this.collection);
-        },
-
-        /**
-         * Delete View
-         *
-         * destroys a nested view
-         *
-         * @param  string    key
-         * @return undefined
-         */
-        delete_view: function (key) {
-            this.views[key].remove();
-            delete this.views[key];
         }
 
     });

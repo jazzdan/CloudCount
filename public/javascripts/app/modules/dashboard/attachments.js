@@ -26,7 +26,7 @@ define([
      *
      * Form for uploading a new attachment
      */
-    Attachments.Views.Form = Backbone.LayoutManager.View.extend({
+    Attachments.Views.Form = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -192,7 +192,7 @@ define([
      *
      * inidividual attachment in the list
      */
-    Attachments.Views.Row = Backbone.LayoutManager.View.extend({
+    Attachments.Views.Row = Utils.Views.Base.extend({
 
         /**
          * Template

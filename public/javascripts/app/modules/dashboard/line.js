@@ -75,7 +75,7 @@ define([
      *
      * Individual line
      */
-    Line.Views.Line = Backbone.LayoutManager.View.extend({
+    Line.Views.Line = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -330,19 +330,6 @@ define([
             data.budget = Utils.Str.price(this.collection.budget_total());
             data.actual = Utils.Str.price(this.collection.actual());
             return data;
-        },
-
-        /**
-         * Delete View
-         *
-         * Delete a nested view
-         *
-         * @param  string    key
-         * @return undefined
-         */
-        delete_view: function (key) {
-            this.views[key].remove();
-            delete this.views[key];
         }
 
     });

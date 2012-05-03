@@ -19,7 +19,7 @@ define([
     var app = cc.app,
         Sublines = cc.module();
 
-    Sublines.Views.Transactions = Backbone.LayoutManager.View.extend({
+    Sublines.Views.Transactions = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -77,7 +77,7 @@ define([
 
     });
 
-    Sublines.Views.Row = Backbone.View.extend({
+    Sublines.Views.Row = Utils.Views.Base.extend({
 
         tagName: 'tr',
 
@@ -100,7 +100,6 @@ define([
             if (window.confirm("Are you sure you want to delete this line?")) {
                 this.model.destroy();
             }
-            __m = this.model;
         },
 
         /**
@@ -259,19 +258,6 @@ define([
             });
 
             return view.render();
-        },
-
-        /**
-         * Delete View
-         *
-         * destroys a nested view
-         *
-         * @param  string    key
-         * @return undefined
-         */
-        delete_view: function (key) {
-            this.views[key].remove();
-            delete this.views[key];
         }
 
     });

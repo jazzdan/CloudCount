@@ -24,7 +24,7 @@ define([
      *
      * Budget details
      */
-    Budget.Views.Details = Backbone.LayoutManager.View.extend({
+    Budget.Views.Details = Utils.Views.Base.extend({
 
         /**
          * Template
@@ -87,7 +87,7 @@ define([
      *
      * Main budget view
      */
-    Budget.Views.Index = Backbone.LayoutManager.View.extend({
+    Budget.Views.Index = Utils.Views.Base.extend({
 
         /**
          * Template
