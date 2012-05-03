@@ -23,7 +23,7 @@ public class Transactions extends Controller {
      * transactions from.
      */
 	public static void index(long lineId) {
-		List<Transaction> transactions = Transaction.find("lineId", lineId).asList();
+		List<Transaction> transactions = Transaction.find("subline_id", lineId).asList();
 		renderJSON(transactions);
 	}
 
@@ -46,9 +46,10 @@ public class Transactions extends Controller {
      * @param body The JSON representation of the transaction to be
      * stored in the database.
      */
-	public static void create(Transaction body) {
+	public static void create(int lineId, Transaction body) {
 		User user = User.find("byEmail", Security.connected()).first();
 
+          body.subline_id = lineId;
 		body.user = user;
 		body.save();
 	}

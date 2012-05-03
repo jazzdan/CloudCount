@@ -137,7 +137,7 @@ define([
                 tran.budget = that.budget;
                 tran.line = that.line;
                 tran.subline = that.subline;
-            })
+            });
         },
 
         /**
@@ -149,7 +149,7 @@ define([
          */
         url: function () {
             var type = this.type || '';
-            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines/' + this.subline.get('_id') + '/transactions';
+            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.subline.get('_id') + '/transactions';
         }
 
     });
