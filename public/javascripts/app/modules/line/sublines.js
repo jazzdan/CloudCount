@@ -23,9 +23,29 @@ define([
 
         base_model: Data.Models.Transaction,
 
+
         template: 'line/transaction-form',
 
 
+
+    });
+
+    Sublines.Views.TransactionRow = Utils.Views.Base.extend({
+
+        tagName: 'tr',
+
+        template: 'line/transaction-row',
+
+        initialize: function (opts) {
+            this.model = opts.model;
+        },
+
+        serialize: function () {
+            var data = this.model.toJSON();
+            data.subtotal = Utils.Str.price(data.subtotal);
+            data.date = Utils.Date.for_humans(data._modified);
+            return data;
+        }
 
     });
 
@@ -120,6 +140,30 @@ define([
             this.subline = opts.subline;
             this.line = this.subline.line;
             this.budget = this.subline.budget;
+        },
+
+        /**
+         * Render
+         *
+         * builds the view for display
+         *
+         * @param  function layout
+         * @return object
+         */
+        render: function (layout) {
+            var that = this,
+                view = layout(this);
+
+            if (!this.collection.locked) {
+
+                this.collection.each(function (transaction) {
+                    view.insert("tbody.transactions", new Sublines.Views.TransactionRow({
+                        model: transaction
+                    }));
+                });
+            }
+
+            return view.render();
         },
 
         serialize: function () {

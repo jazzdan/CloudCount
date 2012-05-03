@@ -194,6 +194,8 @@ define([
                 subline: that
             });
 
+            this.transactions.refresh();
+
             this.monitor(this.transactions);
 
             this.set({
