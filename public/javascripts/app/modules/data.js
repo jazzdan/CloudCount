@@ -42,7 +42,36 @@ define([
 
     });
 
-    Data.Collections.Base = Utils.Models.Validated.extend({
+    Data.Collections.Base = Backbone.Collection.extend({
+
+        locked: false,
+
+        lock: function () {
+            this.locked = true;
+        },
+
+        unlock: function () {
+            this.locked = false;
+        },
+
+        refresh: function (opts) {
+            var that = this;
+            this.fetch({
+                success: function (collection, response) {
+                    if (opts.success) {
+                        opts.success(collection, response);
+                    }
+                    that.unlock();
+                },
+                error: function (collection, response) {
+                    if (opts.error) {
+                        opts.error(collection, response);
+                    }
+                    that.unlock();
+                }
+            });
+
+        },
 
         monitor: function (related) {
             var that = this;
@@ -72,9 +101,15 @@ define([
 
     });
 
-    Data.Collections.Transaction = Backbone.Collection.extend({
+    Data.Collections.Transaction = Data.Collections.Base.extend({
 
         model: Data.Models.Transaction,
+
+        initialize: function (models, opts) {
+            this.budget = opts.budget;
+            this.line = opts.line;
+            this.subline = opts.subline;
+        },
 
         /**
          * URL
@@ -85,7 +120,7 @@ define([
          */
         url: function () {
             var type = this.type || '';
-            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines/' + this.get('_id') + '/transactions';
+            return '/budgets/' + this.budget.get('_id') + '/lines/' + this.line.get('_id') + '/sublines/' + this.subline.get('_id') + '/transactions';
         }
 
     });
@@ -124,6 +159,14 @@ define([
                 console.log(this.collection);
             }
 
+            this.transactions = new Data.Collections.Transaction([], {
+                budget: that.budget,
+                line: that.line,
+                subline: that
+            });
+
+            this.monitor(this.transactions);
+
             this.set({
                 parent_line_id: that.line.get('_id')
             });
@@ -143,7 +186,7 @@ define([
 
     });
 
-    Data.Collections.Subline = Backbone.Collection.extend({
+    Data.Collections.Subline = Data.Collections.Base.extend({
 
         model: Data.Models.Subline,
 
@@ -265,7 +308,7 @@ define([
      *
      * Lines collection
      */
-    Data.Collections.Line = Backbone.Collection.extend({
+    Data.Collections.Line = Data.Collections.Base.extend({
 
         /**
          * Model
@@ -370,7 +413,7 @@ define([
      *
      * Attachments collection
      */
-    Data.Collections.Attachment = Backbone.Collection.extend({
+    Data.Collections.Attachment = Data.Collections.Base.extend({
 
         /**
          * Model
@@ -587,7 +630,7 @@ define([
      *
      * backbone collection containing budget models
      */
-    Data.Collections.Budget = Backbone.Collection.extend({
+    Data.Collections.Budget = Data.Collections.Base.extend({
 
         /**
          * Model
